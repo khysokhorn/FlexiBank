@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".module.view.MainActivity">
 
-    <TextView
+    <ImageView
         android:id="@+id/flexiBankText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="FlexiBank"
         android:textSize="48sp"
         android:textStyle="bold"
+        android:src="@drawable/flexi_bank"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

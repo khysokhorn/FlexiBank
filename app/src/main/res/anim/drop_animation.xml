@@ -6,18 +6,4 @@
         android:duration="300"
         android:fromAlpha="0.0"
         android:toAlpha="1.0" />
-
-    <scale
-        android:duration="500"
-        android:fromXScale="0.5"
-        android:fromYScale="0.5"
-        android:toXScale="1.0"
-        android:toYScale="1.0"
-        android:pivotX="50%"
-        android:pivotY="50%" />
-
-    <translate
-        android:duration="800"
-        android:fromYDelta="-200%" android:toYDelta="0%"
-        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
 </set>
