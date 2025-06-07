@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">FlexiBank</string>
     <string name="dashboard">Dashboard</string>
+    <string name="todo">TODO</string>
+    <string name="start_saving_the_smart_way_with_flexibank">Start Saving the Smart Way with FlexiBank</string>
 </resources>

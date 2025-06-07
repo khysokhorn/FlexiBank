@@ -6,4 +6,15 @@
     </style>
 
     <style name="Theme.FlexiBank" parent="Base.Theme.FlexiBank" />
+
+    <style name="AppThemeBase" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="start_savin">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

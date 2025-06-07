@@ -8,6 +8,8 @@ import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -32,7 +34,7 @@ abstract class BaseMainActivity<VM : ViewModel, B : ViewBinding,
         remoteDataSource = RemoteDataSource()
 //        crashReport(this, application)
         window.decorView.systemUiVisibility =
-            (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            (View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                     or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
 
         window.statusBarColor = Color.TRANSPARENT
