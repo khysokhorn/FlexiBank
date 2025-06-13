@@ -7,5 +7,6 @@
     <color name="blueLight3">#8C96FF</color>
     <color name="blueLight2">#AEB5FF</color>
     <color name="blueLight1">#D4D8FF</color>
+    <color name="background">#F0F0F0</color>
 </resources>
 
