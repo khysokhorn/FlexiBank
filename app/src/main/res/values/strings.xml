@@ -39,4 +39,7 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign up</string>
+    <string name="send_code_via_email">Send code via email</string>
+    <string name="send_code_via_sms">Send code via SMS</string>
+    <string name="reset_code_in">Reset code in</string>
 </resources>
