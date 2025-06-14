@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="24dp">
+
 
     <TextView
         android:id="@+id/letStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:gravity="end"
         android:text="@string/let_started"
         android:textSize="24sp"
@@ -23,7 +24,6 @@
         android:id="@+id/fillInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         android:text="@string/fill_your_information_below_to_continue"
         app:layout_constraintTop_toBottomOf="@id/letStart" />
@@ -33,7 +33,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_background"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
@@ -62,7 +62,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginVertical="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,19 +80,20 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/united_kingdom_flag" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:text="+855"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:importantForAccessibility="no"
                 android:src="@drawable/img_arrow_down" />
         </LinearLayout>
 
@@ -128,14 +129,16 @@
 
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/txtTermCondition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+        android:layout_marginVertical="16dp"
+        android:fitsSystemWindows="false"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -143,21 +146,29 @@
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Sign Up"
+        android:fitsSystemWindows="false"
+        android:fontFamily="@font/inter"
+        android:lineSpacingExtra="5sp"
+        android:padding="16dp"
+        android:text="@string/sign_up"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:windowSoftInputMode="adjustPan"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
+        android:isScrollContainer="false"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSignUp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/alreadyHaveAccount"
@@ -165,8 +176,7 @@
             android:layout_height="wrap_content"
             android:text="@string/already_have_an_account"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textView"
@@ -179,8 +189,11 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/alreadyHaveAccount"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/alreadyHaveAccount"
-            app:layout_constraintTop_toBottomOf="@id/btnSignUp" />
+            app:layout_constraintStart_toEndOf="@id/alreadyHaveAccount" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
