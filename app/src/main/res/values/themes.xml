@@ -27,4 +27,13 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="buttonStyle" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:padding">16dp</item>
+        <item name="textStyle">bold</item>
+    </style>
+
 </resources>

@@ -144,15 +144,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignUp"
+        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="false"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="5sp"
-        android:padding="16dp"
         android:text="@string/sign_up"
-        android:textStyle="bold"
-        android:windowSoftInputMode="adjustPan"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

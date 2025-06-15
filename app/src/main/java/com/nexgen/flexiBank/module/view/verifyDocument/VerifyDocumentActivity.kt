@@ -19,13 +19,14 @@ class VerifyDocumentActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val navController = findNavController(R.id.nav_host_fragment_content_login)
+        val navController = findNavController(R.id.nav_host_fragment_verify_document)
         appBarConfiguration = AppBarConfiguration(navController.graph)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_login)
+        val navController = findNavController(R.id.nav_host_fragment_verify_document)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 }
