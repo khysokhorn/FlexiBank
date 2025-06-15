@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.FragmentOtpVerifyBinding
 import com.nexgen.flexiBank.module.view.base.BaseFragment
 import com.nexgen.flexiBank.network.ApiInterface
@@ -29,7 +31,8 @@ class OtpVerifyFragment : BaseFragment<RegisterViewModel, FragmentOtpVerifyBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.otp.setOnCompleteListener({
-
+            val navigator = findNavController();
+            navigator.navigate(R.id.action_OtpVerifyFragment_to_IdentityVerifyFragment)
         })
     }
 

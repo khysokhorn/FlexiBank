@@ -42,4 +42,14 @@
     <string name="send_code_via_email">Send code via email</string>
     <string name="send_code_via_sms">Send code via SMS</string>
     <string name="reset_code_in">Reset code in</string>
+    <string name="identity_card">Identity card</string>
+    <string name="passport">Passport</string>
+    <string name="identity_verification">Identity verification</string>
+    <string name="continue_text">Continue</string>
+    <string name="select_the_type_of_document_that_you_are_going_to_use_for_identity_verification">Select the type of document that you are going to use for identity verification.</string>
+    <string name="title_activity_verify_document">VerifyDocumentActivity</string>
+    <string name="verify_your_identity">Verify Your Identity</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Home</string>
 </resources>

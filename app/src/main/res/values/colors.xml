@@ -8,5 +8,6 @@
     <color name="blueLight2">#AEB5FF</color>
     <color name="blueLight1">#D4D8FF</color>
     <color name="background">#F0F0F0</color>
+    <color name="borderColor">#D3D3D3</color>
 </resources>
 
