@@ -13,5 +13,15 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+
+    <!-- Liveness CameraX Colors -->
+    <color name="liveness_camerax_overlay_background">#000000</color>
+    <color name="liveness_camerax_overlay_border">#000000</color>
+    <color name="liveness_camerax_step_card_view_text">#000000</color>
+    <color name="liveness_camerax_step_card_view_background">#FFFFFF</color>
+    <color name="liveness_camerax_button_take_picture_text">#000000</color>
+    <color name="liveness_camerax_button_take_picture_background">#FFFFFF</color>
+    <color name="liveness_camerax_white">#FFFFFFFF</color>
+
 </resources>
 

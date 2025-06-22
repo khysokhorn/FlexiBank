@@ -9,7 +9,6 @@ import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.ActivityVerifyDocumentBinding
 
 class VerifyDocumentActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityVerifyDocumentBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +16,6 @@ class VerifyDocumentActivity : AppCompatActivity() {
 
         binding = ActivityVerifyDocumentBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         val navController = findNavController(R.id.nav_host_fragment_verify_document)
         appBarConfiguration = AppBarConfiguration(navController.graph)

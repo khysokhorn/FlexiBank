@@ -36,4 +36,15 @@
         <item name="textStyle">bold</item>
     </style>
 
+    <style name="buttonOutlineStyle" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:padding">16dp</item>
+        <item name="textStyle">bold</item>
+        <item name="strokeColor">@color/blue</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="cornerRadius">4dp</item>
+    </style>
+
 </resources>

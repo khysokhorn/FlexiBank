@@ -3,12 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/verifyImageCapture">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/verifyImageCapture"
         android:name="com.nexgen.flexiBank.module.view.verifyDocument.VerifyDocumentImageCaptureFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_verify_document" />
+        tools:layout="@layout/fragment_verify_document">
+        <action
+            android:id="@+id/action_verify_document_navigation_to_verifyCapturedDocument"
+            app:destination="@id/verifyCapturedDocument" />
+
+        <action
+            android:id="@+id/action_verifyCapturedDocument_to_livelinessGuidelineFragment"
+            app:destination="@id/livelinessGuidelineFragment" />
+        <action
+            android:id="@+id/action_verifyImageCapture_to_livelinessCapture"
+            app:destination="@id/livelinessCapture" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/verifyCapturedDocument"
+        android:name="com.nexgen.flexiBank.module.view.verifyDocument.VerifyCapturedDocumentFragment"
+        android:label="@string/verify_your_identity"
+        tools:layout="@layout/fragment_liveliness_capture">
+
+        <action
+            android:id="@+id/action_verifyCapturedDocument_to_livelinessGuidelineFragment"
+            app:destination="@id/livelinessGuidelineFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/livelinessGuidelineFragment"
+        android:name="com.nexgen.flexiBank.module.view.verifyDocument.LivelinessGuidelineFragment"
+        android:label="@string/verify_your_identity"
+        tools:layout="@layout/fragment_liveliness_guideline">
+
+        <action
+            android:id="@+id/action_livelinessCaptureFragment_to_livelinessCapture"
+            app:destination="@id/livelinessCapture" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/livelinessCapture"
+        android:name="com.nexgen.flexiBank.module.view.verifyDocument.LivelinessCaptureFragment"
+        android:label="Liveliness"
+        tools:layout="@layout/fragment_liveliness_capture" />
 
 </navigation>

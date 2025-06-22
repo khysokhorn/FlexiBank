@@ -2,7 +2,7 @@ package com.nexgen.flexiBank.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.nexgen.flexiBank.module.view.verifyDocument.VerifyDocumentViewModel
+import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentViewModel
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.repository.BaseRepository
 

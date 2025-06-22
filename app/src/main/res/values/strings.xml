@@ -52,6 +52,15 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_home">Home</string>
+    <string name="title_verify_your_identity">Verify your identity</string>
     <string name="take_photo">Take Photo</string>
     <string name="position_the_front_of_your_document_in_the_frame">Position the front of your document in the frame</string>
+    <string name="make_sure_your_details_are_clear_and_unobstructed">Make sure your details are clear and unobstructed</string>
+    <string name="submit">Submit</string>
+    <string name="retake_photo">Retake Photo</string>
+    <string name="take_a_selfie">Take a selfie</string>
+    <string name="we_ll_compare_this_with_your_document">We\'ll compare this with your document</string>
+    <string name="your_face_and_background_will_be_captured_during_this_process">Your face and background will be captured during this process</string>
+    <string name="remove_anything_that_covers_your_face_eyeglasses_are_okay">Remove anything that covers your face. Eyeglasses are okay</string>
+    <string name="face_forward_and_make_sure_your_eyes_are_clearly_visible">Face forward and make sure your eyes are clearly visible</string>
 </resources>
