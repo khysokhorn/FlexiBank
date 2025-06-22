@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk tools:overrideLibrary="
-          androidx.camera.camera2, androidx.camera.core,
-          androidx.camera.view, androidx.camera.lifecycle,
-          com.google.mlkit.vision.segmentation.subject" />
+    <uses-sdk tools:overrideLibrary="androidx.camera.camera2,
+    androidx.camera.core,androidx.camera.view,
+    androidx.camera.lifecycle,
+    com.google.mlkit.vision.segmentation.subject" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -28,25 +28,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FlexiBank"
         tools:targetApi="31">
-
-
         <activity
             android:name=".module.view.verifyDocument.VerifyDocumentActivity"
             android:exported="true"
-            android:label="@string/title_activity_verify_document">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_verify_document" />
         <activity
             android:name=".module.view.auth.LoginActivity"
             android:exported="true"
             android:theme="@style/AppThemeBase"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".module.view.dashboard.DashboardActivity"
             android:exported="false"
@@ -54,8 +44,17 @@
         <activity
             android:name=".module.view.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name=".module.view.liveliness.LivelinessActivity"
+            android:exported="true"
+            android:theme="@style/AppThemeBase"
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="preloaded_fonts"

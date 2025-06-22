@@ -11,6 +11,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/livenesscamerax" />
+            <option value="$PROJECT_DIR$/livenesscamerax/camera" />
+            <option value="$PROJECT_DIR$/livenesscamerax/core" />
+            <option value="$PROJECT_DIR$/livenesscamerax/domain" />
           </set>
         </option>
       </GradleProjectSettings>

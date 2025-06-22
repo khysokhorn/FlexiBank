@@ -63,4 +63,5 @@
     <string name="your_face_and_background_will_be_captured_during_this_process">Your face and background will be captured during this process</string>
     <string name="remove_anything_that_covers_your_face_eyeglasses_are_okay">Remove anything that covers your face. Eyeglasses are okay</string>
     <string name="face_forward_and_make_sure_your_eyes_are_clearly_visible">Face forward and make sure your eyes are clearly visible</string>
+    <string name="result_list">Result of Liveliness: %s photos</string>
 </resources>

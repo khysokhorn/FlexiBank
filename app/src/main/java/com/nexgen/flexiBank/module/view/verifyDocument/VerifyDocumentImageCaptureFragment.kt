@@ -40,9 +40,7 @@ class VerifyDocumentImageCaptureFragment() : BaseFragment<VerifyDocumentViewMode
         }
         startCamera()
         binding.btnCapture.setOnClickListener {
-            val navigation = findNavController()
-            navigation.navigate(R.id.action_verifyImageCapture_to_livelinessCapture)
-//            takeCamera()
+            takeCamera()
         }
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -50,28 +48,21 @@ class VerifyDocumentImageCaptureFragment() : BaseFragment<VerifyDocumentViewMode
 
     private fun startCamera() {
         val cameraProviderFeature = ProcessCameraProvider.getInstance(requireContext())
-        imageCapture = ImageCapture.Builder()
-            .setTargetAspectRatio(AspectRatio.RATIO_16_9)
-            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-            .build()
+        imageCapture = ImageCapture.Builder().setTargetAspectRatio(AspectRatio.RATIO_16_9).setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY).build()
         cameraProviderFeature.addListener({
             try {
                 val cameraProvider: ProcessCameraProvider = cameraProviderFeature.get()
                 val cameraSelection = CameraSelector.DEFAULT_BACK_CAMERA
-                val display =
-                    (requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+                val display = (requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
                 var rotation = Surface.ROTATION_0;
                 if (display.rotation == Surface.ROTATION_0) {
                     rotation = Surface.ROTATION_90;
                 } else if (display.rotation == Surface.ROTATION_270) {
                     rotation = Surface.ROTATION_180;
                 }
-                val preview = Preview.Builder()
-                    .setTargetRotation(rotation)
-                    .build()
-                    .also {
-                        it.surfaceProvider = binding.cameraPreview.surfaceProvider
-                    }
+                val preview = Preview.Builder().setTargetRotation(rotation).build().also {
+                    it.surfaceProvider = binding.cameraPreview.surfaceProvider
+                }
                 cameraProvider.unbindAll()
                 cameraProvider.bindToLifecycle(lifecycleOwner = this, cameraSelection, preview, imageCapture)
             } catch (error: Exception) {
@@ -81,8 +72,7 @@ class VerifyDocumentImageCaptureFragment() : BaseFragment<VerifyDocumentViewMode
     }
 
     private fun takeCamera() {
-        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-            .format(System.currentTimeMillis())
+        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(System.currentTimeMillis())
         val outputDirectory = File(requireContext().filesDir, "images").apply { mkdirs() }
         val photoFile = File(outputDirectory, name)
         val outputOption = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -104,7 +94,7 @@ class VerifyDocumentImageCaptureFragment() : BaseFragment<VerifyDocumentViewMode
         val navigation = findNavController()
         val bundle = Bundle()
         bundle.putString("imgUri", imageUri)
-        navigation.navigate(R.id.action_verifyImageCapture_to_livelinessCapture, bundle)
+        navigation.navigate(R.id.action_verify_document_navigation_to_verifyCapturedDocument, bundle)
     }
 
     override fun getViewModel(): Class<VerifyDocumentViewModel> = VerifyDocumentViewModel::class.java

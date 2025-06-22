@@ -2,6 +2,7 @@ package com.nexgen.flexiBank.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.nexgen.flexiBank.module.view.liveliness.viewModel.LivelinessViewModel
 import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentViewModel
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.repository.BaseRepository
@@ -17,6 +18,11 @@ class ViewModelFactory(private val repository: BaseRepository) :
             modelClass.isAssignableFrom(VerifyDocumentViewModel::class.java) -> VerifyDocumentViewModel(
                 repository as AppRepository
             ) as T
+
+            modelClass.isAssignableFrom(LivelinessViewModel::class.java) -> LivelinessViewModel(
+                repository as AppRepository
+            ) as T
+
             else -> throw IllegalArgumentException("ViewModelClass Not Found")
         }
     }

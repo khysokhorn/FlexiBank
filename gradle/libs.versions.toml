@@ -2,6 +2,7 @@
 agp = "8.6.0"
 coil = "2.7.0"
 coilVideo = "2.4.0"
+glide = "4.13.2"
 isoparser = "1.1.22"
 kotlin = "1.9.0"
 coreKtx = "1.16.0"
@@ -25,6 +26,8 @@ cameraView = "1.4.2"
 tensorflowLite = "2.16.1"
 tensorflowLiteTaskVisionPlayServices = "0.4.4"
 timber = "5.0.1"
+jvmTarget = '1.8'
+kotlinParcelize = "1.9.0"
 
 
 [libraries]
@@ -37,7 +40,9 @@ androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-lived
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleLivedataKtx" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coilVideo" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 isoparser = { module = "com.googlecode.mp4parser:isoparser", version.ref = "isoparser" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -63,5 +68,8 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlinParcelize" }
+
 

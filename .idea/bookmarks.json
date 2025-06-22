@@ -2,7 +2,7 @@
   "FlexiBank": [
     {
       "fileDescriptor": "$/app/src/main/java/com/nexgen/flexiBank/module/view/verifyDocument/VerifyDocumentImageCaptureFragment.kt",
-      "linenumber": 56,
+      "linenumber": 51,
       "name": "cameraProviderFeature.addListener({}, Con)",
       "bookmarkType": "DEFAULT"
     }

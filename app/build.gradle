@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.3.0" // ✅ match your Gradle version
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23" // ✅ match your Kotlin version
+    }
+}
+
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -75,4 +87,12 @@ dependencies {
     implementation libs.play.services.tflite.gpu
     implementation libs.play.services.tflite.java
     implementation libs.play.services.tflite.support
+
+    implementation project(path: ":livenesscamerax")
+    implementation project(path: ":livenesscamerax:camera")
+    implementation project(path: ":livenesscamerax:core")
+    implementation project(path: ":livenesscamerax:domain")
+
+    implementation libs.glide
+    annotationProcessor libs.compiler
 }

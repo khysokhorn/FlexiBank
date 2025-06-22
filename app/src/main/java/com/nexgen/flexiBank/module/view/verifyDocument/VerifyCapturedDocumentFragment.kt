@@ -40,7 +40,8 @@ class VerifyCapturedDocumentFragment : BaseFragment<VerifyDocumentViewModel, Fra
     }
 
     fun onSubmit() {
-
+        val navigator = findNavController()
+        navigator.navigate(R.id.action_verifyCapturedDocument_to_livelinessGuidelineFragment)
     }
 
     override fun getViewModel(): Class<VerifyDocumentViewModel> = VerifyDocumentViewModel::class.java
