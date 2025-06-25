@@ -9,4 +9,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">5%</item>
     </style>
+
+    <style name="SpinnerTheme" parent="Theme.AppCompat.Light">
+        <item name="android:popupBackground">@drawable/bg_spinner_dropdown</item>
+    </style>
+
 </resources>

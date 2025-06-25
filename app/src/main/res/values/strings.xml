@@ -3,6 +3,8 @@
     <string name="dashboard">Dashboard</string>
     <string name="todo">TODO</string>
     <string name="start_saving_the_smart_way_with_flexibank">Start Saving the Smart Way with FlexiBank</string>
+    <string name="time_saving">Time-Saving Fund Transfers and Easy Accessibility</string>
+    <string name="feature">Access  4 Main Functionalities with a Single Finger</string>
     <string name="login_in">Login In</string>
     <string name="register_in">Register In</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -64,4 +66,15 @@
     <string name="remove_anything_that_covers_your_face_eyeglasses_are_okay">Remove anything that covers your face. Eyeglasses are okay</string>
     <string name="face_forward_and_make_sure_your_eyes_are_clearly_visible">Face forward and make sure your eyes are clearly visible</string>
     <string name="result_list">Result of Liveliness: %s photos</string>
+    <string name="select_language">select langauge</string>
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

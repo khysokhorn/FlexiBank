@@ -10,8 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -26,15 +24,37 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <Spinner
-            android:id="@+id/languageSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/languageDropdownLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:background="@drawable/select_language_button_bg"
-            android:paddingHorizontal="16dp"
-            android:gravity="center"
-            android:spinnerMode="dropdown" />
+            android:backgroundTintMode="src_over"
+            android:padding="0dp"
+            android:stateListAnimator="@null"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeWidth="0dp">
 
+            <AutoCompleteTextView
+                android:id="@+id/languageDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@drawable/ic_arrow_drop_down"
+                android:drawableRight="@drawable/ic_arrow_drop_down"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:inputType="none"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="English"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

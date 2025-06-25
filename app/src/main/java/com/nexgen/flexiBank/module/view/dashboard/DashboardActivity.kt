@@ -21,26 +21,25 @@ class DashboardActivity : BaseMainActivity<RegisterViewModel, ActivityDashboardB
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val savingTitle = resources.getString(R.string.start_saving_the_smart_way_with_flexibank)
 
         val viewPager = ViewPagerAdapter(this);
         viewPager.addFragment(
             IntroContentFragment(
-                title = savingTitle,
+                title = resources.getString(R.string.start_saving_the_smart_way_with_flexibank),
                 image = R.drawable.saving_img
-            ), savingTitle
+            ), resources.getString(R.string.start_saving_the_smart_way_with_flexibank),
         )
         viewPager.addFragment(
             IntroContentFragment(
-                title = savingTitle,
-                image = R.drawable.saving_img
-            ), savingTitle
+                title = resources.getString(R.string.time_saving),
+                image = R.drawable.img_time_saving
+            ), resources.getString(R.string.time_saving),
         )
         viewPager.addFragment(
             IntroContentFragment(
-                title = savingTitle,
-                image = R.drawable.saving_img
-            ), savingTitle
+                title = resources.getString(R.string.feature),
+                image = R.drawable.img_feature
+            ), resources.getString(R.string.feature),
         )
         binding.intoContent.adapter = viewPager
     }
