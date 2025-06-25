@@ -26,17 +26,29 @@ class IntroContentFragment(
         binding.title.text = title
         binding.img.setImageResource(image)
         onLogin()
-    
+
         val languages = listOf(
-            LanguageItem(R.drawable.united_kingdom_flag, "English"),
-            LanguageItem(R.drawable.united_kingdom_flag, "Khmer"),
-            LanguageItem(R.drawable.united_kingdom_flag, "Chinese")
+            LanguageItem(R.drawable.img_uk_flag, "English"),
+            LanguageItem(R.drawable.img_khmer_flag, "Khmer"),
+            LanguageItem(R.drawable.img_china_flag, "Chinese")
         )
 
         val adapter = LanguageAdapter(requireContext(), languages)
+        binding.languageDropdown.setDropDownBackgroundResource(R.drawable.bg_dropdown_popup)
+        val isEmpty = binding.languageDropdown.text.isEmpty()
+        if (isEmpty) {
+            binding.languageDropdown.setText(languages.first().languageName)
+        }
         binding.languageDropdown.setAdapter(adapter)
+        binding.languageDropdown.dropDownVerticalOffset = 16
+
+        binding.languageDropdown.setOnClickListener {
+            binding.languageDropdown.showDropDown()
+        }
         binding.languageDropdown.setOnItemClickListener { _, _, position, _ ->
             // Handle language selection if needed
+//           binding.languageDropdown.setText(languages[position].languageName)
+//            binding.languageDropdown.dismissDropDown()
         }
     }
 
@@ -54,9 +66,15 @@ class IntroContentFragment(
         val intent = Intent(requireContext(), LoginActivity::class.java)
         binding.btnLogin.setOnClickListener { startActivity(intent) }
     }
+
+
 }
 
-data class LanguageItem(val flagResId: Int, val languageName: String)
+data class LanguageItem(val flagResId: Int, val languageName: String) {
+    override fun toString(): String {
+        return languageName
+    }
+}
 
 class LanguageAdapter(context: Context, private val items: List<LanguageItem>) :
     ArrayAdapter<LanguageItem>(context, 0, items) {
@@ -70,10 +88,8 @@ class LanguageAdapter(context: Context, private val items: List<LanguageItem>) :
     }
 
     private fun createView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view =
-            convertView
-                ?: LayoutInflater.from(context)
-                    .inflate(R.layout.item_language_dropdown, parent, false)
+        val view = convertView ?: LayoutInflater.from(context)
+            .inflate(R.layout.item_language_dropdown, parent, false)
         val item = items[position]
         view.findViewById<ImageView>(R.id.imgFlag).setImageResource(item.flagResId)
         view.findViewById<TextView>(R.id.tvLanguage).text = item.languageName
