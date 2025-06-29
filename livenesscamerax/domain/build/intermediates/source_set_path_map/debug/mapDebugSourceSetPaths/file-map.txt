@@ -1,0 +1,7 @@
+com.nexgen.domain-pngs-0 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/build/generated/res/pngs/debug
+com.nexgen.domain-resValues-1 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/build/generated/res/resValues/debug
+com.nexgen.domain-packageDebugResources-2 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.nexgen.domain-packageDebugResources-3 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.nexgen.domain-debug-4 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/build/intermediates/merged_res/debug/mergeDebugResources
+com.nexgen.domain-debug-5 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/src/debug/res
+com.nexgen.domain-main-6 /Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/domain/src/main/res

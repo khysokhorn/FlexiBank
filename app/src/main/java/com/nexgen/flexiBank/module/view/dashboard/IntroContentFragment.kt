@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.TextView
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.FragmentIntroContentBinding
@@ -91,7 +90,6 @@ class LanguageAdapter(context: Context, private val items: List<LanguageItem>) :
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_language_dropdown, parent, false)
         val item = items[position]
-        view.findViewById<ImageView>(R.id.imgFlag).setImageResource(item.flagResId)
         view.findViewById<TextView>(R.id.tvLanguage).text = item.languageName
         return view
     }

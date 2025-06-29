@@ -1,0 +1,14 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.nexgen.domain" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="24"
+7        android:targetSdkVersion="24" />
+8
+9    <application
+10        android:debuggable="true"
+11        android:extractNativeLibs="false"
+12        android:testOnly="true" />
+13
+14</manifest>
