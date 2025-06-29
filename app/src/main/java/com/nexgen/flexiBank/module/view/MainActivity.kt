@@ -26,6 +26,7 @@ class MainActivity : BaseMainActivity<RegisterViewModel, ActivityMainBinding, Ap
         startFlexiBankAnimation()
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out)
