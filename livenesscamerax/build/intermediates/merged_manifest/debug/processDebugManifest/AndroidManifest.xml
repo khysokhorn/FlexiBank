@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nexgen.livenesscamerax" >
+
+    <uses-sdk android:minSdkVersion="24" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application android:name="com.nexgen.livenesscamerax.CameraXApplication" >
+        <activity android:name="com.nexgen.livenesscamerax.presentation.LivenessCameraXActivity" />
+    </application>
+
+</manifest>

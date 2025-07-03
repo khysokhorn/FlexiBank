@@ -1,0 +1,23 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.nexgen.livenesscamerax" >
+4
+5    <uses-sdk android:minSdkVersion="24" />
+6
+7    <uses-feature android:name="android.hardware.camera.any" />
+7-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:5:5-64
+7-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:5:19-61
+8
+9    <uses-permission android:name="android.permission.CAMERA" />
+9-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:6:5-65
+9-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:6:22-62
+10
+11    <application android:name="com.nexgen.livenesscamerax.CameraXApplication" >
+11-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:8:5-10:19
+11-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:8:18-52
+12        <activity android:name="com.nexgen.livenesscamerax.presentation.LivenessCameraXActivity" />
+12-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:9:9-74
+12-->/Users/khysokkhorn/sokhorn/Project/FlexiSystem/FlexiBank/livenesscamerax/src/main/AndroidManifest.xml:9:19-71
+13    </application>
+14
+15</manifest>
