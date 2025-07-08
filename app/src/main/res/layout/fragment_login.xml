@@ -9,6 +9,9 @@
     android:paddingVertical="24dp">
 
 
+
+
+
     <TextView
         android:id="@+id/letStart"
         android:layout_width="wrap_content"
@@ -87,12 +90,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:paddingHorizontal="8dp"
+                android:text="855"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:backgroundTint="@color/black"
                 android:importantForAccessibility="no"
                 android:src="@drawable/img_arrow_down" />
         </LinearLayout>
