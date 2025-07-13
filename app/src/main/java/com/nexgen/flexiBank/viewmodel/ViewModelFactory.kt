@@ -23,6 +23,10 @@ class ViewModelFactory(private val repository: BaseRepository) :
                 repository as AppRepository
             ) as T
 
+            modelClass.isAssignableFrom(PasscodeViewModel::class.java) -> PasscodeViewModel(
+                repository as AppRepository
+            ) as T
+
             else -> throw IllegalArgumentException("ViewModelClass Not Found")
         }
     }

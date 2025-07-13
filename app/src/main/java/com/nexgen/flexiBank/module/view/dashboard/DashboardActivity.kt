@@ -19,11 +19,14 @@ import com.nexgen.flexiBank.databinding.ActivityDashboardBinding
 import com.nexgen.flexiBank.databinding.ItemLanguageDropdownBinding
 import com.nexgen.flexiBank.module.view.auth.LoginActivity
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
+import com.nexgen.flexiBank.module.view.keypass.KeypassActivity
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.viewmodel.RegisterViewModel
+import kotlin.jvm.java
 
-class DashboardActivity : BaseMainActivity<RegisterViewModel, ActivityDashboardBinding, AppRepository>() {
+class DashboardActivity :
+    BaseMainActivity<RegisterViewModel, ActivityDashboardBinding, AppRepository>() {
     val languages = listOf(
         LanguageItem(R.drawable.img_uk_flag, "English"),
         LanguageItem(R.drawable.img_khmer_flag, "Khmer"),
@@ -37,16 +40,18 @@ class DashboardActivity : BaseMainActivity<RegisterViewModel, ActivityDashboardB
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val viewPager = ViewPagerAdapter(this);
+        val viewPager = ViewPagerAdapter(this)
         viewPager.addFragment(
             IntroContentFragment(
-                title = resources.getString(R.string.start_saving_the_smart_way_with_flexibank), image = R.drawable.saving_img
+                title = resources.getString(R.string.start_saving_the_smart_way_with_flexibank),
+                image = R.drawable.saving_img
             ),
             resources.getString(R.string.start_saving_the_smart_way_with_flexibank),
         )
         viewPager.addFragment(
             IntroContentFragment(
-                title = resources.getString(R.string.time_saving), image = R.drawable.img_time_saving
+                title = resources.getString(R.string.time_saving),
+                image = R.drawable.img_time_saving
             ),
             resources.getString(R.string.time_saving),
         )
@@ -58,13 +63,13 @@ class DashboardActivity : BaseMainActivity<RegisterViewModel, ActivityDashboardB
         )
 
         binding.intoContent.adapter = viewPager
-        binding.intoContent.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-//                binding.progress.customProgressBar.setCurrentStep(position)
-            }
+        binding.intoContent.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
         })
-//        binding.progress.customProgressBar.setCurrentStep(binding.intoContent.currentItem)
+        binding.btnRegister.setOnClickListener {
+            val intent = Intent(this, KeypassActivity::class.java)
+            startActivity(intent)
+        }
         val adapter = LanguageAdapter(this, languages)
         binding.languageDropdown.setDropDownBackgroundResource(R.drawable.bg_dropdown_popup)
         val isEmpty = binding.languageDropdown.text.isEmpty()
@@ -88,16 +93,20 @@ class DashboardActivity : BaseMainActivity<RegisterViewModel, ActivityDashboardB
 
     override fun getViewModel() = RegisterViewModel::class.java
 
-    override fun getActivityBinding(): ActivityDashboardBinding = ActivityDashboardBinding.inflate(layoutInflater)
+    override fun getActivityBinding(): ActivityDashboardBinding =
+        ActivityDashboardBinding.inflate(layoutInflater)
 
-    override fun getRepository() = AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
+    override fun getRepository() =
+        AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
+
     private fun onLogin() {
         val intent = Intent(this, LoginActivity::class.java)
         binding.btnLogin.setOnClickListener { startActivity(intent) }
     }
 }
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class ViewPagerAdapter(fragmentActivity: FragmentActivity) :
+    FragmentStateAdapter(fragmentActivity) {
     private val fragments = mutableListOf<Fragment>()
     private val fragmentTitles = mutableListOf<String>()
 
@@ -122,7 +131,8 @@ data class LanguageItem(val flagResId: Int, val languageName: String) {
     }
 }
 
-class LanguageAdapter(context: Context, private val items: List<LanguageItem>) : ArrayAdapter<LanguageItem>(context, 0, items) {
+class LanguageAdapter(context: Context, private val items: List<LanguageItem>) :
+    ArrayAdapter<LanguageItem>(context, 0, items) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return createView(position, convertView, parent)
@@ -133,7 +143,8 @@ class LanguageAdapter(context: Context, private val items: List<LanguageItem>) :
     }
 
     private fun createView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_language_dropdown, parent, false)
+        val view = convertView ?: LayoutInflater.from(context)
+            .inflate(R.layout.item_language_dropdown, parent, false)
         var binding = ItemLanguageDropdownBinding.bind(view)
         val item = items[position]
         binding.tvLanguage.apply {
