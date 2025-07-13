@@ -1,8 +1,15 @@
 [versions]
-agp = "8.11.0"
+activityKtx = "1.5.0"
+agp = "8.11.1"
+cameraCamera2 = "1.2.0-alpha03"
+cameraLifecycle = "1.2.0-alpha03"
+cameraViewVersion = "1.2.0-alpha03"
 coil = "2.7.0"
 coilVideo = "2.4.0"
+composeBom = "2023.08.00"
+coreKtxVersion = "1.8.0"
 glide = "4.13.2"
+gradle = "8.11.1"
 isoparser = "1.1.22"
 kotlin = "1.9.0"
 coreKtx = "1.16.0"
@@ -10,14 +17,19 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+kotlinGradlePlugin = "1.9.0"
 lifecycleLivedataKtx = "2.2.0"
+lifecycleRuntimeKtx = "2.5.0"
 loggingInterceptor = "4.9.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+material3Version = "1.3.2"
+materialVersion = "1.6.1"
 okhttp = "4.12.0"
 otpview = "1.0.0"
 playServicesMlkitFaceDetection = "17.1.0"
+playServicesMlkitFaceDetectionVersion = "17.0.1"
 playServicesTfliteGpu = "16.4.0"
 retrofit = "2.9.0"
 navigationFragmentKtx = "2.9.0"
@@ -28,33 +40,60 @@ tensorflowLiteTaskVisionPlayServices = "0.4.4"
 timber = "5.0.1"
 jvmTarget = '1.8'
 kotlinParcelize = "1.9.0"
+uiTestJunit4 = "1.8.3"
+uiToolingVersion = "1.8.3"
+visionCommon = "17.1.0"
+navigationFragment = "2.6.0"
+navigationUi = "2.6.0"
+annotation = "1.6.0"
 
 
 [libraries]
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraView" }
+androidx-camera-camera2-v120alpha03 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCamera2" }
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "cameraView" }
 androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "cameraView" }
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraView" }
+androidx-camera-lifecycle-v120alpha03 = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraLifecycle" }
+androidx-camera-view-v120alpha03 = { module = "androidx.camera:camera-view", version.ref = "cameraViewVersion" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx-v180 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
+androidx-foundation = { module = "androidx.compose.foundation:foundation", version = "" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-material3 = { module = "androidx.compose.material3:material3", version = "" }
+androidx-material3-v132 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+androidx-ui = { module = "androidx.compose.ui:ui", version = ".12.0" }
+androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestJunit4" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version = "" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version = "" }
+androidx-ui-tooling-v183 = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiToolingVersion" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coilVideo" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+foundation = { module = "androidx.compose.foundation:foundation" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 isoparser = { module = "com.googlecode.mp4parser:isoparser", version.ref = "isoparser" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v161 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+material3 = { module = "androidx.compose.material3:material3" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 otpview = { module = "com.github.styropyr0:OTPView", version.ref = "otpview" }
 play-services-mlkit-face-detection = { module = "com.google.android.gms:play-services-mlkit-face-detection", version.ref = "playServicesMlkitFaceDetection" }
+play-services-mlkit-face-detection-v1701 = { module = "com.google.android.gms:play-services-mlkit-face-detection", version.ref = "playServicesMlkitFaceDetectionVersion" }
 play-services-tflite-gpu = { module = "com.google.android.gms:play-services-tflite-gpu", version.ref = "playServicesTfliteGpu" }
 play-services-tflite-java = { module = "com.google.android.gms:play-services-tflite-java", version.ref = "playServicesTfliteGpu" }
 play-services-tflite-support = { module = "com.google.android.gms:play-services-tflite-support", version.ref = "playServicesTfliteGpu" }
@@ -65,6 +104,13 @@ androidx-camera-view = { group = "androidx.camera", name = "camera-view", versio
 tensorflow-lite = { module = "org.tensorflow:tensorflow-lite", version.ref = "tensorflowLite" }
 tensorflow-lite-task-vision-play-services = { module = "org.tensorflow:tensorflow-lite-task-vision-play-services", version.ref = "tensorflowLiteTaskVisionPlayServices" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+ui = { module = "androidx.compose.ui:ui" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+vision-common = { module = "com.google.mlkit:vision-common", version.ref = "visionCommon" }
+androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
+androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

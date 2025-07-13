@@ -1,16 +1,75 @@
 *.iml
 .gradle
 /local.properties
+
+# IDE files
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/material_theme_project_new.xml
+/.idea/misc.xml
+/.idea/gradle.xml
+/.idea/compiler.xml
+/.idea/deviceManager.xml
+/.idea/runConfigurations.xml
+/.idea/appInsightsSettings.xml
+/.idea/AndroidProjectSystem.xml
+/.idea/migrations.xml
+
+# OS Files
 .DS_Store
+
+# Build outputs
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
 livenesscamerax/build/**
+
+# Generated files
+/build
+/*/build/
+
+# Cache files
+**/*.cache
+**/.cache/
+**/.gradle/
+**/.kotlinc/
+**/cache/
+**/*.cache/
+**/build/intermediates/
+**/build/kotlin/
+**/build/tmp/
+**/generated/
+**/.navigation/
+**/lint-cache/
+**/javac/
+**/dex-cache/
+**/.dart_tool/
+**/.pub-cache/
+**/node_modules/
+**/npm-cache/
+**/.sass-cache/
+**/coverage/
+**/.jest/
+**/caches/
+**/android-cache/
+
+# Gradle Wrapper
+**/gradle/wrapper/gradle-wrapper.jar
+**/gradle/wrapper/dists/
+**/.gradle/wrapper/
+**/.gradle/wrapper/dists/
+.gradle/wrapper/
+**/gradle-wrapper.properties
+**/.gradle/buildOutputCleanup/
+wrapper/**
+kotlin-profile/**
+daemon/**
+android/**
+native/**

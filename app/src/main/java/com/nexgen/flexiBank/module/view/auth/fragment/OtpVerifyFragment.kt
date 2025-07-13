@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.view.auth
+package com.nexgen.flexiBank.module.view.auth.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

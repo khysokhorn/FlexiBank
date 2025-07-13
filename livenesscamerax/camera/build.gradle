@@ -7,7 +7,7 @@ apply from: "$rootDir/livenesscamerax/dependencies.gradle"
 
 android {
     namespace 'com.nexgen.camera'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         minSdk 24
@@ -38,17 +38,17 @@ dependencies {
     implementation project(path: ":livenesscamerax:domain")
     implementation project(path: ":livenesscamerax:core")
 
-    implementation "androidx.core:core-ktx:$versions.ktx"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.lifecycle"
+    implementation libs.androidx.core.ktx.v180
+    implementation libs.androidx.lifecycle.runtime.ktx
 
     //Google Services
-    implementation "com.google.android.gms:play-services-mlkit-face-detection:$versions.faceDetection"
-    implementation "com.google.mlkit:vision-common:$versions.vision"
+    implementation libs.play.services.mlkit.face.detection.v1701
+    implementation libs.vision.common
 
     //CameraX
-    implementation "androidx.camera:camera-camera2:$versions.cameraX"
-    implementation "androidx.camera:camera-lifecycle:$versions.cameraX"
-    implementation "androidx.camera:camera-view:$versions.cameraXOthers"
+    implementation libs.androidx.camera.camera2.v120alpha03
+    implementation libs.androidx.camera.lifecycle.v120alpha03
+    implementation libs.androidx.camera.view.v120alpha03
 
     //Apache
     implementation "org.apache.commons:commons-io:$versions.apacheCommons"

@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.view.auth
+package com.nexgen.flexiBank.module.view.auth.fragment
 
 import android.content.Intent
 import android.os.Bundle

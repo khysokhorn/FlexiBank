@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/LoginFragment"
-        android:name="com.nexgen.flexiBank.module.view.auth.LoginFragment"
+        android:name="com.nexgen.flexiBank.module.view.auth.fragment.LoginFragment"
         app:defaultNavHost="true">
         <action
             android:id="@+id/action_LoginFragment_to_OtpChoiceFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/OtpChoiceFragment"
-        android:name="com.nexgen.flexiBank.module.view.auth.OtpChoiceFragment"
+        android:name="com.nexgen.flexiBank.module.view.auth.fragment.OtpChoiceFragment"
         tools:layout="@layout/fragment_otp_choice">
 
         <action
@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/OtpVerifyFragment"
-        android:name="com.nexgen.flexiBank.module.view.auth.OtpVerifyFragment"
+        android:name="com.nexgen.flexiBank.module.view.auth.fragment.OtpVerifyFragment"
         tools:layout="@layout/fragment_otp_verify">
 
         <action
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/IdentityVerifyFragment"
-        android:name="com.nexgen.flexiBank.module.view.auth.IdentityVerifyFragment"
+        android:name="com.nexgen.flexiBank.module.view.auth.fragment.IdentityVerifyFragment"
         tools:layout="@layout/fragment_identity_verify">
 
     </fragment>
