@@ -1,6 +1,5 @@
 package com.nexgen.flexiBank.module.view.keypass
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.background
@@ -34,7 +33,6 @@ import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
-import com.nexgen.flexiBank.module.view.dashboard.DashboardActivity
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.utils.theme.Black
@@ -55,7 +53,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isNavigateToNext.collect { shouldNavigate ->
                 if (shouldNavigate) {
-                    navigateToDashboard()
+                    navigateToUserVerify()
                     viewModel.resetNavigation()
                 }
             }
@@ -72,20 +70,8 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
     override fun getRepository(): AppRepository =
         AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
 
-    private fun navigateToDashboard() {
-        try {
-            findNavController().navigate(R.id.action_confirmPasscode_to_dashboard)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            // Fallback: If navigation fails, start activity directly
-            try {
-                val intent = Intent(requireActivity(), DashboardActivity::class.java)
-                startActivity(intent)
-                requireActivity().finish()
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-            }
-        }
+    private fun navigateToUserVerify() {
+        findNavController().navigate(R.id.action_confirmPasscodeFragment_to_userInfoVerifyFragment)
     }
 
     @Composable

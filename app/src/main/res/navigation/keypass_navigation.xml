@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/keypass_navigation"
     app:startDestination="@id/createPasscodeFragment">
-    
+
     <fragment
         android:id="@+id/createPasscodeFragment"
         android:name="com.nexgen.flexiBank.module.view.keypass.CreatePasscodeFragment"
@@ -20,14 +20,16 @@
         android:name="com.nexgen.flexiBank.module.view.keypass.ConfirmPasscodeFragment"
         android:label="Confirm Passcode"
         tools:layout="@layout/fragment_confirm_passcode">
+        <action android:id="@+id/action_confirmPasscode_to_dashboard" />
         <action
-            android:id="@+id/action_confirmPasscode_to_dashboard"
-            app:destination="@id/dashboardDestination" />
+            android:id="@+id/action_confirmPasscodeFragment_to_userInfoVerifyFragment"
+            app:destination="@id/userInfoVerifyFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/userInfoVerifyFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.UserInfoVerifyFragment"
+        android:label="fragment_user_info_verify"
+        tools:layout="@layout/fragment_user_info_verify" />
 
-    <activity
-        android:id="@+id/dashboardDestination"
-        android:name="com.nexgen.flexiBank.module.view.dashboard.DashboardActivity"
-        android:label="Dashboard" />
 
 </navigation>
