@@ -115,4 +115,5 @@ dependencies {
     androidTestImplementation libs.androidx.ui.test.junit4
     implementation(libs.androidx.ui.tooling.v183)
     implementation(libs.androidx.material3.v132)
+    implementation(libs.androidx.activity.compose)
 }
