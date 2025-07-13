@@ -116,4 +116,5 @@ dependencies {
     implementation(libs.androidx.ui.tooling.v183)
     implementation(libs.androidx.material3.v132)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }

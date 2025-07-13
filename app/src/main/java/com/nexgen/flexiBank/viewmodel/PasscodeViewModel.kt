@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nexgen.flexiBank.repository.BaseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -27,6 +26,9 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
 
     private val _isNavigateToNext = MutableStateFlow(false)
     val isNavigateToNext = _isNavigateToNext.asStateFlow()
+
+    // Stored pin used to pass between fragments
+    private val _storedPin = MutableStateFlow("")
 
     private val maxPinLength = 4
 
@@ -86,17 +88,20 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
 
     private fun validatePin(pin: String) {
         viewModelScope.launch {
-            // For a create PIN flow, we'll just move to confirm PIN mode
             _isPinValid.value = true
             _isConfirmPin.value = true
+            // Store the PIN for confirmation
+            _storedPin.value = pin
             // Reset any previous pin match error
             _pinMatchError.value = false
+            // Clear current pin but keep stored pin
+            _pinCode.value = ""
         }
     }
 
     private fun validateConfirmPin(confirmPin: String) {
         viewModelScope.launch {
-            if (confirmPin == _pinCode.value) {
+            if (confirmPin == _storedPin.value) {
                 // PINs match, proceed to next screen
                 _isPinValid.value = true
                 _pinMatchError.value = false
@@ -118,6 +123,21 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
         _pinCode.value = ""
         _confirmPinCode.value = ""
         _pinMatchError.value = false
+        // Don't reset _storedPin here as we need it for confirmation
+    }
+
+    fun setConfirmMode(isConfirm: Boolean) {
+        _isConfirmPin.value = isConfirm
+    }
+
+    // Store the PIN to be used between fragments
+    fun storePin(pin: String) {
+        _storedPin.value = pin
+    }
+
+    // Get the stored PIN
+    fun getStoredPin(): String {
+        return _storedPin.value
     }
 
     fun getMaxPinLength(): Int {

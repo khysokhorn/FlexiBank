@@ -21,6 +21,7 @@ appcompat = "1.7.0"
 kotlinGradlePlugin = "1.9.0"
 lifecycleLivedataKtx = "2.2.0"
 lifecycleRuntimeKtx = "2.5.0"
+lifecycleViewmodelCompose = "2.9.1"
 loggingInterceptor = "4.9.1"
 material = "1.12.0"
 activity = "1.10.1"
@@ -65,6 +66,7 @@ androidx-core-ktx-v180 = { module = "androidx.core:core-ktx", version.ref = "cor
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version = "" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version = "" }
 androidx-material3-v132 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }

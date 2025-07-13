@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keypass_navigation"
+    app:startDestination="@id/createPasscodeFragment">
+    
+    <fragment
+        android:id="@+id/createPasscodeFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.CreatePasscodeFragment"
+        android:label="Create Passcode"
+        tools:layout="@layout/fragment_create_passcode">
+        <action
+            android:id="@+id/action_createPasscode_to_confirmPasscode"
+            app:destination="@id/confirmPasscodeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmPasscodeFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.ConfirmPasscodeFragment"
+        android:label="Confirm Passcode"
+        tools:layout="@layout/fragment_confirm_passcode">
+        <action
+            android:id="@+id/action_confirmPasscode_to_dashboard"
+            app:destination="@id/dashboardDestination" />
+    </fragment>
+
+    <activity
+        android:id="@+id/dashboardDestination"
+        android:name="com.nexgen.flexiBank.module.view.dashboard.DashboardActivity"
+        android:label="Dashboard" />
+
+</navigation>
