@@ -58,6 +58,7 @@
             android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/imgNidSelected"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/circle_active_drawable" />
@@ -94,6 +95,7 @@
             android:textSize="18sp" />
 
         <ImageView
+            android:id="@+id/imgPassportSelected"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:importantForAccessibility="no"
