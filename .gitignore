@@ -2,23 +2,15 @@
 .gradle
 /local.properties
 
-# IDE files
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/deploymentTargetSelector.xml
-/.idea/material_theme_project_new.xml
-/.idea/misc.xml
-/.idea/gradle.xml
-/.idea/compiler.xml
-/.idea/deviceManager.xml
-/.idea/runConfigurations.xml
-/.idea/appInsightsSettings.xml
-/.idea/AndroidProjectSystem.xml
-/.idea/migrations.xml
+# IDE files - Android Studio / IntelliJ IDEA
+# Exclude everything in .idea folder by default
+.idea/
+# Then selectively include only what's needed
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/vcs.xml
+!.idea/encodings.xml
+!.idea/copyright/
 
 # OS Files
 .DS_Store
