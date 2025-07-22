@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -30,6 +30,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
@@ -40,12 +43,26 @@ import com.nexgen.flexiBank.utils.theme.TextColorPrimary
 import com.nexgen.flexiBank.utils.theme.TextColorSecondary
 import com.nexgen.flexiBank.utils.theme.White
 import com.nexgen.flexiBank.viewmodel.PasscodeViewModel
+import kotlinx.coroutines.launch
 
 
 class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
     private val GradientStartColor = Color(0xFFA09EFF)
     private val GradientMidColor = Color(0xFF706EFF)
     private val GradientEndColor = Color(0xFF4A4AFF)
+
+    override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.verificationCompleted.collect { completed ->
+                if (completed) {
+                    viewModel.resetVerificationStatus()
+                    findNavController().navigate(R.id.action_userInfoVerifyFragment_to_createdUserFragment)
+                }
+            }
+        }
+    }
 
     @Composable
     override fun ComposeContent() {
@@ -54,7 +71,6 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
 
     @Composable
     fun UserInfoVerify() {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -62,7 +78,11 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
                 .padding(horizontal = 16.dp, vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            ScrollableNumberPickerWithIndicator(0..99, 0)
+            ScrollableNumberPickerWithIndicator(
+                range = 0..99,
+                initialValue = 0,
+                onCountCompleted = { viewModel.onVerificationComplete() }
+            )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 "Verifying",
@@ -76,26 +96,24 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
     @Composable
     fun ScrollableNumberPickerWithIndicator(
         range: IntRange = 0..99,
-        initialValue: Int = 0
+        initialValue: Int = 0,
+        onCountCompleted: () -> Unit = {}
     ) {
-        // Calculate the current number based on animation progress
 
-        // Starting angle for animation
-        var targetAngle by remember { mutableStateOf(0f) }
+        var targetAngle by remember { mutableFloatStateOf(0f) }
 
-        // Start animation when composable is first launched
         LaunchedEffect(Unit) {
             targetAngle = 360f
         }
 
-        // The animation will run once to the target value and then stop
         val progressAngle by animateFloatAsState(
             targetValue = targetAngle,
             animationSpec = tween(
                 durationMillis = 10000,
                 easing = LinearEasing
             ),
-            label = "progress arc"
+            label = "progress arc",
+            finishedListener = { onCountCompleted() }
         )
         val progressFraction = progressAngle / 360f
         val currentNumberToDisplay = (1 + (progressFraction * 98).toInt()).coerceIn(1..99)
@@ -103,7 +121,6 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
             contentAlignment = Alignment.Center,
             modifier = Modifier.size(200.dp)
         ) {
-            // Background circle
             Canvas(modifier = Modifier.fillMaxSize()) {
                 drawArc(
                     color = ProgressBarBackgroundGray,
@@ -113,8 +130,6 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
                     style = Stroke(width = 15.dp.toPx(), cap = StrokeCap.Round)
                 )
             }
-
-            // Animated progress circle
             Canvas(modifier = Modifier.fillMaxSize()) {
                 drawArc(
                     brush = Brush.sweepGradient(

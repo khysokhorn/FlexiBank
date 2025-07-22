@@ -27,6 +27,10 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
     private val _isNavigateToNext = MutableStateFlow(false)
     val isNavigateToNext = _isNavigateToNext.asStateFlow()
 
+    // Verification completed flow
+    private val _verificationCompleted = MutableStateFlow(false)
+    val verificationCompleted = _verificationCompleted.asStateFlow()
+
     // Stored pin used to pass between fragments
     private val _storedPin = MutableStateFlow("")
 
@@ -142,5 +146,13 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
 
     fun getMaxPinLength(): Int {
         return maxPinLength
+    }
+
+    fun onVerificationComplete() {
+        _verificationCompleted.value = true
+    }
+
+    fun resetVerificationStatus() {
+        _verificationCompleted.value = false
     }
 }

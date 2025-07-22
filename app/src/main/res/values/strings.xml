@@ -91,4 +91,8 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="get_started_using_your_digital_banking_with_flexibank">Get started using your digital banking with Flexibank.</string>
+    <string name="all_done">All Done!</string>
+    <string name="get_started">Get Started</string>
+    <string name="account_number_usd">Account Number - USD</string>
 </resources>

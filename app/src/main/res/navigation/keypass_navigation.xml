@@ -29,7 +29,15 @@
         android:id="@+id/userInfoVerifyFragment"
         android:name="com.nexgen.flexiBank.module.view.keypass.UserInfoVerifyFragment"
         android:label="fragment_user_info_verify"
-        tools:layout="@layout/fragment_user_info_verify" />
+        tools:layout="@layout/fragment_user_info_verify" >
+        <action
+            android:id="@+id/action_userInfoVerifyFragment_to_createdUserFragment"
+            app:destination="@id/createdUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createdUserFragment"
+        android:name="com.nexgen.flexiBank.module.view.dashboard.CreatedUserFragment"
+        android:label="CreatedUserFragment" />
 
 
 </navigation>
