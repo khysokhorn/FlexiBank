@@ -9,4 +9,6 @@ class RegisterViewModel(private val repository: AppRepository) : ViewModel() {
         selectedId = id
     }
     fun getSelectedId(): Int = selectedId
+
+
 }

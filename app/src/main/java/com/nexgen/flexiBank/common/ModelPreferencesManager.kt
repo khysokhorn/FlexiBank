@@ -3,11 +3,10 @@ package com.nexgen.flexiBank.common
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import com.google.gson.GsonBuilder
 import androidx.core.content.edit
+import com.google.gson.GsonBuilder
 
 object ModelPreferencesManager {
-
     lateinit var preferences: SharedPreferences
     private const val PREFERENCES_FILE_NAME = "PREFERENCES_FILE_NAME"
 
