@@ -79,7 +79,7 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             ScrollableNumberPickerWithIndicator(
-                range = 0..99,
+                range = 0..10,
                 initialValue = 0,
                 onCountCompleted = { viewModel.onVerificationComplete() }
             )
@@ -109,7 +109,7 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
         val progressAngle by animateFloatAsState(
             targetValue = targetAngle,
             animationSpec = tween(
-                durationMillis = 10000,
+                durationMillis = 100,
                 easing = LinearEasing
             ),
             label = "progress arc",

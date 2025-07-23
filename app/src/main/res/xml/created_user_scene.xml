@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:autoTransition="animateToEnd"
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="3500">
+
+        <KeyFrameSet>
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="0"
+                app:motionTarget="@+id/textView2" />
+
+            <KeyAttribute
+                android:alpha="1"
+                app:framePosition="15"
+                app:motionTarget="@+id/textView2" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="0"
+                app:motionTarget="@+id/imageView" />
+
+            <KeyAttribute
+                android:alpha="1"
+                app:framePosition="15"
+                app:motionTarget="@+id/imageView" />
+
+            <KeyAttribute
+                android:alpha="0"
+                android:translationY="50dp"
+                app:framePosition="20"
+                app:motionTarget="@+id/textView3" />
+
+            <KeyAttribute
+                android:alpha="0"
+                android:translationY="50dp"
+                app:framePosition="20"
+                app:motionTarget="@+id/textView4" />
+
+            <!-- Middle of text animations -->
+            <KeyAttribute
+                android:alpha="0.5"
+                android:translationY="25dp"
+                app:framePosition="25"
+                app:motionTarget="@+id/textView3" />
+
+            <KeyAttribute
+                android:alpha="0.5"
+                android:translationY="25dp"
+                app:framePosition="25"
+                app:motionTarget="@+id/textView4" />
+
+            <!-- End of text animations -->
+            <KeyAttribute
+                android:alpha="1"
+                android:translationY="0dp"
+                app:framePosition="35"
+                app:motionTarget="@+id/textView3" />
+
+            <KeyAttribute
+                android:alpha="1"
+                android:translationY="0dp"
+                app:framePosition="35"
+                app:motionTarget="@+id/textView4" />
+
+            <!-- PHASE 4: Card items animation with Get Started button (50-95%) -->
+            <!-- First card item -->
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="50"
+                app:motionTarget="@+id/linearLayout3" />
+
+            <KeyAttribute
+                android:alpha="1"
+                app:framePosition="60"
+                app:motionTarget="@+id/linearLayout3" />
+
+            <KeyAttribute
+                android:alpha="0"
+                app:framePosition="60"
+                app:motionTarget="@+id/linearLayout4" />
+
+            <KeyAttribute
+                android:alpha="1"
+                app:framePosition="70"
+                app:motionTarget="@+id/linearLayout4" />
+
+            <KeyAttribute
+                android:alpha="0"
+                android:translationY="60dp"
+                app:framePosition="50"
+                app:motionTarget="@+id/btnGetStarted" />
+
+            <KeyAttribute
+                android:alpha="0.5"
+                android:translationY="30dp"
+                app:framePosition="75"
+                app:motionTarget="@+id/btnGetStarted" />
+
+            <KeyAttribute
+                android:alpha="1"
+                android:translationY="0dp"
+                app:framePosition="90"
+                app:motionTarget="@+id/btnGetStarted" />
+        </KeyFrameSet>
+
+    </Transition>
+
+    <!-- Starting state with all views invisible -->
+    <ConstraintSet android:id="@+id/start">
+        <!-- Sign up text starts invisible -->
+        <Constraint
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <Constraint
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <!-- Description text starts invisible and slightly below final position (same as All Done text) -->
+        <Constraint
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <!-- First account details start invisible -->
+        <Constraint
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Constraint
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <!-- Get Started button starts invisible and below its final position -->
+        <Constraint
+            android:id="@+id/btnGetStarted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:alpha="0"
+            android:translationY="60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <Constraint
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            android:translationY="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <Constraint
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Constraint
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <Constraint
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <Constraint
+            android:id="@+id/btnGetStarted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:alpha="1"
+            android:translationY="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ConstraintSet>
+</MotionScene>
