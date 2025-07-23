@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/createdUserFragment"
-        android:name="com.nexgen.flexiBank.module.view.dashboard.CreatedUserFragment"
+        android:name="com.nexgen.flexiBank.module.view.dashboard.GetStartedFragment"
         android:label="CreatedUserFragment" />
 
 
