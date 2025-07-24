@@ -117,4 +117,10 @@ dependencies {
     implementation(libs.androidx.material3.v132)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation libs.glide.v4160
+    annotationProcessor libs.compiler
+    implementation(libs.okhttp3.integration) {
+        exclude group: 'glide-parent'
+    }
 }
