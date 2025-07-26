@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom navigation theme in Material 3 style -->
+    <style name="bottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/gray_600</item>
+        <item name="colorPrimary">@color/blue</item>
+    </style>
+
+    <!-- Text appearance styles for bottom navigation -->
+    <style name="TextAppearance.App.BottomNavigationView.Active" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textStyle">bold</item>
+        <item name="itemHorizontalTranslationEnabled">false</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.App.BottomNavigationView.Inactive</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.App.BottomNavigationView.Active</item>
+    </style>
+
+    <style name="TextAppearance.App.BottomNavigationView.Inactive" parent="TextAppearance.Material3.BodyMedium">
+    </style>
+</resources>

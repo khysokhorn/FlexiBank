@@ -95,4 +95,7 @@
     <string name="all_done">All Done!</string>
     <string name="get_started">Get Started</string>
     <string name="account_number_usd">Account Number - USD</string>
+    <string name="available_balance">Available Balance</string>
+    <string name="saving_account">Saving Account</string>
+    <string name="quick_transfer">Quick Transfer</string>
 </resources>
