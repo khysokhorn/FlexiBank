@@ -20,4 +20,19 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="bgCircleImageActive">
+        <item name="android:background">@drawable/bg_circle_blue_16</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="bgCircleImageInActive">
+        <item name="android:background">@drawable/bg_circle_gray_16</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="cardMenu">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="strokeColor">@android:color/transparent</item>
+    </style>
+
 </resources>
