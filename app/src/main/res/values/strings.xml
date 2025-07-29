@@ -98,4 +98,10 @@
     <string name="available_balance">Available Balance</string>
     <string name="saving_account">Saving Account</string>
     <string name="quick_transfer">Quick Transfer</string>
+    <string name="scan">Scan</string>
+    <string name="card">Card</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="hub">Hub</string>
+    <string name="upcoming_payment">Upcoming payment</string>
 </resources>
