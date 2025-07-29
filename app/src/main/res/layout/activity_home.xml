@@ -336,12 +336,41 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <include
-        android:id="@+id/bottomBar"
-        layout="@layout/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="16dp" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="120dp">
+
+        <include
+            android:id="@+id/bottomBar"
+            layout="@layout/bottom_app_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/scan_button"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignTop="@id/bottomBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-20dp"
+            android:padding="8dp"
+            app:cardBackgroundColor="@color/blue"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="6dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/scan"
+                android:src="@drawable/qr_code_scanner_24px"
+                app:tint="@color/white" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
 
 </LinearLayout>
