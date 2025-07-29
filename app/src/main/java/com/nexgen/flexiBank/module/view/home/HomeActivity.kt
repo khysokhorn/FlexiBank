@@ -6,6 +6,7 @@ import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.ActivityHomeBinding
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
 import com.nexgen.flexiBank.module.view.home.adapter.QuickShareAdapter
+import com.nexgen.flexiBank.module.view.home.adapter.UpComingPaymentAdapter
 import com.nexgen.flexiBank.module.view.home.viewModel.HomeViewModel
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
@@ -24,27 +25,32 @@ class HomeActivity : BaseMainActivity<HomeViewModel, ActivityHomeBinding, AppRep
 
     private fun setupBottomNavigation() {
         binding.bottomBar.bottomNavigationView.setOnItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.navigation_home -> {
                     // Handle home navigation
                     true
                 }
+
                 R.id.navigation_card -> {
                     // Handle card navigation
                     true
                 }
+
                 R.id.navigation_scan -> {
                     // Handle scan navigation
                     true
                 }
+
                 R.id.navigation_favorite -> {
                     // Handle favorite navigation
                     true
                 }
+
                 R.id.navigation_hub -> {
                     // Handle hub navigation
                     true
                 }
+
                 else -> false
             }
         }
@@ -82,6 +88,35 @@ class HomeActivity : BaseMainActivity<HomeViewModel, ActivityHomeBinding, AppRep
         }
 
         binding.rvQuickShare.adapter = quickShareAdapter
+        val upcomingPayment = listOf(
+            UpComingPaymentAdapter.UpComingPayment(
+                name = "Canvas Pro",
+                amount = 15.99,
+                currency = "USD",
+                createdDate = "2025-06-12",
+                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT11vbcvZowjk1B2MCrrSwr6cEhnI6brIdINElziegsLYnVMcfBdlVln-n9-bIQ5NmZrXM&usqp=CAU"
+            ),
+            UpComingPaymentAdapter.UpComingPayment(
+                name = "Figma Premium",
+                amount = 12.99,
+                currency = "USD",
+                createdDate = "2025-06-15",
+                imageUrl = "https://cdn.sanity.io/images/599r6htc/regionalized/5094051dac77593d0f0978bdcbabaf79e5bb855c-1080x1080.png?w=540&h=540&q=75&fit=max&auto=format"
+            ),
+            UpComingPaymentAdapter.UpComingPayment(
+                name = "Youtube Premium",
+                amount = 11.99,
+                currency = "USD",
+                createdDate = "2025-06-18",
+                imageUrl = "https://static.vecteezy.com/system/resources/thumbnails/023/986/480/small_2x/youtube-logo-youtube-logo-transparent-youtube-icon-transparent-free-free-png.png"
+            )
+        )
+        val paymentAdapter = UpComingPaymentAdapter(upcomingPayment)
+        {
+
+        }
+
+        binding.rvPayment.adapter = paymentAdapter
     }
 
     override fun getViewModel(): Class<HomeViewModel> = HomeViewModel::class.java

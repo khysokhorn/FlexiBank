@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexgen.flexiBank.databinding.PaymentItemViewBinding
 
-class UpCommingPaymentAdapter(
-    private val contacts: List<UpComingPayment>,
+class UpComingPaymentAdapter(
+    private val comingPayments: List<UpComingPayment>,
     private val onItemClick: (UpComingPayment) -> Unit
-) : RecyclerView.Adapter<UpCommingPaymentAdapter.UpComingPaymentViewHolder>() {
+) : RecyclerView.Adapter<UpComingPaymentAdapter.UpComingPaymentViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpComingPaymentViewHolder {
         val binding = PaymentItemViewBinding.inflate(
@@ -21,11 +21,11 @@ class UpCommingPaymentAdapter(
     }
 
     override fun onBindViewHolder(holder: UpComingPaymentViewHolder, position: Int) {
-        val contact = contacts[position]
+        val contact = comingPayments[position]
         holder.bind(contact)
     }
 
-    override fun getItemCount(): Int = contacts.size
+    override fun getItemCount(): Int = comingPayments.size
 
     inner class UpComingPaymentViewHolder(private val binding: PaymentItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,6 +38,8 @@ class UpCommingPaymentAdapter(
                     .circleCrop()
                     .into(binding.imgImage)
             }
+            binding.tvDate.text = contact.createdDate
+            binding.tvAmount.text = "${contact.amount} ${contact.currency}"
             itemView.setOnClickListener {
                 onItemClick(contact)
             }
@@ -48,6 +50,7 @@ class UpCommingPaymentAdapter(
         val name: String,
         val imageUrl: String? = null,
         val amount: Double = 0.0,
-        val createdDate: String = ""
+        val createdDate: String = "",
+        val currency: String = ""
     )
 }

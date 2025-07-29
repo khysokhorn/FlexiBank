@@ -1,48 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/imgImage"
         style="@style/bgCircleImageActive"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:src="@drawable/flexi_bank"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="2dp"
+        android:src="@drawable/united_kingdom_flag"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvPaymentName"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="16dp"
-        android:text="Canvas"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/imgImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="101"
-        app:layout_constraintStart_toStartOf="@id/tvPaymentName"
-        app:layout_constraintTop_toBottomOf="@+id/tvPaymentName" />
+        <TextView
+            android:id="@+id/tvPaymentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="Canvas"
+            android:textColor="@color/black"
+            android:textFontWeight="900" />
 
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="on 01 Aug 12:220 PM"
+            android:textColor="@color/gray_600"
+            app:layout_constraintStart_toStartOf="@id/tvPaymentName"
+            app:layout_constraintTop_toBottomOf="@+id/tvPaymentName" />
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="101"
-
+        android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="16dp"
+        android:text="7.72 USD"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
