@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="24dp"
+    tools:context=".module.view.auth.fragment.OtpVerifyFragment">
+
+
+    <TextView
+        android:id="@+id/letStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="OTP verification"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fillInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="The verification code has been sent to +855 8*****92"
+        app:layout_constraintTop_toBottomOf="@id/letStart" />
+
+    <com.matrix.otpview.OtpView
+        android:id="@+id/otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:textAlignment="center"
+        app:autoSize="false"
+        app:borderColor="@android:color/transparent"
+        app:borderWidth="4dp"
+        app:cornerRadius="18dp"
+        app:hint="*"
+        app:hintTextColor="@color/white"
+        app:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fillInfo"
+        app:maxCountPerLine="6"
+        app:onCompleteBorderColor="@color/gradient_dark_green"
+        app:squareColor="@color/background"
+        app:squareCount="6"
+        app:squareHeight="48dp"
+        app:squareWidth="60dp"
+        app:textColor="@color/black"
+        app:textSize="16"
+        app:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/resetCodeIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="@string/reset_code_in"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/otp" />
+
+    <TextView
+        android:id="@+id/txtCountDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:text="20s"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resetCodeIn"
+        app:layout_constraintStart_toEndOf="@+id/resetCodeIn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

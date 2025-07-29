@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="black80">#E6000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#5260FE</color>
     <color name="gradient_dark_green">#6E7AFF</color>
@@ -8,5 +9,23 @@
     <color name="blueLight2">#AEB5FF</color>
     <color name="blueLight1">#D4D8FF</color>
     <color name="background">#F0F0F0</color>
+    <color name="borderColor">#D3D3D3</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
+    <color name="hint">#FF7B7E82</color>
+    <!-- Liveness CameraX Colors -->
+    <color name="liveness_camerax_overlay_background">#000000</color>
+    <color name="liveness_camerax_overlay_border">#000000</color>
+    <color name="liveness_camerax_step_card_view_text">#000000</color>
+    <color name="liveness_camerax_step_card_view_background">#FFFFFF</color>
+    <color name="liveness_camerax_button_take_picture_text">#000000</color>
+    <color name="liveness_camerax_button_take_picture_background">#FFFFFF</color>
+    <color name="liveness_camerax_white">#FFFFFFFF</color>
+    <color name="default_dropdown_background">#FFFFFF
+    </color> <!-- Or your initial transparent/default color -->
+    <color name="selected_item_dropdown_background">#E0E0E0</color>
+
 </resources>
 

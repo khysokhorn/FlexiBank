@@ -10,9 +10,11 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.enableEdgeToEdge
 import com.nexgen.flexiBank.R
+import com.nexgen.flexiBank.common.AppPreferenceManager
 import com.nexgen.flexiBank.databinding.ActivityMainBinding
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
 import com.nexgen.flexiBank.module.view.dashboard.DashboardActivity
+import com.nexgen.flexiBank.module.view.home.HomeActivity
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.viewmodel.RegisterViewModel
@@ -24,11 +26,24 @@ class MainActivity : BaseMainActivity<RegisterViewModel, ActivityMainBinding, Ap
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         startFlexiBankAnimation()
+        val isAuth = AppPreferenceManager.isAuth()
         Handler(Looper.getMainLooper()).postDelayed({
+            if (isAuth) {
+                val intent = Intent(this, HomeActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
+                return@postDelayed
+            }
+
             val intent = Intent(this, DashboardActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             startActivity(intent)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, R.anim.fade_in, R.anim.fade_out)
+                overrideActivityTransition(
+                    OVERRIDE_TRANSITION_OPEN,
+                    R.anim.fade_in,
+                    R.anim.fade_out
+                )
             } else {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
@@ -52,8 +67,10 @@ class MainActivity : BaseMainActivity<RegisterViewModel, ActivityMainBinding, Ap
 
     override fun getViewModel() = RegisterViewModel::class.java
 
-    override fun getActivityBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+    override fun getActivityBinding(): ActivityMainBinding =
+        ActivityMainBinding.inflate(layoutInflater)
 
-    override fun getRepository() = AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
+    override fun getRepository() =
+        AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
 
 }

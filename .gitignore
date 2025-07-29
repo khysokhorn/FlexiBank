@@ -1,15 +1,67 @@
 *.iml
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+
+# IDE files - Android Studio / IntelliJ IDEA
+# Exclude everything in .idea folder by default
+.idea/
+# Then selectively include only what's needed
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/vcs.xml
+!.idea/encodings.xml
+!.idea/copyright/
+
+# OS Files
 .DS_Store
+
+# Build outputs
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+livenesscamerax/build/**
+
+# Generated files
+/build
+/*/build/
+
+# Cache files
+**/*.cache
+**/.cache/
+**/.gradle/
+**/.kotlinc/
+**/cache/
+**/*.cache/
+**/build/intermediates/
+**/build/kotlin/
+**/build/tmp/
+**/generated/
+**/.navigation/
+**/lint-cache/
+**/javac/
+**/dex-cache/
+**/.dart_tool/
+**/.pub-cache/
+**/node_modules/
+**/npm-cache/
+**/.sass-cache/
+**/coverage/
+**/.jest/
+**/caches/
+**/android-cache/
+
+# Gradle Wrapper
+**/gradle/wrapper/gradle-wrapper.jar
+**/gradle/wrapper/dists/
+**/.gradle/wrapper/
+**/.gradle/wrapper/dists/
+.gradle/wrapper/
+**/gradle-wrapper.properties
+**/.gradle/buildOutputCleanup/
+wrapper/**
+kotlin-profile/**
+daemon/**
+android/**
+native/**

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tvLanguage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:drawablePadding="16dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:paddingHorizontal="16dp"
+    android:text="English"
+    android:textColor="@color/black"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    app:drawableStartCompat="@drawable/img_uk_flag">
+
+</TextView>

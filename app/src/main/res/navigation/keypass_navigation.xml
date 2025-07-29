@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keypass_navigation"
+    app:startDestination="@id/createPasscodeFragment">
+
+    <fragment
+        android:id="@+id/createPasscodeFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.CreatePasscodeFragment"
+        android:label="Create Passcode"
+        tools:layout="@layout/fragment_create_passcode">
+        <action
+            android:id="@+id/action_createPasscode_to_confirmPasscode"
+            app:destination="@id/confirmPasscodeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmPasscodeFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.ConfirmPasscodeFragment"
+        android:label="Confirm Passcode"
+        tools:layout="@layout/fragment_confirm_passcode">
+        <action android:id="@+id/action_confirmPasscode_to_dashboard" />
+        <action
+            android:id="@+id/action_confirmPasscodeFragment_to_userInfoVerifyFragment"
+            app:destination="@id/userInfoVerifyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoVerifyFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.UserInfoVerifyFragment"
+        android:label="fragment_user_info_verify"
+        tools:layout="@layout/fragment_user_info_verify" >
+        <action
+            android:id="@+id/action_userInfoVerifyFragment_to_createdUserFragment"
+            app:destination="@id/createdUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createdUserFragment"
+        android:name="com.nexgen.flexiBank.module.view.dashboard.GetStartedFragment"
+        android:label="CreatedUserFragment" >
+        <action
+            android:id="@+id/action_createdUserFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.nexgen.flexiBank.module.view.home.HomeActivity"
+        android:label="HomeActivity" />
+
+
+</navigation>

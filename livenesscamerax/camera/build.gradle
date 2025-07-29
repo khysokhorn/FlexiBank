@@ -1,0 +1,55 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+apply from: "$rootDir/livenesscamerax/dependencies.gradle"
+
+android {
+    namespace 'com.nexgen.camera'
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 24
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = versions.jvmTarget
+    }
+    buildFeatures {
+        buildConfig = true
+    }
+}
+
+dependencies {
+    implementation project(path: ":livenesscamerax:domain")
+    implementation project(path: ":livenesscamerax:core")
+
+    implementation libs.androidx.core.ktx.v180
+    implementation libs.androidx.lifecycle.runtime.ktx
+
+    //Google Services
+    implementation libs.play.services.mlkit.face.detection.v1701
+    implementation libs.vision.common
+
+    //CameraX
+    implementation libs.androidx.camera.camera2.v120alpha03
+    implementation libs.androidx.camera.lifecycle.v120alpha03
+    implementation libs.androidx.camera.view.v120alpha03
+
+    //Apache
+    implementation "org.apache.commons:commons-io:$versions.apacheCommons"
+}

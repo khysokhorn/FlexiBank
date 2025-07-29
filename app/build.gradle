@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath libs.gradle
+        classpath libs.kotlin.gradle.plugin
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -5,15 +16,13 @@ plugins {
 
 android {
     namespace 'com.nexgen.flexiBank'
-    compileSdk 35
-
+    compileSdk 36
     defaultConfig {
         applicationId "com.nexgen.flexiBank"
-        minSdk 24
+        minSdk 28
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -37,6 +46,13 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
 }
 
 dependencies {
@@ -47,6 +63,10 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
+    implementation libs.androidx.camera.view
+    implementation libs.androidx.navigation.fragment
+    implementation libs.androidx.navigation.ui
+    implementation libs.androidx.annotation
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -56,4 +76,51 @@ dependencies {
     implementation libs.converter.gson
     implementation libs.okhttp
     implementation libs.logging.interceptor
+    implementation libs.otpview
+
+    implementation(libs.coil)
+    implementation(libs.coil.video)
+    implementation libs.play.services.mlkit.face.detection
+    implementation(libs.timber)
+    implementation libs.isoparser
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.extensions)
+    implementation(libs.androidx.camera.view)
+    implementation libs.tensorflow.lite.task.vision.play.services
+    implementation libs.play.services.tflite.gpu
+    implementation libs.tensorflow.lite
+    implementation libs.play.services.tflite.gpu
+    implementation libs.play.services.tflite.java
+    implementation libs.play.services.tflite.support
+
+    implementation project(path: ":livenesscamerax")
+    implementation project(path: ":livenesscamerax:camera")
+    implementation project(path: ":livenesscamerax:core")
+    implementation project(path: ":livenesscamerax:domain")
+
+    implementation libs.glide
+    annotationProcessor libs.compiler
+
+    def composeBom = libs.androidx.compose.bom
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+
+    implementation(libs.material3)
+    implementation(libs.foundation)
+    implementation(libs.ui)
+    implementation(libs.ui.tooling.preview)
+    debugImplementation(libs.ui.tooling)
+    androidTestImplementation libs.androidx.ui.test.junit4
+    implementation(libs.androidx.ui.tooling.v183)
+    implementation(libs.androidx.material3.v132)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation libs.glide.v4160
+    annotationProcessor libs.compiler
+    implementation(libs.okhttp3.integration) {
+        exclude group: 'glide-parent'
+    }
 }

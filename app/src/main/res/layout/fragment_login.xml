@@ -8,7 +8,6 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="24dp">
 
-
     <TextView
         android:id="@+id/letStart"
         android:layout_width="wrap_content"
@@ -69,6 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/emailInputLayout">
 
         <LinearLayout
+            android:id="@+id/layoutCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -78,21 +78,26 @@
             android:padding="12dp">
 
             <ImageView
+                android:id="@+id/imgFlag"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/united_kingdom_flag" />
 
             <TextView
+                android:id="@+id/txtCountryCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:paddingHorizontal="8dp"
+                android:text="+855"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:backgroundTint="@color/black"
                 android:importantForAccessibility="no"
                 android:src="@drawable/img_arrow_down" />
         </LinearLayout>
@@ -144,15 +149,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignUp"
+        style="@style/buttonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="false"
-        android:fontFamily="@font/inter"
-        android:lineSpacingExtra="5sp"
-        android:padding="16dp"
         android:text="@string/sign_up"
-        android:textStyle="bold"
-        android:windowSoftInputMode="adjustPan"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

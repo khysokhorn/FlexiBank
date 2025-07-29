@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_background"
+        android:src="@drawable/img_back"
+        android:padding="16dp"
+        android:layout_gravity="start" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Discard Sign up"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp" />
+
+    <!-- Message -->
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your input data will not be saved. Do you really want to discard the sign-up?"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp" />
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            style="@style/buttonStyle" />
+
+        <Button
+            android:id="@+id/btn_discard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Discard"
+            android:textColor="@color/white"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+</LinearLayout>
