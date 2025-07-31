@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nexgen.flexiBank.module.view.home.viewModel.HomeViewModel
 import com.nexgen.flexiBank.module.view.liveliness.viewModel.LivelinessViewModel
+import com.nexgen.flexiBank.module.view.qrCode.viewModel.ScanQrViewModel
 import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentViewModel
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.repository.BaseRepository
@@ -27,10 +28,14 @@ class ViewModelFactory(private val repository: BaseRepository) :
             modelClass.isAssignableFrom(PasscodeViewModel::class.java) -> PasscodeViewModel(
                 repository as AppRepository
             ) as T
+
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(
                 repository as AppRepository
             ) as T
 
+            modelClass.isAssignableFrom(ScanQrViewModel::class.java) -> ScanQrViewModel(
+                repository as AppRepository
+            ) as T
             else -> throw IllegalArgumentException("ViewModelClass Not Found")
         }
     }

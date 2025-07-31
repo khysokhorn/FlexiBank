@@ -6,12 +6,15 @@ buildscript {
     dependencies {
         classpath libs.gradle
         classpath libs.kotlin.gradle.plugin
+        classpath libs.org.jetbrains.kotlin.plugin.compose.gradle.plugin
+
     }
 }
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -123,4 +126,7 @@ dependencies {
     implementation(libs.okhttp3.integration) {
         exclude group: 'glide-parent'
     }
+
+    implementation libs.qrscanner.core
+    implementation libs.qrscanner.zxing
 }
