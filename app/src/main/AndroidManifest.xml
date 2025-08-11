@@ -78,6 +78,27 @@
             android:theme="@style/AppThemeBase"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".module.view.bakongQRCode.ShareReceiverQRActivity"
+            android:exported="true" />
+
+        <activity-alias
+            android:name=".ShareReceiverAlias"
+            android:exported="true"
+            android:label="QR"
+            android:targetActivity=".module.view.bakongQRCode.ShareReceiverQRActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="application/octet-stream" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+        </activity-alias>
+
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
