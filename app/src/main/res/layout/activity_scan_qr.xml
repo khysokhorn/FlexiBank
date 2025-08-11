@@ -5,47 +5,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ch.ubique.qrscanner.view.QrScannerView
         android:id="@+id/qrScanner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@id/imgFlash">
 
-    <com.nexgen.flexiBank.module.view.utils.customView.CustomRectangleWithRoundedCornersCutoutView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <com.nexgen.flexiBank.module.view.utils.customView.CustomRectangleWithRoundedCornersCutoutView
+            android:id="@+id/customRectangleWithRoundedCornersCutoutView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ch.ubique.qrscanner.view.QrScannerView>
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/cameraZoom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
-        android:value="0.0"
-        android:valueFrom="0.0"
-        android:valueTo="1.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cameraFlash"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/cameraFlash"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Toggle Flash"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:src="@drawable/img_flexi_bank_scan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgClose" />
+
+    <ImageView
+        android:id="@+id/imgClose"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="32dp"
+        android:background="@drawable/bg_circle_strock1_white_20"
+        android:padding="16dp"
+        android:src="@drawable/close_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/decodingState"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="5dp"
         android:background="#80000000"
         android:padding="10dp"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cameraFlash" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="10dp" />
+
+
+    <ImageView
+        android:id="@+id/imgFlash"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginVertical="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_circle_strock1_white_20"
+        android:foregroundGravity="center"
+        android:padding="16dp"
+        android:src="@drawable/img_flash"
+        app:layout_constraintBottom_toTopOf="@id/rvSupportedQr"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnUploadQr"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="16dp"
+        android:backgroundTint="#33FFFFFF"
+        android:text="@string/upload_qr_code"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imgFlash"
+        app:layout_constraintEnd_toStartOf="@+id/imgHistory"
+        app:layout_constraintStart_toEndOf="@+id/imgFlash"
+        app:layout_constraintTop_toTopOf="@+id/imgHistory"
+        app:strokeColor="@color/gray_400"
+        app:strokeWidth="1dp" />
+
+    <ImageView
+        android:id="@+id/imgHistory"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_circle_strock1_white_20"
+        android:foregroundGravity="center"
+        android:padding="16dp"
+        android:src="@drawable/img_history"
+        app:layout_constraintBottom_toBottomOf="@+id/imgFlash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imgFlash"
+        app:tint="@color/white" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSupportedQr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

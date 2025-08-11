@@ -18,7 +18,7 @@ abstract class BaseMainActivity<VM : ViewModel, B : ViewBinding,
         R : BaseRepository> : AppCompatActivity() {
 
     lateinit var binding: B
-    private lateinit var viewModel: VM
+    protected lateinit var viewModel: VM
     lateinit var remoteDataSource: RemoteDataSource
     var lockScreen: String = "true"
 
