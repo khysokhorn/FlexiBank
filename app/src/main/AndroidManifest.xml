@@ -40,6 +40,9 @@
             android:name=".module.view.bakongQRCode.ScanQrActivity"
             android:exported="false" />
         <activity
+            android:name=".module.crash.CrashActivity"
+            android:exported="false" />
+        <activity
             android:name=".module.view.bakongQRCode.KhQRInputAmountActivity"
             android:exported="true" />
         <activity
@@ -93,7 +96,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="image/*" />
                 <data android:mimeType="application/octet-stream" />
-                <data android:mimeType="*/*" />
             </intent-filter>
 
         </activity-alias>
