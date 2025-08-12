@@ -57,6 +57,7 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
         binding.btnUploadQr.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
+        throw Exception("Test Crash")
     }
 
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
