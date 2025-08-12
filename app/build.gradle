@@ -6,12 +6,17 @@ buildscript {
     dependencies {
         classpath libs.gradle
         classpath libs.kotlin.gradle.plugin
+        classpath libs.org.jetbrains.kotlin.plugin.compose.gradle.plugin
+        classpath libs.hilt.android.gradle.plugin
     }
 }
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
 }
 
 android {
@@ -40,11 +45,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -123,4 +128,13 @@ dependencies {
     implementation(libs.okhttp3.integration) {
         exclude group: 'glide-parent'
     }
+
+    implementation libs.qrscanner.core
+    implementation libs.qrscanner.zxing
+    implementation(libs.okhttp.v510)
+    implementation(libs.logging.interceptor.v4120)
+
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+
 }

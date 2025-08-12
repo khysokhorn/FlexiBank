@@ -23,6 +23,8 @@ class CountryBottomSheetFragment : BottomSheetDialogFragment() {
     private var onCountrySelectedListener: ((Country) -> Unit)? = null
     private var selectedCountry: Country? = null
 
+    override fun getTheme(): Int = R.style.CustomBottomSheetDialogTheme
+
     companion object {
         fun newInstance(
             selectedCountry: Country, listener: (Country) -> Unit
@@ -43,6 +45,11 @@ class CountryBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Set expanded state for bottom sheet
+        val bottomSheetBehavior = com.google.android.material.bottomsheet.BottomSheetBehavior.from(view.parent as View)
+        bottomSheetBehavior.state = com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.skipCollapsed = true
 
         setupCountryList()
         setupUI()

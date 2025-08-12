@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import com.nexgen.flexiBank.R
+import timber.log.Timber
 
 fun moveToPermission(activity: Activity, title: String) {
     val dialog = Dialog(activity)
@@ -35,3 +36,11 @@ fun moveToPermission(activity: Activity, title: String) {
     body.text = title
     dialog.show()
 }
+
+const val FLEXI_BANK_LOG_TAG = "FLEXIBANKLog"
+
+fun errorLog(error: Throwable?) = error?.let {
+    Timber.tag(FLEXI_BANK_LOG_TAG).e(it.stackTraceToString())
+}
+
+fun errorLog(message: String) = Timber.tag(FLEXI_BANK_LOG_TAG).e(message)

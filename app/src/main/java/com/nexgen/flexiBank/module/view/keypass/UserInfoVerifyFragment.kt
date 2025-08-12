@@ -53,7 +53,6 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.verificationCompleted.collect { completed ->
                 if (completed) {

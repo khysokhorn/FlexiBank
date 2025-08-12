@@ -2,6 +2,8 @@ package com.nexgen.flexiBank.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
+import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.ScanQrViewModel
 import com.nexgen.flexiBank.module.view.home.viewModel.HomeViewModel
 import com.nexgen.flexiBank.module.view.liveliness.viewModel.LivelinessViewModel
 import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentViewModel
@@ -27,7 +29,16 @@ class ViewModelFactory(private val repository: BaseRepository) :
             modelClass.isAssignableFrom(PasscodeViewModel::class.java) -> PasscodeViewModel(
                 repository as AppRepository
             ) as T
+
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(
+                repository as AppRepository
+            ) as T
+
+            modelClass.isAssignableFrom(ScanQrViewModel::class.java) -> ScanQrViewModel(
+                repository as AppRepository
+            ) as T
+
+            modelClass.isAssignableFrom(KhQrInputAmountViewModel::class.java) -> KhQrInputAmountViewModel(
                 repository as AppRepository
             ) as T
 

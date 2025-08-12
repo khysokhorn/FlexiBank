@@ -5,22 +5,18 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewbinding.ViewBinding
 import com.nexgen.flexiBank.common.ModelPreferencesManager
 import com.nexgen.flexiBank.network.RemoteDataSource
 import com.nexgen.flexiBank.repository.BaseRepository
 import com.nexgen.flexiBank.viewmodel.ViewModelFactory
 
-/**
- * Base activity class for screens using Jetpack Compose UI
- * Follows the same architecture pattern as BaseMainActivity but tailored for Compose
- */
-abstract class BaseComposeActivity<VM : ViewModel, B : ViewBinding, R : BaseRepository> : ComponentActivity() {
+abstract class BaseComposeActivity<VM : ViewModel, R : BaseRepository> : ComponentActivity() {
 
-    lateinit var binding: B
     protected lateinit var viewModel: VM
     lateinit var remoteDataSource: RemoteDataSource
     var lockScreen: String = "true"
@@ -39,23 +35,21 @@ abstract class BaseComposeActivity<VM : ViewModel, B : ViewBinding, R : BaseRepo
         @Suppress("DEPRECATION")
         window.statusBarColor = Color.TRANSPARENT
 
-        // Set up binding and ViewModel
-        binding = getActivityBinding()
         val factory = ViewModelFactory(getRepository())
         viewModel = ViewModelProvider(this, factory)[getViewModel()]
 
-        // Set content view from binding
-        setContentView(binding.root)
-
-        // Initialize Compose content
-        initComposeContent()
+        setContent {
+            ComposeContent()
+        }
     }
 
-    /**
-     * Initialize the Compose content
-     * This should be implemented by subclasses to set up their Compose UI
-     */
-    protected abstract fun initComposeContent()
+    @Composable
+    protected abstract fun ComposeContent()
+
+    @Composable
+    protected open fun ContentPreview() {
+        ComposeContent()
+    }
 
     /**
      * Disable touch interactions with the screen
@@ -80,12 +74,8 @@ abstract class BaseComposeActivity<VM : ViewModel, B : ViewBinding, R : BaseRepo
     abstract fun getViewModel(): Class<VM>
 
     /**
-     * Get the ViewBinding for this activity
-     */
-    abstract fun getActivityBinding(): B
-
-    /**
      * Get the repository for this activity
      */
     abstract fun getRepository(): R
 }
+
