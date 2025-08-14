@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:padding="8dp">
+    android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/ivCountryFlag"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:id="@+id/ivProfile"
+        style="@style/bgCircleImageInActive"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:importantForAccessibility="no"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,16 +26,16 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCountryFlag"
+        app:layout_constraintStart_toEndOf="@+id/ivProfile"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="United Kingdom" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tvAccountName"
-        app:layout_constraintTop_toBottomOf="@+id/tvAccountName">
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@id/ivProfile"
+        app:layout_constraintTop_toBottomOf="@id/tvAccountName">
 
         <TextView
             android:id="@+id/tvAccountNumber"

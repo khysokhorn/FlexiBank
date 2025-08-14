@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.nexgen.flexiBank.R
-import com.nexgen.flexiBank.databinding.FragmentCountryBottomSheetBinding
+import com.nexgen.flexiBank.databinding.FragmentQrCodeHistoryByDateBottomSheetBinding
 import com.nexgen.flexiBank.module.view.auth.model.AccountModel
 import com.nexgen.flexiBank.module.view.auth.model.QRCodeHistoryModel
 import com.nexgen.flexiBank.module.view.bakongQRCode.adapter.QRCodeHistoryAdapter
 
 class QRCodeHistoryBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private var _binding: FragmentCountryBottomSheetBinding? = null
+    private var _binding: FragmentQrCodeHistoryByDateBottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var countryAdapter: QRCodeHistoryAdapter
     private var countries = mutableListOf<QRCodeHistoryModel>()
@@ -40,7 +40,7 @@ class QRCodeHistoryBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCountryBottomSheetBinding.inflate(inflater, container, false)
+        _binding = FragmentQrCodeHistoryByDateBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,7 +50,7 @@ class QRCodeHistoryBottomSheetFragment : BottomSheetDialogFragment() {
         // Set expanded state for bottom sheet
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetBehavior.skipCollapsed = true
+        bottomSheetBehavior.skipCollapsed = false
         countryAdapter = QRCodeHistoryAdapter(
             filteredCountries,
             selectedCountry,
@@ -114,9 +114,6 @@ class QRCodeHistoryBottomSheetFragment : BottomSheetDialogFragment() {
                         "https://img.freepik.com/premium-psd/stylish-young-man-3d-icon-avatar-people_431668-1607.jpg",
                     ),
                 )
-            ),
-            QRCodeHistoryModel(
-                "31 August 2025", listOf()
             ),
         )
 
