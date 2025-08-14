@@ -47,10 +47,11 @@ class CountryBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Set expanded state for bottom sheet
-        val bottomSheetBehavior = com.google.android.material.bottomsheet.BottomSheetBehavior.from(view.parent as View)
-        bottomSheetBehavior.state = com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetBehavior.skipCollapsed = true
-
+        val bottomSheetBehavior =
+            com.google.android.material.bottomsheet.BottomSheetBehavior.from(view.parent as View)
+        bottomSheetBehavior.state =
+            com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+        bottomSheetBehavior.skipCollapsed = false
         setupCountryList()
         setupUI()
     }
