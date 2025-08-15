@@ -1,22 +1,25 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.ExperimentalMaterial3Api
 import ch.ubique.qrscanner.scanner.BarcodeFormat
 import ch.ubique.qrscanner.state.DecodingState
 import ch.ubique.qrscanner.zxing.decoder.GlobalHistogramImageDecoder
 import ch.ubique.qrscanner.zxing.decoder.HybridImageDecoder
 import com.nexgen.flexiBank.databinding.ActivityScanQrBinding
+import com.nexgen.flexiBank.module.view.bakongQRCode.fragment.QRCodeHistoryBottomSheetFragment
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.ScanQrViewModel
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
-
+import timber.log.Timber
 
 class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, AppRepository>() {
     private var isFlashEnabled = false
+
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,15 +60,23 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
         binding.btnUploadQr.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
-        throw Exception("Test Crash")
+        binding.imgHistory.setOnClickListener {
+            showCountryBottomSheet()
+        }
     }
 
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
-            Log.d("PhotoPicker", "Selected URI: $uri")
+            Timber.tag("PhotoPicker").d("Selected URI: $uri")
         } else {
-            Log.d("PhotoPicker", "No media selected")
+            Timber.tag("PhotoPicker").d("No media selected")
         }
+    }
+
+    private fun showCountryBottomSheet() {
+        val bottomSheet = QRCodeHistoryBottomSheetFragment.newInstance { country ->
+        }
+        bottomSheet.show(this.supportFragmentManager, "CountryBottomSheet")
     }
 
     override fun getViewModel(): Class<ScanQrViewModel> = ScanQrViewModel::class.java
