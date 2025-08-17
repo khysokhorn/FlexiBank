@@ -137,4 +137,9 @@ dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
 
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation libs.androidx.ui.text.google.fonts
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

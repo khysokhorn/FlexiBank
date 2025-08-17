@@ -1,18 +1,53 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.nexgen.flexiBank.R
+import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.base.BaseComposeActivity
+import com.nexgen.flexiBank.module.view.utils.text.InterNormal
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
+import com.nexgen.flexiBank.utils.theme.Black
+import com.nexgen.flexiBank.utils.theme.Hint
+
 
 class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, AppRepository>() {
-
     @Composable
     override fun ComposeContent() {
         Box(
@@ -22,10 +57,148 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Body() {
+        var amount by remember { mutableStateOf("") }
+        val hapticFeedback = LocalHapticFeedback.current
+
         Column(
-        ) {}
+        ) {
+            Box {
+                Image(
+                    painter = painterResource(R.drawable.img_bg_input_amount),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(350.dp),
+                    contentScale = ContentScale.FillWidth,
+                )
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    TopAppBar(
+                        navigationIcon = {
+                            IconButton(onClick = {}) {
+                                Icon(
+                                    painter = painterResource(R.drawable.img_arrow_back),
+                                    contentDescription = "Back Button",
+                                    modifier = Modifier
+                                        .width(24.dp)
+                                        .height(24.dp)
+
+                                )
+                            }
+                        }, title = { }, colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = Color.Transparent,
+                            titleContentColor = Color.White,
+                        )
+                    )
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Scan QR", style = TextStyle(
+                                color = Black,
+                                fontSize = 22.sp,
+                                fontFamily = InterNormal,
+                                fontWeight = FontWeight.W600,
+                            )
+                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            CircleImage()
+                            Column(
+                                modifier = Modifier.padding(start = 16.dp)
+                            ) {
+                                Row {
+                                    Text(
+                                        text = "Thee Heeartless", style = TextStyle(
+                                            fontSize = 16.sp,
+                                            lineHeight = 24.sp,
+                                            fontFamily = InterNormal,
+                                            fontWeight = FontWeight(600),
+                                            color = Black,
+                                            textAlign = TextAlign.Center,
+                                        )
+                                    )
+                                    Image(
+                                        modifier = Modifier
+                                            .width(64.dp)
+                                            .height(16.dp),
+                                        painter = painterResource(R.drawable.img_kh_qr),
+                                        contentDescription = "KHQR Image"
+                                    )
+                                }
+                                Text(
+                                    modifier = Modifier.padding(top = 8.dp),
+                                    text = "001 369 963 | Philip Bank",
+                                    style = TextStyle(
+                                        fontSize = 11.sp,
+                                        lineHeight = 16.5.sp,
+                                        fontFamily = InterNormal,
+                                        fontWeight = FontWeight(400),
+                                        color = Hint,
+                                        textAlign = TextAlign.Center,
+                                    )
+                                )
+                            }
+                        }
+                        BasicTextField(
+                            value = amount,
+                            onValueChange = { newValue ->
+                                // Remove any non-digit characters
+                                val digitsOnly = newValue.filter { it.isDigit() }
+                                if (digitsOnly.length <= 9) {
+                                    amount = digitsOnly
+                                } else {
+                                    // Trigger vibration when trying to input more than 9 digits
+                                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                                }
+                            },
+                            textStyle = TextStyle(
+                                fontSize = 32.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            ),
+                            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
+                                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
+                            ),
+                            visualTransformation = com.nexgen.flexiBank.utils.AmountVisualTransformation(),
+                            cursorBrush = androidx.compose.ui.graphics.SolidColor(Color.Black),
+                            decorationBox = { innerTextField ->
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
+                                ) {
+                                    Text(
+                                        text = "$",
+                                        style = TextStyle(
+                                            fontSize = 32.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Hint
+                                        )
+                                    )
+                                    Box(modifier = Modifier.wrapContentWidth()) {
+                                        innerTextField()
+                                    }
+                                }
+                            },
+                            singleLine = true,
+                            maxLines = 1,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color.Transparent)
+                        )
+                    }
+                }
+            }
+        }
     }
 
     override fun getViewModel(): Class<KhQrInputAmountViewModel> =
@@ -39,5 +212,4 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
     override fun ContentPreview() {
         ComposeContent()
     }
-
 }
