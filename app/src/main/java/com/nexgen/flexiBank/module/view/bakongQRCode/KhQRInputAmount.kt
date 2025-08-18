@@ -1,6 +1,7 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,13 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -29,26 +27,24 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
+import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.base.BaseComposeActivity
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
-import com.nexgen.flexiBank.utils.AmountVisualTransformation
 import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
 
@@ -99,8 +95,7 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                         title = { },
                         colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = Color.Transparent,
-                            titleContentColor = Color.White,
-                            navigationIconContentColor = Color.Transparent
+                            titleContentColor = Color.White
                         )
                     )
                     Column(
@@ -157,61 +152,34 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                 )
                             }
                         }
-                        Box(
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f),
-                            contentAlignment = Alignment.Center
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            TextField(
-                                value = amount,
-                                onValueChange = { newValue ->
-                                    val digitsOnly = newValue.filter { it.isDigit() }
-                                    if (digitsOnly.length <= 9) {
-                                        if (amount != digitsOnly) {
-                                            hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
-                                        }
-                                        amount = digitsOnly
-                                    } else {
-                                        // Provide stronger haptic feedback when exceeding the limit
-                                        hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                                    }
-                                },
-                                textStyle = TextStyle(
-                                    fontSize = 32.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.Black,
-                                    textAlign = TextAlign.Center
-                                ),
-                                keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Number
-                                ),
-                                visualTransformation = AmountVisualTransformation(),
-                                prefix = {
-                                    Text(
-                                        text = "$",
-                                        style = TextStyle(
-                                            fontSize = 32.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            color = Hint
-                                        )
-                                    )
-                                },
-                                colors = TextFieldDefaults.colors(
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent,
-                                    disabledIndicatorColor = Color.Transparent,
-                                    focusedContainerColor = Color.Transparent,
-                                    unfocusedContainerColor = Color.Transparent
-                                ),
-                                singleLine = true,
-                                maxLines = 1
+                            CurrencyTextField(
+                                amount = amount,
+                                currencySymbol = "USD",
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
                         CustomKeyboard(
-                            onNumberClick = { digit -> viewModel.addDigit(digit) },
-                            onClearClick = { viewModel.clearPin() },
-                            onDeleteClick = { viewModel.deleteLastDigit() },
+                            onNumberClick = { digit ->
+                                amount += digit
+                                viewModel.addDigit(digit)
+                            },
+                            onClearClick = {
+                                amount = ""
+                                viewModel.clearPin()
+                            },
+                            onDeleteClick = {
+                                if (amount.isNotEmpty()) {
+                                    amount = amount.dropLast(1)
+                                }
+                                viewModel.deleteLastDigit()
+                            },
                             isConfirmMode = true,
                             color = Color.Transparent
                         )
