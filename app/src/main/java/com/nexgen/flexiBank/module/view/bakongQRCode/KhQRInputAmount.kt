@@ -1,7 +1,6 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -65,7 +63,6 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
     @Composable
     fun Body() {
         var amount by remember { mutableStateOf("") }
-        val hapticFeedback = LocalHapticFeedback.current
         Column {
             Box {
                 Image(
@@ -88,7 +85,6 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                     modifier = Modifier
                                         .width(24.dp)
                                         .height(24.dp)
-
                                 )
                             }
                         },
@@ -152,17 +148,15 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                 )
                             }
                         }
-                        Row(
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically,
+                            contentAlignment = Alignment.Center
                         ) {
                             CurrencyTextField(
                                 amount = amount,
-                                currencySymbol = "USD",
-                                modifier = Modifier.fillMaxWidth()
+                                currencySymbol = "USD"
                             )
                         }
                         CustomKeyboard(
