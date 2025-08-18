@@ -1,21 +1,24 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -32,17 +35,20 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
+import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.base.BaseComposeActivity
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
+import com.nexgen.flexiBank.utils.AmountVisualTransformation
 import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
 
@@ -51,7 +57,9 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
     @Composable
     override fun ComposeContent() {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(WindowInsets.systemBars.asPaddingValues())
         ) {
             Body()
         }
@@ -62,9 +70,7 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
     fun Body() {
         var amount by remember { mutableStateOf("") }
         val hapticFeedback = LocalHapticFeedback.current
-
-        Column(
-        ) {
+        Column {
             Box {
                 Image(
                     painter = painterResource(R.drawable.img_bg_input_amount),
@@ -89,9 +95,12 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
 
                                 )
                             }
-                        }, title = { }, colors = TopAppBarDefaults.topAppBarColors(
+                        },
+                        title = { },
+                        colors = TopAppBarDefaults.topAppBarColors(
                             containerColor = Color.Transparent,
                             titleContentColor = Color.White,
+                            navigationIconContentColor = Color.Transparent
                         )
                     )
                     Column(
@@ -148,34 +157,37 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                 )
                             }
                         }
-                        BasicTextField(
-                            value = amount,
-                            onValueChange = { newValue ->
-                                // Remove any non-digit characters
-                                val digitsOnly = newValue.filter { it.isDigit() }
-                                if (digitsOnly.length <= 9) {
-                                    amount = digitsOnly
-                                } else {
-                                    // Trigger vibration when trying to input more than 9 digits
-                                    hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
-                                }
-                            },
-                            textStyle = TextStyle(
-                                fontSize = 32.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.Black,
-                                textAlign = TextAlign.Center
-                            ),
-                            keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(
-                                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number
-                            ),
-                            visualTransformation = com.nexgen.flexiBank.utils.AmountVisualTransformation(),
-                            cursorBrush = androidx.compose.ui.graphics.SolidColor(Color.Black),
-                            decorationBox = { innerTextField ->
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = androidx.compose.foundation.layout.Arrangement.Center,
-                                ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            TextField(
+                                value = amount,
+                                onValueChange = { newValue ->
+                                    val digitsOnly = newValue.filter { it.isDigit() }
+                                    if (digitsOnly.length <= 9) {
+                                        if (amount != digitsOnly) {
+                                            hapticFeedback.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                                        }
+                                        amount = digitsOnly
+                                    } else {
+                                        // Provide stronger haptic feedback when exceeding the limit
+                                        hapticFeedback.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    }
+                                },
+                                textStyle = TextStyle(
+                                    fontSize = 32.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Center
+                                ),
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Number
+                                ),
+                                visualTransformation = AmountVisualTransformation(),
+                                prefix = {
                                     Text(
                                         text = "$",
                                         style = TextStyle(
@@ -184,22 +196,33 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                             color = Hint
                                         )
                                     )
-                                    Box(modifier = Modifier.wrapContentWidth()) {
-                                        innerTextField()
-                                    }
-                                }
-                            },
-                            singleLine = true,
-                            maxLines = 1,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(Color.Transparent)
+                                },
+                                colors = TextFieldDefaults.colors(
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    disabledIndicatorColor = Color.Transparent,
+                                    focusedContainerColor = Color.Transparent,
+                                    unfocusedContainerColor = Color.Transparent
+                                ),
+                                singleLine = true,
+                                maxLines = 1
+                            )
+                        }
+                        CustomKeyboard(
+                            onNumberClick = { digit -> viewModel.addDigit(digit) },
+                            onClearClick = { viewModel.clearPin() },
+                            onDeleteClick = { viewModel.deleteLastDigit() },
+                            isConfirmMode = true,
+                            color = Color.Transparent
                         )
                     }
+
                 }
+
             }
         }
     }
+
 
     override fun getViewModel(): Class<KhQrInputAmountViewModel> =
         KhQrInputAmountViewModel::class.java
