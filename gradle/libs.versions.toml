@@ -1,18 +1,19 @@
 [versions]
 activityCompose = "1.10.1"
 activityKtx = "1.5.0"
-agp = "8.11.1"
+agp = "8.12.0"
 cameraCamera2 = "1.2.0-alpha03"
 cameraLifecycle = "1.2.0-alpha03"
 cameraViewVersion = "1.2.0-alpha03"
 coil = "2.7.0"
+coilCompose = "3.3.0"
 coilVideo = "2.4.0"
 composeBom = "2023.08.00"
 core = "3.5.3"
 coreKtxVersion = "1.8.0"
 glide = "4.13.2"
 glideVersion = "4.16.0"
-gradle = "8.11.1"
+gradle = "8.12.0"
 hiltAndroid = "2.57"
 hiltAndroidGradlePlugin = "2.57"
 hiltCompiler = "2.57"
@@ -54,6 +55,7 @@ timber = "5.0.1"
 jvmTarget = '1.8'
 kotlinParcelize = "1.9.0"
 uiTestJunit4 = "1.8.3"
+uiTextGoogleFonts = "1.9.0"
 uiToolingVersion = "1.8.3"
 visionCommon = "17.1.0"
 navigationFragment = "2.6.0"
@@ -75,23 +77,20 @@ androidx-camera-view-v120alpha03 = { module = "androidx.camera:camera-view", ver
 androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-ktx-v180 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
-androidx-foundation = { module = "androidx.compose.foundation:foundation", version = "" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleLivedataKtx" }
-androidx-material3 = { module = "androidx.compose.material3:material3", version = "" }
 androidx-material3-v132 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
-androidx-ui = { module = "androidx.compose.ui:ui", version = ".12.0" }
 androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestJunit4" }
-androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version = "" }
-androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version = "" }
+androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 androidx-ui-tooling-v183 = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiToolingVersion" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 coil-video = { module = "io.coil-kt:coil-video", version.ref = "coilVideo" }
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-core = { module = "com.google.zxing:core", version.ref = "core" }
 foundation = { module = "androidx.compose.foundation:foundation" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glide-v4160 = { module = "com.github.bumptech.glide:glide", version.ref = "glideVersion" }
@@ -138,7 +137,6 @@ vision-common = { module = "com.google.mlkit:vision-common", version.ref = "visi
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
-zxing-android-embedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

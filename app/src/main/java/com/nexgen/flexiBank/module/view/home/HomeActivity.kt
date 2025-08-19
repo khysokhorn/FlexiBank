@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.ActivityHomeBinding
-import com.nexgen.flexiBank.module.view.bakongQRCode.ScanQrActivity
+import com.nexgen.flexiBank.module.view.bakongQRCode.KhQRInputAmountActivity
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
 import com.nexgen.flexiBank.module.view.home.adapter.QuickShareAdapter
 import com.nexgen.flexiBank.module.view.home.adapter.UpComingPaymentAdapter
@@ -23,7 +23,7 @@ class HomeActivity : BaseMainActivity<HomeViewModel, ActivityHomeBinding, AppRep
         setupQuickShareRecyclerView()
         setupBottomNavigation()
         binding.scanButton.setOnClickListener {
-            val intent = Intent(this, ScanQrActivity::class.java)
+            val intent = Intent(this, KhQRInputAmountActivity::class.java)
             startActivity(intent)
         }
     }

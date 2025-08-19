@@ -8,6 +8,7 @@ val GradientDarkGreen = Color(0xFF6E7AFF)
 val BlueLight3 = Color(0xFF8C96FF)
 val BlueLight2 = Color(0xFFAEB5FF)
 val BlueLight1 = Color(0xFFD4D8FF)
+val LightBlue = Color(0x665260FE)
 
 // Light theme colors
 val BackgroundColor = Color(0xFFF0F0F0)
