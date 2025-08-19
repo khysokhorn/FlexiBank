@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "MyMCP": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "fastmcp",
+        "/Users/khysokkhorn/sokhorn/Project/mcp/mcp-server-project/main.py"
+      ],
+      "type": "stdio",
+      "sse": true,
+      "gallery": true,
+      "description": "Personal MCP server for Android, Flutter, .NET, and React with SSE mode"
+    },
+    "jetbrains": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@jetbrains/mcp-proxy"
+      ],
+      "type": "stdio",
+      "description": "JetBrains MCP proxy for IDE integration"
+    },
+    "archon": {
+      "url": "http://localhost:8051/mcp",
+      "type": "http",
+      "description": "Archon MCP server"
+    },
+    "figma": {
+      "url": "http://127.0.0.1:3845/mcp",
+      "type": "http",
+      "description": "Figma MCP server"
+    }
+  }
+}
