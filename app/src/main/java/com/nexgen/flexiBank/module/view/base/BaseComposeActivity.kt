@@ -1,13 +1,17 @@
 package com.nexgen.flexiBank.module.view.base
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nexgen.flexiBank.common.ModelPreferencesManager
@@ -27,21 +31,29 @@ abstract class BaseComposeActivity<VM : ViewModel, R : BaseRepository> : Compone
         ModelPreferencesManager.with(application)
         remoteDataSource = RemoteDataSource()
 
-        // Set up system UI appearance
-        @Suppress("DEPRECATION")
-        window.decorView.systemUiVisibility =
-            (View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-        @Suppress("DEPRECATION")
-        window.statusBarColor = Color.TRANSPARENT
-
         val factory = ViewModelFactory(getRepository())
         viewModel = ViewModelProvider(this, factory)[getViewModel()]
-
         setContent {
-            ComposeContent()
+            MyAppWithScaffold()
         }
     }
+
+    @Composable
+    fun MyAppWithScaffold() {
+        Scaffold(
+            topBar = {},
+            content = { padding ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    ComposeContent()
+                }
+            })
+    }
+
 
     @Composable
     protected abstract fun ComposeContent()
