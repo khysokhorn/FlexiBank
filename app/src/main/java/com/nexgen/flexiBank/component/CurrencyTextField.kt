@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,60 +30,52 @@ import kotlinx.coroutines.delay
 @Composable
 fun CurrencyTextField(
     amount: String,
-    currencySymbol: String = "$"
+    currencySymbol: String = "$",
 ) {
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp),
-        contentAlignment = Alignment.Center
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = currencySymbol,
-                style = TextStyle(
-                    fontSize = 32.sp,
-                    fontFamily = InterNormal,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Hint,
-                    textAlign = TextAlign.Center
-                )
+        Text(
+            text = currencySymbol,
+            style = TextStyle(
+                fontSize = 32.sp,
+                fontFamily = InterNormal,
+                fontWeight = FontWeight.SemiBold,
+                color = Hint,
+                textAlign = TextAlign.Center
             )
+        )
 
-            Spacer(modifier = Modifier.width(8.dp))
-            
-            Box(contentAlignment = Alignment.Center) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (amount.isEmpty()) {
-                        Text(
-                            text = "0",
-                            style = TextStyle(
-                                fontSize = 32.sp,
-                                fontFamily = InterNormal,
-                                fontWeight = FontWeight.SemiBold,
-                                color = Hint,
-                                textAlign = TextAlign.Center
-                            )
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Box(contentAlignment = Alignment.Center) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (amount.isEmpty()) {
+                    Text(
+                        text = "0",
+                        style = TextStyle(
+                            fontSize = 32.sp,
+                            fontFamily = InterNormal,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Hint,
+                            textAlign = TextAlign.Center
                         )
-                    } else {
-                        Text(
-                            text = amount,
-                            style = TextStyle(
-                                fontSize = 32.sp,
-                                fontFamily = InterNormal,
-                                fontWeight = FontWeight.SemiBold,
-                                color = Black,
-                                textAlign = TextAlign.Center
-                            )
+                    )
+                } else {
+                    Text(
+                        text = amount,
+                        style = TextStyle(
+                            fontSize = 32.sp,
+                            fontFamily = InterNormal,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Black,
+                            textAlign = TextAlign.Center
                         )
-                    }
-                    BlinkingCursor()
+                    )
                 }
+                BlinkingCursor()
             }
         }
     }
