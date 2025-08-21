@@ -19,7 +19,7 @@ val White = Color(0xFFFFFFFF)
 val Gray400 = Color(0xFFBDBDBD)
 val Gray600 = Color(0xFF757575)
 val Hint = Color(0xFF7B7E82)
-
+val Primary = Blue;
 val ProgressBarBlue = Color(0xFF4A4AFF) // A blue similar to the image
 val ProgressBarBackgroundGray = Color(0xFFE0E0E0) // Light gray for the track
 val TextColorPrimary = Color.Black

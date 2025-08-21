@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -45,8 +46,9 @@ fun RemarkDialog(
             properties = DialogProperties(
                 dismissOnBackPress = true,
                 dismissOnClickOutside = true,
-                usePlatformDefaultWidth = false
-            ),
+                usePlatformDefaultWidth = false,
+                decorFitsSystemWindows = false
+            )
         ) {
             Surface(
                 modifier = Modifier
@@ -95,6 +97,7 @@ fun RemarkDialog(
                                         remark = ""
                                         onSave("")
                                     })
+                                    .clip(CircleShape)
                                     .background(
                                         color = BackgroundColor.copy(alpha = 0.4f),
                                         shape = CircleShape

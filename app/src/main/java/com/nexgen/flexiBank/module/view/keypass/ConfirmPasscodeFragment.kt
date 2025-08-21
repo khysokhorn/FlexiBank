@@ -156,7 +156,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                 onNumberClick = { digit -> viewModel.addDigit(digit) },
                 onClearClick = { viewModel.clearPin() },
                 onDeleteClick = { viewModel.deleteLastDigit() },
-                isConfirmMode = true
+                isConfirmMode = true,
             )
         }
     }

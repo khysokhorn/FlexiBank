@@ -7,100 +7,57 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class KhQrInputAmountViewModel(private val repository: BaseRepository) : ViewModel() {
-    private val _pinCode = MutableStateFlow("")
+    private val _amount = MutableStateFlow("")
+    val amount = _amount
 
-    private val _confirmPinCode = MutableStateFlow("")
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading
 
-    private val _isPinValid = MutableStateFlow(false)
+    private val _error = MutableStateFlow<String?>(null)
+    val error = _error
 
-    private val _isConfirmPin = MutableStateFlow(false)
-
-    private val _pinMatchError = MutableStateFlow(false)
-
-    private val _isNavigateToNext = MutableStateFlow(false)
-
-    private val _storedPin = MutableStateFlow("")
-
-    private val maxPinLength = 4
+    private val _paymentSuccess = MutableStateFlow(false)
+    val paymentSuccess = _paymentSuccess
 
     fun addDigit(digit: String) {
-        if (_isConfirmPin.value) {
-            // In confirm PIN mode
-            val currentPin = _confirmPinCode.value
-            if (currentPin.length < maxPinLength) {
-                _confirmPinCode.value = currentPin + digit
-                checkConfirmPinCompletion()
-            }
-        } else {
-            // In create PIN mode
-            val currentPin = _pinCode.value
-            if (currentPin.length < maxPinLength) {
-                _pinCode.value = currentPin + digit
-                checkPinCompletion()
-            }
-        }
+        _amount.value += digit
     }
 
     fun clearPin() {
-        if (_isConfirmPin.value) {
-            _confirmPinCode.value = ""
-        } else {
-            _pinCode.value = ""
-        }
+        _amount.value = ""
     }
 
     fun deleteLastDigit() {
-        if (_isConfirmPin.value) {
-            val currentPin = _confirmPinCode.value
-            if (currentPin.isNotEmpty()) {
-                _confirmPinCode.value = currentPin.dropLast(1)
-            }
-        } else {
-            val currentPin = _pinCode.value
-            if (currentPin.isNotEmpty()) {
-                _pinCode.value = currentPin.dropLast(1)
-            }
+        if (_amount.value.isNotEmpty()) {
+            _amount.value = _amount.value.dropLast(1)
         }
     }
 
-    private fun checkPinCompletion() {
-        val currentPin = _pinCode.value
-        if (currentPin.length == maxPinLength) {
-            validatePin(currentPin)
-        }
-    }
-
-    private fun checkConfirmPinCompletion() {
-        val confirmPin = _confirmPinCode.value
-        if (confirmPin.length == maxPinLength) {
-            validateConfirmPin(confirmPin)
-        }
-    }
-
-    private fun validatePin(pin: String) {
+    fun submitPayment(amount: String, accountId: String, remark: String) {
         viewModelScope.launch {
-            _isPinValid.value = true
-            _isConfirmPin.value = true
-            // Store the PIN for confirmation
-            _storedPin.value = pin
-            // Reset any previous pin match error
-            _pinMatchError.value = false
-            // Clear current pin but keep stored pin
-            _pinCode.value = ""
-        }
-    }
+            try {
+                _isLoading.value = true
+                _error.value = null
 
-    private fun validateConfirmPin(confirmPin: String) {
-        viewModelScope.launch {
-            if (confirmPin == _storedPin.value) {
-                // PINs match, proceed to next screen
-                _isPinValid.value = true
-                _pinMatchError.value = false
-                _isNavigateToNext.value = true
-            } else {
-                // PINs don't match, show error
-                _confirmPinCode.value = ""
-                _pinMatchError.value = true
+                // Convert amount to proper format
+                val amountValue = amount.toDoubleOrNull() ?: run {
+                    _error.value = "Invalid amount"
+                    return@launch
+                }
+
+                // Call your payment API here
+                // Example:
+                // val result = repository.submitKhQrPayment(amountValue, accountId, remark)
+                
+                // For now, simulate API call with delay
+                kotlinx.coroutines.delay(1000)
+                
+                _paymentSuccess.value = true
+                
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Payment failed"
+            } finally {
+                _isLoading.value = false
             }
         }
     }

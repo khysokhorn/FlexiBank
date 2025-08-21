@@ -1,12 +1,13 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode.model
 
-data class AccountModel(
-    val accountName: String,
-    val accountNumber: String, 
-    val currency: String,
-    val balance: Double,
+import com.nexgen.flexiBank.R
+
+data class Account(
+    val id: String,
+    val name: String,
+    val number: String,
+    val balance: String,
     val isDefault: Boolean = false,
-    val accountType: String = "savings",
-    val bankName: String = "Philip Bank",
     val hasVisa: Boolean = false,
+    val iconRes: Int = R.drawable.ic_dollar // Default icon
 )

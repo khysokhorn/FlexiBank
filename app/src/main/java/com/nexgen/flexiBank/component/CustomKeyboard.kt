@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -42,7 +42,7 @@ fun CustomKeyboard(
     color: Color = BackgroundColor,
     imageDrawable: Int? = null,
     clearButtonText: String = "Clear",
-    deleteButtonDrawable: Int? = null
+    deleteButtonDrawable: Int? = null,
 ) {
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -61,7 +61,6 @@ fun CustomKeyboard(
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        // Row 2: 4, 5, 6
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -75,7 +74,6 @@ fun CustomKeyboard(
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        // Row 3: 7, 8, 9
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
@@ -88,38 +86,36 @@ fun CustomKeyboard(
                 )
             }
         }
-
         Spacer(modifier = Modifier.height(16.dp))
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
+            // Decimal point button
             Box(
                 modifier = Modifier
                     .size(buttonSize.dp)
                     .clip(CircleShape)
                     .background(color)
-                    .clickable(onClick = onClearClick),
+                    .clickable(onClick = { onNumberClick(".") }),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = clearButtonText,
-                    fontSize = if (clearButtonText == ".") 32.sp else 16.sp,
+                    text = ".",
+                    fontSize = 32.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Black,
-                    modifier = Modifier
-                        .wrapContentWidth()
-                        .wrapContentHeight()
+                    color = Black
                 )
             }
 
+            // Zero button
             KeyboardButton(
                 text = "0",
                 onClick = { onNumberClick("0") },
                 color = color
             )
 
+            // Delete button
             Box(
                 modifier = Modifier
                     .size(buttonSize.dp)
@@ -149,6 +145,7 @@ fun CustomKeyboard(
     }
 }
 
+
 @Composable
 private fun KeyboardButton(text: String, onClick: () -> Unit, color: Color) {
     Box(
@@ -161,9 +158,9 @@ private fun KeyboardButton(text: String, onClick: () -> Unit, color: Color) {
     ) {
         Text(
             text = text,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Medium,
-            color = Black
+            fontSize = 24.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Black,
         )
     }
 }

@@ -2,10 +2,12 @@ package com.nexgen.flexiBank.module.view.bakongQRCode
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,19 +16,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Snackbar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -39,7 +46,9 @@ import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.AccountSelectionBottomSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.base.BaseComposeActivity
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
@@ -48,6 +57,7 @@ import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
+import com.nexgen.flexiBank.utils.theme.Primary
 import com.nexgen.flexiBank.utils.theme.White
 
 
@@ -58,15 +68,74 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
             modifier = Modifier.fillMaxSize()
         ) {
             Body()
+
+            if (viewModel.isLoading.collectAsState().value) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.5f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = Primary)
+                }
+            }
+
+            viewModel.error.collectAsState().value?.let { errorMessage ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.BottomCenter
+                ) {
+                    Snackbar(
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    ) {
+                        Text(
+                            text = errorMessage,
+                            color = White
+                        )
+                    }
+                }
+            }
+
+            LaunchedEffect(viewModel.paymentSuccess.collectAsState().value) {
+                if (viewModel.paymentSuccess.value) {
+                    // Navigate to success screen or show success message
+                    finish() // Or navigate to next screen
+                }
+            }
         }
     }
+
+    private val sampleAccounts = listOf(
+        Account(
+            id = "1",
+            name = "Saving Account",
+            number = "001 751 517",
+            balance = "$ 72,392.10",
+            isDefault = true,
+            hasVisa = true
+        ),
+        Account(
+            id = "2",
+            name = "Future Plan",
+            number = "001 222 333",
+            balance = "$ 2,392.68",
+            isDefault = false,
+            hasVisa = false,
+            iconRes = R.drawable.ic_bank_locker
+        )
+    )
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun Body() {
         var amount by remember { mutableStateOf("") }
         var showRemarkDialog by remember { mutableStateOf(false) }
+        var showAccountSheet by remember { mutableStateOf(false) }
+        var selectedAccount by remember { mutableStateOf(sampleAccounts[0]) }
         var remark by remember { mutableStateOf("") }
+
         Column {
             Box {
                 Column(
@@ -112,6 +181,13 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                                 bottomStart = 16.dp
                                             )
                                         )
+                                        .clip(
+                                            RoundedCornerShape(
+                                                topStart = 16.dp,
+                                                bottomStart = 16.dp
+                                            )
+                                        )
+                                        .clickable { showAccountSheet = true }
                                         .padding(8.dp)
                                 ) {
                                     Column {
@@ -130,7 +206,8 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                             verticalAlignment = Alignment.CenterVertically,
                                         ) {
                                             Text(
-                                                text = "001 751 517 | USD", style = TextStyle(
+                                                text = "${selectedAccount.number} | USD",
+                                                style = TextStyle(
                                                     fontSize = 12.sp,
                                                     lineHeight = 18.sp,
                                                     fontFamily = InterNormal,
@@ -157,10 +234,12 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                     modifier = Modifier
                                         .weight(1F)
                                         .height(48.dp)
+                                        .clickable(onClick = { showRemarkDialog = true })
                                         .background(
                                             BackgroundColor,
                                             RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp)
                                         )
+                                        .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
                                         .padding(8.dp)
                                 ) {
                                     Row(
@@ -171,7 +250,7 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                         horizontalArrangement = Arrangement.SpaceBetween
                                     ) {
                                         Text(
-                                            text = if (remark.isEmpty()) "Remark" else remark,
+                                            text = remark.ifEmpty { "Remark" },
                                             style = TextStyle(
                                                 fontSize = 12.sp,
                                                 lineHeight = 18.sp,
@@ -180,51 +259,109 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                                 color = if (remark.isEmpty()) Hint else Black,
                                             )
                                         )
-                                        IconButton(
-                                            onClick = { showRemarkDialog = true }
-                                        ) {
-                                            Icon(
-                                                modifier = Modifier
-                                                    .size(24.dp)
-                                                    .padding(start = 4.dp),
-                                                painter = painterResource(R.drawable.img_exit),
-                                                contentDescription = "Icon Edit Remark",
-                                                tint = Hint
-                                            )
-                                        }
+                                        Icon(
+                                            modifier = Modifier
+                                                .size(24.dp)
+                                                .padding(start = 4.dp),
+                                            painter = painterResource(R.drawable.img_exit),
+                                            contentDescription = "Icon Edit Remark",
+                                            tint = Hint
+                                        )
+
                                     }
                                 }
                             }
                         }
-                        CustomKeyboard(
-                            onNumberClick = { digit ->
-                                amount += digit
-                                viewModel.addDigit(digit)
-                            }, onClearClick = {
-                                amount = ""
-                                viewModel.clearPin()
-                            }, onDeleteClick = {
-                                if (amount.isNotEmpty()) {
-                                    amount = amount.dropLast(1)
-                                }
-                                viewModel.deleteLastDigit()
-                            }, isConfirmMode = true, color = Color.Transparent
-                        )
-                        // Remark Dialog
-                        RemarkDialog(
-                            showDialog = showRemarkDialog,
-                            initialValue = remark,
-                            onDismiss = { showRemarkDialog = false },
-                            onSave = { newRemark ->
-                                remark = newRemark
-                                showRemarkDialog = false
-                            }
-                        )
+                        Box(modifier = Modifier.padding(vertical = 16.dp)) {
+                            CustomKeyboard(
+                                onNumberClick = { digit ->
+                                    // Only allow one decimal point
+                                    if (digit == "." && amount.contains(".")) {
+                                        return@CustomKeyboard
+                                    }
+                                    // Don't allow more than 2 decimal places
+                                    if (amount.contains(".")) {
+                                        val decimalPlaces = amount.substringAfter(".").length
+                                        if (decimalPlaces >= 2) {
+                                            return@CustomKeyboard
+                                        }
+                                    }
+                                    amount += digit
+                                    viewModel.addDigit(digit)
+                                },
+                                onClearClick = {
+                                    amount = ""
+                                    viewModel.clearPin()
+                                },
+                                onDeleteClick = {
+                                    if (amount.isNotEmpty()) {
+                                        amount = amount.dropLast(1)
+                                    }
+                                    viewModel.deleteLastDigit()
+                                },
+                                color = Color.Transparent,
+                                deleteButtonDrawable = R.drawable.icon_backspace,
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(25.dp))
+
+                        // Send button
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(58.dp)
+                                .clip(RoundedCornerShape(50.dp))
+                                .background(
+                                    if (amount.isNotEmpty() && (amount.toDoubleOrNull() ?: 0.0) > 0)
+                                        Color(0xFFAEB5FF)
+                                    else
+                                        Color(0xFFAEB5FF).copy(alpha = 0.5f)
+                                )
+                                .clickable(
+                                    enabled = amount.isNotEmpty() && (amount.toDoubleOrNull()
+                                        ?: 0.0) > 0,
+                                    onClick = {
+                                        viewModel.submitPayment(
+                                            amount = amount,
+                                            accountId = selectedAccount.id,
+                                            remark = remark
+                                        )
+                                    }
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "Send",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color.White
+                            )
+                        }
                     }
                 }
-
             }
         }
+
+        AccountSelectionBottomSheet(
+            show = showAccountSheet,
+            accounts = sampleAccounts,
+            selectedAccountId = selectedAccount.id,
+            onAccountSelected = { account ->
+                selectedAccount = account
+                showAccountSheet = false
+            },
+            onDismiss = { showAccountSheet = false }
+        )
+        RemarkDialog(
+            showDialog = showRemarkDialog,
+            initialValue = remark,
+            onDismiss = { showRemarkDialog = false },
+            onSave = { newRemark ->
+                remark = newRemark
+                showRemarkDialog = false
+            }
+        )
     }
 
     @Composable
