@@ -12,6 +12,7 @@ val LightBlue = Color(0x665260FE)
 
 // Light theme colors
 val BackgroundColor = Color(0xFFF0F0F0)
+var EditTextBackgroundColor = Color(0xB27B7E82)
 val BorderColor = Color(0xFFD3D3D3)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)

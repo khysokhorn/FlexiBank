@@ -39,6 +39,7 @@ import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.base.BaseComposeActivity
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
@@ -64,6 +65,8 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
     @Composable
     fun Body() {
         var amount by remember { mutableStateOf("") }
+        var showRemarkDialog by remember { mutableStateOf(false) }
+        var remark by remember { mutableStateOf("") }
         Column {
             Box {
                 Column(
@@ -168,22 +171,27 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                         horizontalArrangement = Arrangement.SpaceBetween
                                     ) {
                                         Text(
-                                            text = "Remark", style = TextStyle(
+                                            text = if (remark.isEmpty()) "Remark" else remark,
+                                            style = TextStyle(
                                                 fontSize = 12.sp,
                                                 lineHeight = 18.sp,
                                                 fontFamily = InterNormal,
                                                 fontWeight = FontWeight(400),
-                                                color = Black,
+                                                color = if (remark.isEmpty()) Hint else Black,
                                             )
                                         )
-                                        Icon(
-                                            modifier = Modifier
-                                                .size(24.dp)
-                                                .padding(start = 4.dp),
-                                            painter = painterResource(R.drawable.img_exit),
-                                            contentDescription = "Icon Edit Remark",
-                                            tint = Hint
-                                        )
+                                        IconButton(
+                                            onClick = { showRemarkDialog = true }
+                                        ) {
+                                            Icon(
+                                                modifier = Modifier
+                                                    .size(24.dp)
+                                                    .padding(start = 4.dp),
+                                                painter = painterResource(R.drawable.img_exit),
+                                                contentDescription = "Icon Edit Remark",
+                                                tint = Hint
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -202,8 +210,17 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                                 viewModel.deleteLastDigit()
                             }, isConfirmMode = true, color = Color.Transparent
                         )
+                        // Remark Dialog
+                        RemarkDialog(
+                            showDialog = showRemarkDialog,
+                            initialValue = remark,
+                            onDismiss = { showRemarkDialog = false },
+                            onSave = { newRemark ->
+                                remark = newRemark
+                                showRemarkDialog = false
+                            }
+                        )
                     }
-
                 }
 
             }
