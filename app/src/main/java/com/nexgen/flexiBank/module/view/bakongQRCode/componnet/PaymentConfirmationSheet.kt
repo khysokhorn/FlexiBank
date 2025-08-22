@@ -23,6 +23,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +47,8 @@ import com.nexgen.flexiBank.utils.theme.Hint
 import com.nexgen.flexiBank.utils.theme.Primary
 import com.nexgen.flexiBank.utils.theme.Warning
 import com.nexgen.flexiBank.utils.theme.White
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -207,29 +214,59 @@ fun PaymentConfirmationSheet(
                         ), modifier = Modifier.weight(1f)
                     )
                 }
-
                 // Confirm Button
-                Button(
-                    onClick = onConfirm,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(58.dp),
-                    shape = RoundedCornerShape(50.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Primary
-                    )
-                ) {
-                    Text(
-                        text = "Confirm", style = TextStyle(
-                            fontSize = 16.sp,
-                            fontFamily = InterNormal,
-                            fontWeight = FontWeight.W600,
-                            color = White
-                        )
-                    )
-                }
+                ConfirmButton(
+                    onConfirm = {
+                    }
+                )
             }
         }
+    }
+}
+
+@Composable
+private fun ConfirmButton(
+    onConfirm: () -> Unit
+) {
+    val coroutineScope = rememberCoroutineScope()
+    var isProcessing by remember { mutableStateOf(false) }
+    Button(
+        onClick = {
+            if (!isProcessing) {
+                isProcessing = true
+                // Simulate API call
+                coroutineScope.launch {
+                    delay(1000)
+
+                    val apiResponseCode = -1
+
+                    if (apiResponseCode == -1) {
+                        onConfirm()
+                    } else {
+                        onConfirm()
+                    }
+
+                    isProcessing = false
+                }
+            }
+        },
+        enabled = !isProcessing,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(58.dp),
+        shape = RoundedCornerShape(50.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Primary
+        )
+    ) {
+        Text(
+            text = if (isProcessing) "Processing..." else "Confirm", style = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = InterNormal,
+                fontWeight = FontWeight.W600,
+                color = White
+            )
+        )
     }
 }
 

@@ -2,6 +2,7 @@ package com.nexgen.flexiBank.module.view.keypass
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,7 +32,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
 import com.nexgen.flexiBank.network.ApiInterface
@@ -46,26 +46,14 @@ import com.nexgen.flexiBank.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
-    // Callback to be invoked when PIN verification is successful
-    private var onVerificationSuccess: (() -> Unit)? = null
-
-    // Flag to indicate if this is a standalone verification or part of another flow
-    private var isStandaloneVerification = true
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setConfirmMode(false)
-
-        // Check if we have a success callback
-        onVerificationSuccess = arguments?.getSerializable("onSuccess") as? () -> Unit
-
-        // Check if this is part of another flow
-        isStandaloneVerification = arguments?.getBoolean("isStandalone", true) ?: true
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.verificationCompleted.collect { isCompleted ->
                 if (isCompleted) {
-                    handleVerificationSuccess()
+                    Toast.makeText(requireContext(), "Pin verified successfully", Toast.LENGTH_LONG).show()
+                    // Handle navigation or callback after successful verification
                 }
             }
         }
@@ -101,9 +89,10 @@ class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>(
             Spacer(modifier = Modifier.height(16.dp))
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(top = 40.dp)
             ) {
                 Text(
-                    text = "Pin Verify",
+                    text = "Enter Passcode",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = Black,
@@ -111,7 +100,7 @@ class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = "Enter your pin to login",
+                    text = "Enter your passcode to continue",
                     fontSize = 16.sp,
                     color = if (showError) Color.Red else Gray600,
                     textAlign = TextAlign.Center,
@@ -119,26 +108,30 @@ class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>(
                         .fillMaxWidth()
                         .padding(vertical = 24.dp)
                 )
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 16.dp),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                repeat(maxPinLength) { index ->
-                    Box(
-                        modifier = Modifier
-                            .padding(horizontal = 12.dp)
-                            .size(28.dp)
-                            .clip(CircleShape)
-                            .background(
-                                if (index < pinCode.length) Blue else BorderColor
-                            )
-                    )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    repeat(maxPinLength) { index ->
+                        Box(
+                            modifier = Modifier
+                                .padding(horizontal = 12.dp)
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(
+                                    if (index < pinCode.length) Blue else BorderColor
+                                )
+                        )
+                    }
                 }
             }
+            Spacer(modifier = Modifier.weight(1f))
             CustomKeyboard(
                 onNumberClick = { digit ->
                     viewModel.addDigit(digit)
@@ -152,39 +145,17 @@ class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>(
                     viewModel.deleteLastDigit()
                     showError = false
                 },
-                isConfirmMode = false,
+                isConfirmMode = false
             )
         }
     }
 
-    private fun handleVerificationSuccess() {
-        // If we have a success callback, invoke it
-        onVerificationSuccess?.invoke()
-
-        // If this is a standalone verification, navigate back
-        if (isStandaloneVerification) {
-            findNavController().popBackStack()
-        }
-    }
-
-    private fun handleBiometricAuth() {
-        // Handle biometric authentication
-        // In a real implementation, this would trigger the biometric prompt
-    }
-
-    private fun handleForgotPin() {
-        // Handle forgot PIN flow
-        // In a real implementation, this would navigate to the forgot PIN screen
-    }
-
     companion object {
         fun newInstance(
-            onSuccess: (() -> Unit)? = null,
             isStandalone: Boolean = true
         ): VerifyPinFragment {
             val fragment = VerifyPinFragment()
             val args = Bundle()
-            // Note: In a real implementation, you would need to properly serialize the callback
             args.putBoolean("isStandalone", isStandalone)
             fragment.arguments = args
             return fragment

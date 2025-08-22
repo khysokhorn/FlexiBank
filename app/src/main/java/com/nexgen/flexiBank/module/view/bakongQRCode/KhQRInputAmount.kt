@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
+import android.os.Bundle
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,6 +45,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.findNavController
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.component.CurrencyTextField
@@ -65,6 +67,13 @@ import com.nexgen.flexiBank.utils.theme.White
 
 
 class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, AppRepository>() {
+    private var pendingPaymentData: PaymentData? = null
+    data class PaymentData(
+        val amount: String,
+        val accountId: String,
+        val remark: String
+    )
+
     @Composable
     override fun ComposeContent() {
         Box(
@@ -103,8 +112,7 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
 
             LaunchedEffect(viewModel.paymentSuccess.collectAsState().value) {
                 if (viewModel.paymentSuccess.value) {
-                    // Navigate to success screen or show success message
-                    finish() // Or navigate to next screen
+                    finish()
                 }
             }
         }
@@ -362,16 +370,47 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
             remark = remark,
             onConfirm = {
                 showConfirmation = false
-                viewModel.submitPayment(
+                // Store payment data for potential retry after PIN verification
+                pendingPaymentData = PaymentData(
                     amount = amount,
                     accountId = selectedAccount.id,
                     remark = remark
                 )
+                submitPaymentWithPinVerification(amount, selectedAccount.id, remark)
             },
             onDismiss = { showConfirmation = false }
         )
     }
 
+    private fun submitPaymentWithPinVerification(
+        amount: String,
+        accountId: String,
+        remark: String
+    ) {
+        handleApiResponseWithPinRequired(amount, accountId, remark)
+    }
+
+    private fun handleApiResponseWithPinRequired(
+        amount: String,
+        accountId: String,
+        remark: String
+    ) {
+        showPinVerificationScreen()
+    }
+
+    private fun showPinVerificationScreen() {
+
+        try {
+            val navController = findNavController(R.id.nav_host_fragment)
+            val bundle = Bundle().apply {
+                putBoolean("isStandalone", false) // Not standalone, part of payment flow
+            }
+            navController.navigate(R.id.verifyPinFragment, bundle)
+        } catch (e: Exception) {
+            // Fallback if navigation fails
+            // In a real app, you would handle this more gracefully
+        }
+    }
     @Composable
     fun ReceiverProfile() {
         return Row(
@@ -438,7 +477,6 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
             )
         )
     }
-
 
     override fun getViewModel(): Class<KhQrInputAmountViewModel> =
         KhQrInputAmountViewModel::class.java
