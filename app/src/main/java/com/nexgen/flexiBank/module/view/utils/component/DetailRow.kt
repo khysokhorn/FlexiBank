@@ -15,7 +15,7 @@ import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
 
 @Composable
-private fun DetailRow(
+fun DetailRow(
     label: String,
     value: String
 ) {

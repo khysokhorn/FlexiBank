@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -42,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nexgen.flexiBank.R
@@ -50,11 +49,15 @@ import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.AccountSelectionBottomSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentConfirmationSheet
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.Remark
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.SelectAccount
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.keypass.VerifyPinFragment
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
+import com.nexgen.flexiBank.network.ApiInterface
+import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
@@ -87,8 +90,9 @@ fun KhQRInputAmountScreen(
                 title = { Text(text = "Scan QR") }, navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
+                            modifier = Modifier.size(24.dp),
                             painter = painterResource(R.drawable.img_arrow_back),
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         )
                     }
                 },
@@ -154,8 +158,8 @@ fun KhQRInputAmountScreen(
                         .height(58.dp),
                     shape = RoundedCornerShape(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFAEB5FF),
-                        disabledContainerColor = Color(0xFFAEB5FF).copy(alpha = 0.5f)
+                        containerColor = Primary,
+                        disabledContainerColor = Primary.copy(alpha = 0.5f)
                     )
                 ) {
                     Text(
@@ -168,7 +172,6 @@ fun KhQRInputAmountScreen(
             }
         }
 
-        // Loading Indicator
         if (viewModel.isLoading.collectAsState().value) {
             Box(
                 modifier = Modifier
@@ -180,7 +183,6 @@ fun KhQRInputAmountScreen(
             }
         }
 
-        // Error Snackbar
         viewModel.error.collectAsState().value?.let { errorMessage ->
             Box(
                 modifier = Modifier
@@ -267,100 +269,37 @@ fun KhQRInputAmountScreen(
 private fun AccountAndRemarkSection(
     selectedAccount: Account, remark: String, onAccountClick: () -> Unit, onRemarkClick: () -> Unit
 ) {
-    Row(
-        modifier = Modifier.background(White, RoundedCornerShape(16.dp))
+    Box(
+        modifier = Modifier
+            .height(48.dp)
+            .background(White, shape = RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(16.dp))
     ) {
-        Box(
-            modifier = Modifier
-                .weight(1F)
-                .height(48.dp)
-                .background(
-                    BackgroundColor, RoundedCornerShape(
-                        topStart = 16.dp, bottomStart = 16.dp
-                    )
-                )
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 16.dp, bottomStart = 16.dp
-                    )
-                )
-                .clickable(onClick = onAccountClick)
-                .padding(8.dp)
-        ) {
-            Column {
-                Text(
-                    text = "From:", style = TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 12.5.sp,
-                        fontFamily = InterNormal,
-                        fontWeight = FontWeight(600),
-                        color = Hint,
-                    )
-                )
-                Row(
-                    modifier = Modifier.padding(top = 4.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "${selectedAccount.number} | USD", style = TextStyle(
-                            fontSize = 12.sp,
-                            lineHeight = 18.sp,
-                            fontFamily = InterNormal,
-                            fontWeight = FontWeight(400),
-                            color = Black,
-                        )
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(start = 4.dp),
-                        painter = painterResource(R.drawable.img_arrow_down),
-                        contentDescription = "Icon Select account",
-                    )
-                }
-            }
-        }
-        Box(
-            modifier = Modifier
-                .width(2.dp)
-                .background(White)
-        )
-        Box(
-            modifier = Modifier
-                .weight(1F)
-                .height(48.dp)
-                .clickable(onClick = onRemarkClick)
-                .background(
-                    BackgroundColor, RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp)
-                )
-                .clip(RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp))
-                .padding(8.dp)
-        ) {
-            Row(
+        Row() {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .weight(1F)
+                    .background(color = BackgroundColor)
+                    .clickable(onClick = onAccountClick)
+                    .padding(8.dp)
             ) {
-                Text(
-                    text = remark.ifEmpty { "Remark" }, style = TextStyle(
-                        fontSize = 12.sp,
-                        lineHeight = 18.sp,
-                        fontFamily = InterNormal,
-                        fontWeight = FontWeight(400),
-                        color = if (remark.isEmpty()) Hint else Black,
-                    )
-                )
-                Icon(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .padding(start = 4.dp),
-                    painter = painterResource(R.drawable.img_exit),
-                    contentDescription = "Icon Edit Remark",
-                    tint = Hint
-                )
+                SelectAccount(selectedAccount = selectedAccount)
+            }
+            Box(
+                modifier = Modifier
+                    .width(2.dp)
+                    .background(White)
+            )
+            Box(
+                modifier = Modifier
+                    .weight(1F)
+                    .height(48.dp)
+                    .background(color = BackgroundColor)
+                    .clickable(onClick = onRemarkClick)
+                    .align(Alignment.CenterVertically)
+                    .padding(8.dp)
+            ) {
+                Remark(remark)
             }
         }
     }
@@ -411,4 +350,35 @@ private fun ReceiverProfile() {
             )
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun KhQRInputAmountScreenPreview() {
+    val mockRepository = AppRepository(object : ApiInterface {})
+    val previewViewModel = remember { KhQrInputAmountViewModel(repository = mockRepository) }
+    KhQRInputAmountScreen(
+        viewModel = previewViewModel,
+        onNavigateBack = {},
+        onPaymentSuccess = {}
+    )
+}
+
+@Preview
+@Composable
+fun AccountAndRemarkSectionPreview() {
+    val selectedAccount = Account(
+        id = "1",
+        name = "Saving Account",
+        number = "001 751 517",
+        balance = "$ 72,392.10",
+        isDefault = true,
+        hasVisa = true
+    )
+    AccountAndRemarkSection(
+        selectedAccount = selectedAccount,
+        remark = "Lunch payment",
+        onAccountClick = {},
+        onRemarkClick = {})
 }

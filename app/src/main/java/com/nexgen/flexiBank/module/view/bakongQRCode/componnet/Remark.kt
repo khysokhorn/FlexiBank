@@ -2,9 +2,7 @@ package com.nexgen.flexiBank.module.view.bakongQRCode.componnet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -22,14 +20,9 @@ import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
 
 @Composable
-fun Remark(
-    remark: String,
-) {
+fun Remark(remark: String) {
     return Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
@@ -42,14 +35,13 @@ fun Remark(
                 color = if (remark.isEmpty()) Hint else Black,
             )
         )
+        Spacer(modifier = Modifier.weight(1f))
         Icon(
             modifier = Modifier
-                .size(24.dp)
-                .padding(start = 4.dp),
+                .size(24.dp),
             painter = painterResource(R.drawable.img_exit),
             contentDescription = "Icon Edit Remark",
             tint = Hint
         )
-
     }
 }

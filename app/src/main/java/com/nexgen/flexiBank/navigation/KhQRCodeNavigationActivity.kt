@@ -7,7 +7,7 @@ import com.nexgen.flexiBank.utils.theme.FlexiBankTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ComposeNavigationActivity : ComponentActivity() {
+class KhQRCodeNavigationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val startDestination = intent.getStringExtra("start_destination")
