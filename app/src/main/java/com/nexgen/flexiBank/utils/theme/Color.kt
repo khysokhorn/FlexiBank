@@ -24,3 +24,5 @@ val ProgressBarBlue = Color(0xFF4A4AFF) // A blue similar to the image
 val ProgressBarBackgroundGray = Color(0xFFE0E0E0) // Light gray for the track
 val TextColorPrimary = Color.Black
 val TextColorSecondary = Color.Gray
+
+val Warning = Color(0xFFFE8648)

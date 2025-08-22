@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,6 +49,7 @@ import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.AccountSelectionBottomSheet
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentConfirmationSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
@@ -135,7 +138,7 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
         var showAccountSheet by remember { mutableStateOf(false) }
         var selectedAccount by remember { mutableStateOf(sampleAccounts[0]) }
         var remark by remember { mutableStateOf("") }
-
+        var showConfirmation by remember { mutableStateOf(false) }
         Column {
             Box {
                 Column(
@@ -306,30 +309,17 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
 
                         Spacer(modifier = Modifier.height(25.dp))
 
-                        // Send button
-                        Box(
+                        Button(
+                            onClick = { showConfirmation = true },
+                            enabled = amount.isNotEmpty() && (amount.toDoubleOrNull() ?: 0.0) > 0,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(58.dp)
-                                .clip(RoundedCornerShape(50.dp))
-                                .background(
-                                    if (amount.isNotEmpty() && (amount.toDoubleOrNull() ?: 0.0) > 0)
-                                        Color(0xFFAEB5FF)
-                                    else
-                                        Color(0xFFAEB5FF).copy(alpha = 0.5f)
-                                )
-                                .clickable(
-                                    enabled = amount.isNotEmpty() && (amount.toDoubleOrNull()
-                                        ?: 0.0) > 0,
-                                    onClick = {
-                                        viewModel.submitPayment(
-                                            amount = amount,
-                                            accountId = selectedAccount.id,
-                                            remark = remark
-                                        )
-                                    }
-                                ),
-                            contentAlignment = Alignment.Center
+                                .height(58.dp),
+                            shape = RoundedCornerShape(50.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Primary,
+                                disabledContainerColor = Primary.copy(alpha = 0.5f)
+                            )
                         ) {
                             Text(
                                 text = "Send",
@@ -361,6 +351,24 @@ class KhQRInputAmountActivity : BaseComposeActivity<KhQrInputAmountViewModel, Ap
                 remark = newRemark
                 showRemarkDialog = false
             }
+        )
+        PaymentConfirmationSheet(
+            show = showConfirmation,
+            amount = amount,
+            fromAccount = selectedAccount,
+            toName = "Thee Heeartless",
+            toAccountNumber = "001 369 963",
+            toBank = "Phillip Bank Plc.",
+            remark = remark,
+            onConfirm = {
+                showConfirmation = false
+                viewModel.submitPayment(
+                    amount = amount,
+                    accountId = selectedAccount.id,
+                    remark = remark
+                )
+            },
+            onDismiss = { showConfirmation = false }
         )
     }
 

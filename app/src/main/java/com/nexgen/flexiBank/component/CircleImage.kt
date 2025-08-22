@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -27,7 +28,8 @@ fun CircleImage(
     imageUrl: String? = null,
     @DrawableRes placeholderResId: Int? = null,
     @DrawableRes errorResId: Int? = null,
-    backgroundColor: Color = Color(0xFFF5F6FA)
+    backgroundColor: Color = Color(0xFFF5F6FA),
+    padding: Dp = 4.dp,
 ) {
     Box(
         modifier = modifier
@@ -37,7 +39,6 @@ fun CircleImage(
         contentAlignment = Alignment.Center
     ) {
         when {
-            // Case 1: Network image with URL
             !imageUrl.isNullOrEmpty() -> {
                 SubcomposeAsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -73,16 +74,16 @@ fun CircleImage(
                     }
                 )
             }
-            // Case 2: Local drawable resource
             placeholderResId != null -> {
                 Image(
                     painter = painterResource(placeholderResId),
                     contentDescription = "Circle Image",
-                    modifier = Modifier.size(size),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier
+                        .padding(padding)
+                        .size(size),
+                    contentScale = ContentScale.Fit
                 )
             }
-            // Case 3: Fallback for no image (empty box with background)
         }
     }
 }
