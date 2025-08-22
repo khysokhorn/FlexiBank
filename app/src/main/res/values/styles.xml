@@ -50,5 +50,9 @@
         <item name="iconSize">28dp</item>
     </style>
 
+    <style name="Theme.FlexiBank.NoActionBar" parent="Theme.FlexiBank">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 </resources>
