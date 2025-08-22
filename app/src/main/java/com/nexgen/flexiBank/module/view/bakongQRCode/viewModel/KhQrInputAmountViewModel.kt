@@ -2,11 +2,32 @@ package com.nexgen.flexiBank.module.view.bakongQRCode.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nexgen.flexiBank.R
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.repository.BaseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class KhQrInputAmountViewModel(private val repository: BaseRepository) : ViewModel() {
+    val sampleAccounts = listOf(
+        Account(
+            id = "1",
+            name = "Saving Account",
+            number = "001 751 517",
+            balance = "$ 72,392.10",
+            isDefault = true,
+            hasVisa = true
+        ),
+        Account(
+            id = "2",
+            name = "Future Plan",
+            number = "001 222 333",
+            balance = "$ 2,392.68",
+            isDefault = false,
+            hasVisa = false,
+            iconRes = R.drawable.ic_bank_locker
+        )
+    )
     private val _amount = MutableStateFlow("")
     val amount = _amount
 

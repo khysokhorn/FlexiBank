@@ -40,7 +40,6 @@ import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
-import com.nexgen.flexiBank.module.view.utils.text.InterSemiBold
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
@@ -225,6 +224,11 @@ fun PaymentConfirmationSheet(
 }
 
 @Composable
+fun DetailRow(label: String, value: String) {
+    TODO("Not yet implemented")
+}
+
+@Composable
 private fun ConfirmButton(
     onConfirm: () -> Unit
 ) {
@@ -265,32 +269,6 @@ private fun ConfirmButton(
                 fontFamily = InterNormal,
                 fontWeight = FontWeight.W600,
                 color = White
-            )
-        )
-    }
-}
-
-@Composable
-private fun DetailRow(
-    label: String, value: String
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = label, style = TextStyle(
-                fontSize = 12.sp,
-                fontFamily = InterNormal,
-                fontWeight = FontWeight.W400,
-                color = Hint,
-            )
-        )
-        Text(
-            text = value, style = TextStyle(
-                fontSize = 12.sp,
-                fontFamily = InterSemiBold,
-                fontWeight = FontWeight.W500,
-                color = Black,
             )
         )
     }
