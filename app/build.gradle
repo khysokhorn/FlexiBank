@@ -21,7 +21,7 @@ plugins {
 
 android {
     namespace 'com.nexgen.flexiBank'
-    compileSdk 36
+    compileSdk = 36
     defaultConfig {
         applicationId "com.nexgen.flexiBank"
         minSdk 28
@@ -93,17 +93,39 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.extensions)
     implementation(libs.androidx.camera.view)
-    implementation libs.tensorflow.lite.task.vision.play.services
-    implementation libs.play.services.tflite.gpu
-    implementation libs.tensorflow.lite
-    implementation libs.play.services.tflite.gpu
-    implementation libs.play.services.tflite.java
-    implementation libs.play.services.tflite.support
+        implementation(libs.play.services.tflite.gpu) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
+        implementation(libs.tensorflow.lite) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
+        implementation(libs.play.services.tflite.java) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
+        implementation(libs.play.services.tflite.support) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
 
-    implementation project(path: ":livenesscamerax")
-    implementation project(path: ":livenesscamerax:camera")
-    implementation project(path: ":livenesscamerax:core")
-    implementation project(path: ":livenesscamerax:domain")
+        implementation(project(path: ":livenesscamerax")) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
+        implementation(project(path: ":livenesscamerax:camera")) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
+        implementation(project(path: ":livenesscamerax:core")) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
+        implementation(project(path: ":livenesscamerax:domain")) {
+            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+        }
 
     implementation libs.glide
     annotationProcessor libs.compiler
@@ -118,12 +140,10 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     debugImplementation(libs.ui.tooling)
     androidTestImplementation libs.androidx.ui.test.junit4
-    implementation(libs.androidx.ui.tooling.v183)
-    implementation(libs.androidx.material3.v132)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation libs.glide.v4160
+    implementation libs.glide
     annotationProcessor libs.compiler
     implementation(libs.okhttp3.integration) {
         exclude group: 'glide-parent'
@@ -131,10 +151,16 @@ dependencies {
 
     implementation libs.qrscanner.core
     implementation libs.qrscanner.zxing
-    implementation(libs.okhttp.v510)
-    implementation(libs.logging.interceptor.v4120)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
-    implementation libs.hilt.android
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation libs.androidx.ui.text.google.fonts
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.androidx.navigation.compose)
     kapt libs.hilt.compiler
-
+    implementation libs.hilt.android
+    implementation libs.androidx.hilt.navigation.compose
 }

@@ -111,4 +111,13 @@
     <string name="copy_stack_trace_message">Stack trace copied to clipboard</string>
     <string name="copy_stack_trace_content_desc">Copy error details</string>
     <string name="restart">Restart App</string>
+    <string name="confirm">Confirm</string>
+    <string name="enter_your_account_number">Enter your account number</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="fill_in_your_information_that_you_have_registered_with_your_flexibank_account">Fill in your information that you have registered with your Flexibank account.</string>
+    <string name="choose_an_option_to_receive_the_otp_code">Choose an option to receive the OTP code</string>
+    <string name="choose_an_option_to_receive_the_otp_code_we_will_send_you_a_confirmation_code_there">Choose an option to receive the OTP code. We will send you a confirmation code there.</string>
+    <string name="phone">phone</string>
+    <string name="icon_forward">Icon forward</string>
+    <string name="email">Email</string>
 </resources>

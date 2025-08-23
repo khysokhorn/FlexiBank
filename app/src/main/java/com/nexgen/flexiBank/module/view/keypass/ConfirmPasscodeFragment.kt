@@ -1,5 +1,7 @@
 package com.nexgen.flexiBank.module.view.keypass
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.background
@@ -31,8 +33,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.R
+import com.nexgen.flexiBank.common.AppPreferenceManager
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
+import com.nexgen.flexiBank.module.view.home.HomeActivity
+import com.nexgen.flexiBank.navigation.KhQRCodeNavigationActivity
+import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.utils.theme.Black
@@ -58,6 +64,36 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isPinValid.collect { isValid ->
+                if (isValid) {
+                    AppPreferenceManager.setAuth(true)
+                    val intent = Intent(requireContext(), HomeActivity::class.java)
+                    startActivity(intent)
+                    (requireContext() as Activity).finish()
+                }
+            }
+        }
+
+        // Listen for transfer order submission result
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.transferOrderSubmitted.collect { isSubmitted ->
+                if (isSubmitted) {
+                    // Navigate to payment success
+                    activity?.let { activity ->
+                        activity.startActivity(
+                            Intent(
+                                activity,
+                                KhQRCodeNavigationActivity::class.java
+                            ).apply {
+                                putExtra("start_destination", Screen.PaymentSuccess.route)
+                            })
+                        activity.finish()
+                    }
+                }
+            }
+        }
     }
 
     @Composable
@@ -65,7 +101,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
         PassCodeScreen(viewModel = viewModel)
     }
 
-    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java;
+    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
 
     override fun getRepository(): AppRepository =
         AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
@@ -156,7 +192,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                 onNumberClick = { digit -> viewModel.addDigit(digit) },
                 onClearClick = { viewModel.clearPin() },
                 onDeleteClick = { viewModel.deleteLastDigit() },
-                isConfirmMode = true
+                isConfirmMode = true,
             )
         }
     }

@@ -17,16 +17,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.ActivityDashboardBinding
 import com.nexgen.flexiBank.databinding.ItemLanguageDropdownBinding
-import com.nexgen.flexiBank.module.view.auth.LoginActivity
+import com.nexgen.flexiBank.module.view.auth.login.LoginActivity
+import com.nexgen.flexiBank.module.view.auth.register.RegisterActivity
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
-import com.nexgen.flexiBank.module.view.keypass.KeypassActivity
+import com.nexgen.flexiBank.module.view.dashboard.viewModel.DashboardViewModel
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
-import com.nexgen.flexiBank.viewmodel.RegisterViewModel
-import kotlin.jvm.java
 
-class DashboardActivity :
-    BaseMainActivity<RegisterViewModel, ActivityDashboardBinding, AppRepository>() {
+class DashboardActivity : BaseMainActivity<DashboardViewModel, ActivityDashboardBinding, AppRepository>() {
     val languages = listOf(
         LanguageItem(R.drawable.img_uk_flag, "English"),
         LanguageItem(R.drawable.img_khmer_flag, "Khmer"),
@@ -67,7 +65,7 @@ class DashboardActivity :
             ViewPager2.OnPageChangeCallback() {
         })
         binding.btnRegister.setOnClickListener {
-            val intent = Intent(this, KeypassActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
         val adapter = LanguageAdapter(this, languages)
@@ -91,7 +89,7 @@ class DashboardActivity :
         onLogin()
     }
 
-    override fun getViewModel() = RegisterViewModel::class.java
+    override fun getViewModel() = DashboardViewModel::class.java
 
     override fun getActivityBinding(): ActivityDashboardBinding =
         ActivityDashboardBinding.inflate(layoutInflater)
@@ -145,7 +143,7 @@ class LanguageAdapter(context: Context, private val items: List<LanguageItem>) :
     private fun createView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context)
             .inflate(R.layout.item_language_dropdown, parent, false)
-        var binding = ItemLanguageDropdownBinding.bind(view)
+        val binding = ItemLanguageDropdownBinding.bind(view)
         val item = items[position]
         binding.tvLanguage.apply {
             text = item.languageName

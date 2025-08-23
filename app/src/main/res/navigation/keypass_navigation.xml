@@ -29,7 +29,7 @@
         android:id="@+id/userInfoVerifyFragment"
         android:name="com.nexgen.flexiBank.module.view.keypass.UserInfoVerifyFragment"
         android:label="fragment_user_info_verify"
-        tools:layout="@layout/fragment_user_info_verify" >
+        tools:layout="@layout/fragment_user_info_verify">
         <action
             android:id="@+id/action_userInfoVerifyFragment_to_createdUserFragment"
             app:destination="@id/createdUserFragment" />
@@ -37,7 +37,7 @@
     <fragment
         android:id="@+id/createdUserFragment"
         android:name="com.nexgen.flexiBank.module.view.dashboard.GetStartedFragment"
-        android:label="CreatedUserFragment" >
+        android:label="CreatedUserFragment">
         <action
             android:id="@+id/action_createdUserFragment_to_homeActivity"
             app:destination="@id/homeActivity" />
@@ -46,6 +46,16 @@
         android:id="@+id/homeActivity"
         android:name="com.nexgen.flexiBank.module.view.home.HomeActivity"
         android:label="HomeActivity" />
+        
+    <fragment
+        android:id="@+id/verifyPinFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.VerifyPinFragment"
+        android:label="Verify Pin">
+        <argument
+            android:name="isStandalone"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </fragment>
 
 
 </navigation>

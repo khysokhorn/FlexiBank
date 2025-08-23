@@ -16,7 +16,8 @@ import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentV
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 
-class LivelinessGuidelineFragment : BaseFragment<VerifyDocumentViewModel, FragmentLivelinessGuidelineBinding, AppRepository>() {
+class LivelinessGuidelineFragment :
+    BaseFragment<VerifyDocumentViewModel, FragmentLivelinessGuidelineBinding, AppRepository>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,16 +28,24 @@ class LivelinessGuidelineFragment : BaseFragment<VerifyDocumentViewModel, Fragme
             navController.popBackStack()
         }
         toolBar.setupWithNavController(navController, appBarConfiguration)
-        toolBar.navigationIcon = ContextCompat.getDrawable(requireContext(), R.drawable.img_arrow_back)
+        toolBar.navigationIcon =
+            ContextCompat.getDrawable(requireContext(), R.drawable.img_arrow_back)
         binding.btnSelfie.setOnClickListener {
             val intent = Intent(requireContext(), LivelinessActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 
-    override fun getViewModel(): Class<VerifyDocumentViewModel> = VerifyDocumentViewModel::class.java
+    override fun getViewModel(): Class<VerifyDocumentViewModel> =
+        VerifyDocumentViewModel::class.java
 
-    override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentLivelinessGuidelineBinding = FragmentLivelinessGuidelineBinding.inflate(layoutInflater)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentLivelinessGuidelineBinding =
+        FragmentLivelinessGuidelineBinding.inflate(layoutInflater)
 
-    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+    override fun getRepository(): AppRepository =
+        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
 }

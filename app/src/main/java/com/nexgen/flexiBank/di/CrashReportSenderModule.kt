@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.crash.di
+package com.nexgen.flexiBank.di
 
 import com.nexgen.flexiBank.module.crash.CrashReportSender
 import com.nexgen.flexiBank.module.crash.DefaultCrashReportSender

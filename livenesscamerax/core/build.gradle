@@ -8,7 +8,7 @@ apply from: "$rootDir/livenesscamerax/dependencies.gradle"
 
 android {
     namespace 'com.nexgen.core'
-    compileSdk 36
+    compileSdk =  36
 
     defaultConfig {
         minSdk 24
@@ -34,7 +34,6 @@ android {
 
 dependencies {
     implementation project(path: ":livenesscamerax:domain")
-
     implementation libs.androidx.activity.ktx
-    implementation libs.material.v161
+    implementation libs.material
 }

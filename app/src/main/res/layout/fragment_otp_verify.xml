@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="16dp"
     android:paddingTop="24dp"
-    tools:context=".module.view.auth.fragment.OtpVerifyFragment">
+    tools:context=".module.view.otp.OtpVerifyFragment">
 
 
     <TextView

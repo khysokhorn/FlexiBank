@@ -36,6 +36,7 @@
         <item name="android:lineSpacingExtra">5sp</item>
         <item name="android:padding">16dp</item>
         <item name="textStyle">bold</item>
+        <item name="backgroundTint">@color/blue</item>
     </style>
 
     <style name="buttonOutlineStyle" parent="Widget.Material3.Button.OutlinedButton">

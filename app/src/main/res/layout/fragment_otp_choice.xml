@@ -8,13 +8,12 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="24dp">
 
-
     <TextView
         android:id="@+id/letStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="start"
-        android:text="Choose an option to receive the OTP code"
+        android:text="@string/choose_an_option_to_receive_the_otp_code"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="8dp"
-        android:text="Choose an option to receive the OTP code. We will send you a confirmation code there."
+        android:text="@string/choose_an_option_to_receive_the_otp_code_we_will_send_you_a_confirmation_code_there"
         app:layout_constraintTop_toBottomOf="@id/letStart" />
 
 
@@ -65,7 +64,7 @@
                 android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="email"
+                android:text="@string/email"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -112,7 +111,7 @@
                 android:id="@+id/txtPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="phone"
+                android:text="@string/phone"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -120,6 +119,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:contentDescription="@string/icon_forward"
             android:src="@drawable/img_arrow_right" />
 
     </LinearLayout>

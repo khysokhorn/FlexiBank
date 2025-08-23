@@ -20,7 +20,6 @@ import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.viewmodel.RegisterViewModel
 
 class MainActivity : BaseMainActivity<RegisterViewModel, ActivityMainBinding, AppRepository>() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

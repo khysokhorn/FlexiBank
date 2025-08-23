@@ -31,7 +31,6 @@ class GetStepMessageUseCase(private val resourcesProvider: ResourcesProvider) {
                 StepLivenessDomain.STEP_BLINK -> {
                     resourcesProvider.getString(R.string.liveness_camerax_step_blink_eyes)
                 }
-                null -> resourcesProvider.getString(R.string.liveness_camerax_step_completed)
             }
         }
     }
