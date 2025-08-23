@@ -9,6 +9,17 @@
         android:id="@+id/livelinessCapture"
         android:name="com.nexgen.flexiBank.module.view.liveliness.LivelinessCaptureFragment"
         android:label="Liveliness"
-        tools:layout="@layout/fragment_liveliness_capture" />
+        tools:layout="@layout/fragment_liveliness_capture" >
+        <action
+            android:id="@+id/action_livelinessCapture_to_UserInfoVerifyFragment"
+            app:destination="@id/UserInfoVerifyFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/UserInfoVerifyFragment"
+        android:name="com.nexgen.flexiBank.module.view.info.UserInfoVerifyFragment"
+        android:label="Liveliness"
+        tools:layout="@layout/fragment_user_info_verify" />
 
 </navigation>

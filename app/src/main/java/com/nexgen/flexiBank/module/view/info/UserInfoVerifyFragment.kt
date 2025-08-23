@@ -1,5 +1,7 @@
-package com.nexgen.flexiBank.module.view.keypass
+package com.nexgen.flexiBank.module.view.info
 
+import android.os.Bundle
+import android.view.View
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -50,7 +52,7 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
     private val GradientMidColor = Color(0xFF706EFF)
     private val GradientEndColor = Color(0xFF4A4AFF)
 
-    override fun onViewCreated(view: android.view.View, savedInstanceState: android.os.Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.verificationCompleted.collect { completed ->

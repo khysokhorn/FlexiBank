@@ -1,6 +1,5 @@
 package com.nexgen.flexiBank.module.view.keypass
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -33,10 +32,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.R
-import com.nexgen.flexiBank.common.AppPreferenceManager
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
-import com.nexgen.flexiBank.module.view.home.HomeActivity
 import com.nexgen.flexiBank.navigation.KhQRCodeNavigationActivity
 import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
@@ -68,10 +65,8 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isPinValid.collect { isValid ->
                 if (isValid) {
-                    AppPreferenceManager.setAuth(true)
-                    val intent = Intent(requireContext(), HomeActivity::class.java)
-                    startActivity(intent)
-                    (requireContext() as Activity).finish()
+                    val navigation = findNavController()
+                    navigation.navigate(R.id.action_confirmPasscodeFragment_to_userInfoVerifyFragment)
                 }
             }
         }

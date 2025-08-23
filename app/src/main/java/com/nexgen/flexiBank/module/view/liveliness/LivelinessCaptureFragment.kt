@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.nexgen.flexiBank.common.AppPreferenceManager
 import com.nexgen.flexiBank.databinding.FragmentLivelinessCaptureBinding
 import com.nexgen.flexiBank.module.view.base.BaseFragment
-import com.nexgen.flexiBank.module.view.home.HomeActivity
+import com.nexgen.flexiBank.module.view.keypass.KeypassActivity
 import com.nexgen.flexiBank.module.view.verifyDocument.adapter.ImageListAdapter
 import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentViewModel
 import com.nexgen.flexiBank.network.ApiInterface
@@ -54,7 +54,7 @@ class LivelinessCaptureFragment :
                 imageListAdapter.imageList = listOfImages
                 AppPreferenceManager.setAuth(true)
                 if (!isIndentStarted) {
-                    val intent = Intent(requireContext(), HomeActivity::class.java)
+                    val intent = Intent(requireContext(), KeypassActivity::class.java)
                     startActivity(intent)
                     isIndentStarted = true
                     requireActivity().finish()
