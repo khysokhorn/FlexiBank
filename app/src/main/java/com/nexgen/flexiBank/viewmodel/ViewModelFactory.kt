@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.ScanQrViewModel
+import com.nexgen.flexiBank.module.view.dashboard.viewModel.DashboardViewModel
 import com.nexgen.flexiBank.module.view.home.viewModel.HomeViewModel
 import com.nexgen.flexiBank.module.view.liveliness.viewModel.LivelinessViewModel
 import com.nexgen.flexiBank.module.view.verifyDocument.viewModel.VerifyDocumentViewModel
@@ -42,6 +43,9 @@ class ViewModelFactory(private val repository: BaseRepository) :
                 repository as AppRepository
             ) as T
 
+            modelClass.isAssignableFrom(DashboardViewModel::class.java) -> DashboardViewModel(
+                repository as AppRepository
+            ) as T
             else -> throw IllegalArgumentException("ViewModelClass Not Found")
         }
     }

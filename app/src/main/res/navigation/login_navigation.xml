@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/OtpVerifyFragment"
-        android:name="com.nexgen.flexiBank.module.view.auth.fragment.OtpVerifyFragment"
+        android:name="com.nexgen.flexiBank.module.view.otp.OtpVerifyFragment"
         tools:layout="@layout/fragment_otp_verify">
 
     </fragment>

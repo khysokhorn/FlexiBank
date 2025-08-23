@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.view.verifyDocument
+package com.nexgen.flexiBank.module.view.utils
 
 import android.Manifest
 import android.app.Activity

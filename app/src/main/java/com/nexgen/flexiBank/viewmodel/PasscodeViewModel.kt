@@ -31,9 +31,6 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
     private val _verificationCompleted = MutableStateFlow(false)
     val verificationCompleted = _verificationCompleted.asStateFlow()
 
-    // API response code flow
-    private val _apiResponseCode = MutableStateFlow(0)
-    val apiResponseCode = _apiResponseCode.asStateFlow()
 
     // Transfer order status
     private val _transferOrderSubmitted = MutableStateFlow(false)
@@ -114,10 +111,8 @@ class PasscodeViewModel(private val repository: BaseRepository) : ViewModel() {
     private fun validateConfirmPin(confirmPin: String) {
         viewModelScope.launch {
             if (confirmPin == _storedPin.value) {
-                // PINs match, simulate API response code -1
                 _isPinValid.value = true
                 _pinMatchError.value = false
-                _apiResponseCode.value = -1
             } else {
                 // PINs don't match, show error
                 _confirmPinCode.value = ""

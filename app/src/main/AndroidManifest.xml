@@ -63,6 +63,13 @@
             android:exported="true"
             android:theme="@style/AppThemeBase"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".module.view.auth.register.RegisterActivity"
+            android:exported="true"
+            android:theme="@style/AppThemeBase"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".module.view.dashboard.DashboardActivity"
             android:exported="false"
