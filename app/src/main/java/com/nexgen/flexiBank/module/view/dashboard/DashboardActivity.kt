@@ -17,13 +17,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.ActivityDashboardBinding
 import com.nexgen.flexiBank.databinding.ItemLanguageDropdownBinding
-import com.nexgen.flexiBank.module.view.auth.LoginActivity
+import com.nexgen.flexiBank.module.view.auth.login.LoginActivity
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
 import com.nexgen.flexiBank.module.view.keypass.KeypassActivity
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.viewmodel.RegisterViewModel
-import kotlin.jvm.java
 
 class DashboardActivity :
     BaseMainActivity<RegisterViewModel, ActivityDashboardBinding, AppRepository>() {

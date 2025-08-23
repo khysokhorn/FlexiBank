@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.crash.di
+package com.nexgen.flexiBank.di
 
 import dagger.Module
 import dagger.Provides

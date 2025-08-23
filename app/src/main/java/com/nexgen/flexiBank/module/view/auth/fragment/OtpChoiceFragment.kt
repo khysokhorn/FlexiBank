@@ -5,19 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.databinding.FragmentOtpChoiceBinding
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
 class OtpChoiceFragment : Fragment() {
 
     private var _binding: FragmentOtpChoiceBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,10 +24,10 @@ class OtpChoiceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.email.setOnClickListener {
-            val navigaton = findNavController()
-            navigaton.navigate(R.id.action_OtpChoiceFragment_to_OtpVerifyFragment)
-        }
+//        binding.email.setOnClickListener {
+//            val navigaton = findNavController()
+//            navigaton.navigate(R.id.action_OtpChoiceFragment_to_OtpVerifyFragment)
+//        }
     }
 
     override fun onDestroyView() {

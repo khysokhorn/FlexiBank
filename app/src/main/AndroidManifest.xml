@@ -59,7 +59,7 @@
             android:exported="true"
             android:label="@string/title_activity_verify_document" />
         <activity
-            android:name=".module.view.auth.LoginActivity"
+            android:name=".module.view.auth.login.LoginActivity"
             android:exported="true"
             android:theme="@style/AppThemeBase"
             android:windowSoftInputMode="adjustResize" />

@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.view.auth
+package com.nexgen.flexiBank.module.view.auth.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,12 +21,10 @@ class LoginActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_login)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_login)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
