@@ -34,7 +34,7 @@ import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
-import com.nexgen.flexiBank.navigation.ComposeNavigationActivity
+import com.nexgen.flexiBank.navigation.KhQRCodeNavigationActivity
 import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
@@ -63,20 +63,10 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.apiResponseCode.collect { responseCode ->
-                if (responseCode == -1) {
-                    val verifyPinFragment = VerifyPinFragment.newInstance(
-                        isStandalone = false,
-//                        isFromConfirmation = true,
-//                        onVerificationSuccess = {
-//                            viewModel.submitTransferOrder()
-//                        }
-                    )
-                    val containerId = view.id
-                    parentFragmentManager.beginTransaction()
-                        .replace(containerId, verifyPinFragment)
-                        .addToBackStack(null)
-                        .commit()
+            viewModel.isPinValid.collect { isValid ->
+                if (isValid) {
+                    val navigation = findNavController()
+                    navigation.navigate(R.id.action_confirmPasscodeFragment_to_userInfoVerifyFragment)
                 }
             }
         }
@@ -90,7 +80,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                         activity.startActivity(
                             Intent(
                                 activity,
-                                ComposeNavigationActivity::class.java
+                                KhQRCodeNavigationActivity::class.java
                             ).apply {
                                 putExtra("start_destination", Screen.PaymentSuccess.route)
                             })
@@ -106,7 +96,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
         PassCodeScreen(viewModel = viewModel)
     }
 
-    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java;
+    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
 
     override fun getRepository(): AppRepository =
         AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))

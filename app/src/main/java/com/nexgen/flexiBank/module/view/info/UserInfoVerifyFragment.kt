@@ -154,6 +154,7 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
             )
         }
 
+        // Rest of the UI remains the same...
         Spacer(modifier = Modifier.height(32.dp))
         Text(
             text = "Please wait a moment.",
