@@ -92,6 +92,10 @@ class KhQrInputAmountViewModel @Inject constructor(
         }
     }
 
+    fun continueAfterVerification() {
+        _paymentSuccess.value = true
+    }
+    
     fun resetVerification() {
         _requireVerification.value = false
     }

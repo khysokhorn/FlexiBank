@@ -9,7 +9,7 @@ import com.nexgen.flexiBank.module.view.base.BaseMainActivity
 import com.nexgen.flexiBank.module.view.home.adapter.QuickShareAdapter
 import com.nexgen.flexiBank.module.view.home.adapter.UpComingPaymentAdapter
 import com.nexgen.flexiBank.module.view.home.viewModel.HomeViewModel
-import com.nexgen.flexiBank.navigation.KhQRCodeNavigationActivity
+import com.nexgen.flexiBank.navigation.ComposeNavigationActivity
 import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
@@ -25,7 +25,7 @@ class HomeActivity : BaseMainActivity<HomeViewModel, ActivityHomeBinding, AppRep
         setupQuickShareRecyclerView()
         setupBottomNavigation()
         binding.scanButton.setOnClickListener {
-            startActivity(Intent(this, KhQRCodeNavigationActivity::class.java).apply {
+            startActivity(Intent(this, ComposeNavigationActivity::class.java).apply {
                 putExtra("start_destination", Screen.KhQRInputAmount.route)
             })
         }
