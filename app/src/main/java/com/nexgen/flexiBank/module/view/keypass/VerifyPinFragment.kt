@@ -2,7 +2,6 @@ package com.nexgen.flexiBank.module.view.keypass
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
 import com.nexgen.flexiBank.network.ApiInterface
@@ -46,14 +46,16 @@ import com.nexgen.flexiBank.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
+    private var isStandaloneVerification = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setConfirmMode(false)
+        isStandaloneVerification = arguments?.getBoolean("isStandalone", true) ?: true
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.verificationCompleted.collect { isCompleted ->
                 if (isCompleted) {
-                    Toast.makeText(requireContext(), "Pin verified successfully", Toast.LENGTH_LONG).show()
-                    // Handle navigation or callback after successful verification
+                    handleVerificationSuccess()
                 }
             }
         }
@@ -147,6 +149,14 @@ class VerifyPinFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>(
                 },
                 isConfirmMode = false
             )
+        }
+    }
+
+    private fun handleVerificationSuccess() {
+        if (isStandaloneVerification) {
+            findNavController().popBackStack()
+        } else {
+            findNavController().popBackStack()
         }
     }
 

@@ -36,8 +36,6 @@ abstract class BaseComposeActivity<VM : ViewModel, R : BaseRepository> : Compone
 
     protected lateinit var viewModel: VM
     lateinit var remoteDataSource: RemoteDataSource
-    var lockScreen: String = "true"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

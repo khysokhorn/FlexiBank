@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
+import com.nexgen.flexiBank.module.view.utils.component.DetailRow
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
@@ -46,7 +47,6 @@ import com.nexgen.flexiBank.utils.theme.Hint
 import com.nexgen.flexiBank.utils.theme.Primary
 import com.nexgen.flexiBank.utils.theme.Warning
 import com.nexgen.flexiBank.utils.theme.White
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -134,7 +134,6 @@ fun PaymentConfirmationSheet(
                     }
                 }
 
-                // Transaction Details
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -213,10 +212,8 @@ fun PaymentConfirmationSheet(
                         ), modifier = Modifier.weight(1f)
                     )
                 }
-                // Confirm Button
+
                 ConfirmButton(
-                    onConfirm = {
-                    }
                 )
             }
         }
@@ -224,32 +221,16 @@ fun PaymentConfirmationSheet(
 }
 
 @Composable
-fun DetailRow(label: String, value: String) {
-    TODO("Not yet implemented")
-}
-
-@Composable
 private fun ConfirmButton(
-    onConfirm: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
     var isProcessing by remember { mutableStateOf(false) }
+
     Button(
         onClick = {
             if (!isProcessing) {
                 isProcessing = true
-                // Simulate API call
                 coroutineScope.launch {
-                    delay(1000)
-
-                    val apiResponseCode = -1
-
-                    if (apiResponseCode == -1) {
-                        onConfirm()
-                    } else {
-                        onConfirm()
-                    }
-
                     isProcessing = false
                 }
             }

@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.module.view.keypass
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.background
@@ -33,6 +34,8 @@ import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
+import com.nexgen.flexiBank.navigation.KhQRCodeNavigationActivity
+import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.utils.theme.Black
@@ -55,6 +58,44 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                 if (shouldNavigate) {
                     navigateToUserVerify()
                     viewModel.resetNavigation()
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.apiResponseCode.collect { responseCode ->
+                if (responseCode == -1) {
+                    val verifyPinFragment = VerifyPinFragment.newInstance(
+                        isStandalone = false,
+//                        isFromConfirmation = true,
+//                        onVerificationSuccess = {
+//                            viewModel.submitTransferOrder()
+//                        }
+                    )
+                    val containerId = view.id
+                    parentFragmentManager.beginTransaction()
+                        .replace(containerId, verifyPinFragment)
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        }
+
+        // Listen for transfer order submission result
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.transferOrderSubmitted.collect { isSubmitted ->
+                if (isSubmitted) {
+                    // Navigate to payment success
+                    activity?.let { activity ->
+                        activity.startActivity(
+                            Intent(
+                                activity,
+                                KhQRCodeNavigationActivity::class.java
+                            ).apply {
+                                putExtra("start_destination", Screen.PaymentSuccess.route)
+                            })
+                        activity.finish()
+                    }
                 }
             }
         }
