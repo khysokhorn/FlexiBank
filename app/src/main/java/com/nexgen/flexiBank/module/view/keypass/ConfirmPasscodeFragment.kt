@@ -106,7 +106,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
         PassCodeScreen(viewModel = viewModel)
     }
 
-    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java;
+    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
 
     override fun getRepository(): AppRepository =
         AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))

@@ -31,7 +31,7 @@ class OtpVerifyFragment : BaseFragment<RegisterViewModel, FragmentOtpVerifyBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.otp.setOnCompleteListener({
-            val navigator = findNavController();
+            val navigator = findNavController()
             navigator.navigate(R.id.action_OtpVerifyFragment_to_IdentityVerifyFragment)
         })
     }

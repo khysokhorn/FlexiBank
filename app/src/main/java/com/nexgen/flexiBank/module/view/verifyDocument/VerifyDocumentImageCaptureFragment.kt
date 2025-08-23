@@ -54,11 +54,11 @@ class VerifyDocumentImageCaptureFragment() : BaseFragment<VerifyDocumentViewMode
                 val cameraProvider: ProcessCameraProvider = cameraProviderFeature.get()
                 val cameraSelection = CameraSelector.DEFAULT_BACK_CAMERA
                 val display = (requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-                var rotation = Surface.ROTATION_0;
+                var rotation = Surface.ROTATION_0
                 if (display.rotation == Surface.ROTATION_0) {
-                    rotation = Surface.ROTATION_90;
+                    rotation = Surface.ROTATION_90
                 } else if (display.rotation == Surface.ROTATION_270) {
-                    rotation = Surface.ROTATION_180;
+                    rotation = Surface.ROTATION_180
                 }
                 val preview = Preview.Builder().setTargetRotation(rotation).build().also {
                     it.surfaceProvider = binding.cameraPreview.surfaceProvider

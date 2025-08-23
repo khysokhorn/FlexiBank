@@ -1,7 +1,7 @@
 package com.nexgen.flexiBank.common
 
 object AppPreferenceManager {
-    private const val IS_LOGIN = "is_login";
+    private const val IS_LOGIN = "is_login"
     fun setAuth(isLogin: Boolean) {
         ModelPreferencesManager.put(isLogin, IS_LOGIN)
     }

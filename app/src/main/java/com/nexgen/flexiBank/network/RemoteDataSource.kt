@@ -24,7 +24,7 @@ class RemoteDataSource() {
         httpClient.addInterceptor(logging)
         httpClient.connectTimeout(2, TimeUnit.MINUTES) // connect timeout
             .writeTimeout(2, TimeUnit.MINUTES) // write timeout
-            .readTimeout(2, TimeUnit.MINUTES); // read timeout
+            .readTimeout(2, TimeUnit.MINUTES) // read timeout
 
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -48,7 +48,7 @@ class RemoteDataSource() {
         httpClient.addInterceptor(logging)
         httpClient.connectTimeout(2, TimeUnit.MINUTES) // connect timeout
             .writeTimeout(2, TimeUnit.MINUTES) // write timeout
-            .readTimeout(2, TimeUnit.MINUTES); // read timeout
+            .readTimeout(2, TimeUnit.MINUTES) // read timeout
 
         return Retrofit.Builder()
             .baseUrl(BuildConfig.baseUrl)

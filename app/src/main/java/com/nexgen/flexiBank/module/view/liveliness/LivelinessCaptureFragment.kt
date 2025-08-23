@@ -52,9 +52,7 @@ class LivelinessCaptureFragment : BaseFragment<VerifyDocumentViewModel, Fragment
         }
     }
 
-    companion object {
-
-    }
+    companion object;
 
     override fun getViewModel(): Class<VerifyDocumentViewModel> = VerifyDocumentViewModel::class.java
 

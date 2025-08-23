@@ -24,7 +24,7 @@ class GlobalCrashHandler(
     override fun uncaughtException(thread: Thread, exception: Throwable) {
         try {
             val softwareInfo = getSoftwareInfo()
-            val errorBy = exception.cause?.message;
+            val errorBy = exception.cause?.message
             val errorMessage = "${errorBy}\n\n${exception.stackTraceToString()}"
             errorLog(exception)
             errorLog(softwareInfo)

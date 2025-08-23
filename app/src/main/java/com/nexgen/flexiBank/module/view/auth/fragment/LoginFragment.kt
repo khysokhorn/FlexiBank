@@ -14,7 +14,7 @@ import com.nexgen.flexiBank.module.view.auth.model.Country
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private var selectedCountry = Country("Cambodia", "+855", "KH", R.drawable.img_khmer_flag);
+    private var selectedCountry = Country("Cambodia", "+855", "KH", R.drawable.img_khmer_flag)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -26,13 +26,13 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val htmlText =
-            "By pressing <b>\"Sign Up\"</b> you accept our <font color='blue'>privacy policy</font> and <font color='blue'>terms & Conditions</font>. Your information will be securely " + "encrypted.";
-        binding.txtTermCondition.text = Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY);
+            "By pressing <b>\"Sign Up\"</b> you accept our <font color='blue'>privacy policy</font> and <font color='blue'>terms & Conditions</font>. Your information will be securely " + "encrypted."
+        binding.txtTermCondition.text = Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY)
         binding.btnSignUp.setOnClickListener {
             val navigation = findNavController()
             navigation.navigate(R.id.action_LoginFragment_to_OtpChoiceFragment)
         }
-        setCountryCode(selectedCountry);
+        setCountryCode(selectedCountry)
         binding.layoutCountry.setOnClickListener {
             showCountryBottomSheet()
         }

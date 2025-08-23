@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 class ApiLogger : HttpLoggingInterceptor.Logger {
     override fun log(message: String) {
-        val logName = "Logger"
+        "Logger"
 //        if (message.startsWith("{") || message.startsWith("[")) {
 //            try {
 //                val prettyPrintJson = GsonBuilder().setPrettyPrinting()
