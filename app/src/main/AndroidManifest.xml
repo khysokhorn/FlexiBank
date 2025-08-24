@@ -46,9 +46,7 @@
         <activity
             android:name=".module.crash.CrashActivity"
             android:exported="false" />
-        <activity
-            android:name=".module.view.bakongQRCode.KhQRInputAmountActivity"
-            android:exported="true" />
+
         <activity
             android:name=".module.view.home.HomeActivity"
             android:exported="false" />
@@ -62,7 +60,7 @@
             android:exported="true"
             android:label="@string/title_activity_verify_document" />
         <activity
-            android:name=".module.view.auth.LoginActivity"
+            android:name=".module.view.auth.login.LoginActivity"
             android:exported="true"
             android:theme="@style/AppThemeBase"
             android:windowSoftInputMode="adjustResize" />
@@ -98,6 +96,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="image/*" />
                 <data android:mimeType="application/octet-stream" />
             </intent-filter>

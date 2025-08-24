@@ -87,6 +87,7 @@ fun KhQRInputAmountScreen(
                 title = { Text(text = "Scan QR") }, navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
+                            modifier = Modifier.size(24.dp),
                             painter = painterResource(R.drawable.img_arrow_back),
                             contentDescription = "Back"
                         )
@@ -245,19 +246,13 @@ fun KhQRInputAmountScreen(
         activity?.let {
             val verifyPinFragment = VerifyPinFragment.newInstance(
                 isStandalone = false,
-//                isFromConfirmation = true,
-//                onVerificationSuccess = {
-//                    viewModel.continueAfterVerification()
-//                }
             )
-            // Use post to avoid transaction during view layout
             it.window.decorView.post {
                 activity.supportFragmentManager.beginTransaction()
                     .add(android.R.id.content, verifyPinFragment)
                     .addToBackStack(null)
                     .commit()
             }
-            // Reset the requirement flag
             viewModel.resetVerification()
         }
     }

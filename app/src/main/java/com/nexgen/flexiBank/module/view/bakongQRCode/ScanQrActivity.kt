@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,6 +13,8 @@ import com.nexgen.flexiBank.databinding.ActivityScanQrBinding
 import com.nexgen.flexiBank.module.view.bakongQRCode.fragment.QRCodeHistoryBottomSheetFragment
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.ScanQrViewModel
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
+import com.nexgen.flexiBank.navigation.ComposeNavigationActivity
+import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import timber.log.Timber
@@ -33,6 +36,9 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
                 is DecodingState.NotFound -> binding.decodingState.text = "Scanning"
                 is DecodingState.Decoded -> {
                     binding.decodingState.text = state.content
+                    startActivity(Intent(this, ComposeNavigationActivity::class.java).apply {
+                        putExtra("start_destination", Screen.KhQRInputAmount.route)
+                    })
                 }
 
                 is DecodingState.Error -> binding.decodingState.text = "Error: ${state.errorCode}"
