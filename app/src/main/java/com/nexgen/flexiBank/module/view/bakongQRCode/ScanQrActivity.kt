@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.Modifier
 import ch.ubique.qrscanner.scanner.BarcodeFormat
 import ch.ubique.qrscanner.state.DecodingState
 import ch.ubique.qrscanner.zxing.decoder.GlobalHistogramImageDecoder
 import ch.ubique.qrscanner.zxing.decoder.HybridImageDecoder
 import com.nexgen.flexiBank.databinding.ActivityScanQrBinding
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.ScannerFrame
 import com.nexgen.flexiBank.module.view.bakongQRCode.fragment.QRCodeHistoryBottomSheetFragment
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.ScanQrViewModel
 import com.nexgen.flexiBank.module.view.base.BaseMainActivity
@@ -27,7 +30,11 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
         super.onCreate(savedInstanceState)
 
         val formats = listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_128)
-
+        binding.qrScannerFrame.apply {
+            setContent {
+                ScannerFrame(modifier = Modifier.wrapContentSize())
+            }
+        }
         binding.qrScanner.setImageDecoders(
             GlobalHistogramImageDecoder(formats), HybridImageDecoder(formats)
         )

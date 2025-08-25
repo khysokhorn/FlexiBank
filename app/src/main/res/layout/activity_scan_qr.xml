@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@id/imgFlash">
 
-        <com.nexgen.flexiBank.module.view.utils.customView.CustomRectangleWithRoundedCornersCutoutView
-            android:id="@+id/customRectangleWithRoundedCornersCutoutView"
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/qrScannerFrame"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </ch.ubique.qrscanner.view.QrScannerView>
