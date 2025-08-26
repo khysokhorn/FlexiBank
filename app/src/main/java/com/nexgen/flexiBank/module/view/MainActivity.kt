@@ -70,6 +70,6 @@ class MainActivity : BaseMainActivity<RegisterViewModel, ActivityMainBinding, Ap
         ActivityMainBinding.inflate(layoutInflater)
 
     override fun getRepository() =
-        AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
+        AppRepository(remoteDataSource.buildApi(ApiInterface::class.java))
 
 }

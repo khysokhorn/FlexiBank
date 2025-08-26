@@ -95,7 +95,7 @@ class DashboardActivity : BaseMainActivity<DashboardViewModel, ActivityDashboard
         ActivityDashboardBinding.inflate(layoutInflater)
 
     override fun getRepository() =
-        AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
+        AppRepository(remoteDataSource.buildApi(ApiInterface::class.java))
 
     private fun onLogin() {
         val intent = Intent(this, LoginActivity::class.java)

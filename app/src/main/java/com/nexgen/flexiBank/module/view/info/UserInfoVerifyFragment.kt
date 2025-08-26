@@ -175,7 +175,7 @@ class UserInfoVerifyFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
     override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
 
     override fun getRepository(): AppRepository = AppRepository(
-        remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java)
+        remoteDataSource.buildApi(ApiInterface::class.java)
     )
 
 }

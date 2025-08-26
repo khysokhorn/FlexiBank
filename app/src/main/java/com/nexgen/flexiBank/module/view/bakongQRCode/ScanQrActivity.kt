@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.PickVisualMediaRequest
@@ -7,7 +8,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Modifier
-import androidx.fragment.app.FragmentActivity
 import ch.ubique.qrscanner.scanner.BarcodeFormat
 import ch.ubique.qrscanner.state.DecodingState
 import ch.ubique.qrscanner.zxing.decoder.GlobalHistogramImageDecoder
@@ -25,6 +25,16 @@ import timber.log.Timber
 
 class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, AppRepository>() {
     private var isFlashEnabled = false
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                viewModel.isQRCodeDetected = true
+            }
+        }
+
+    override fun onResume() {
+        super.onResume()
+    }
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +53,14 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
                 is DecodingState.NotFound -> binding.decodingState.text = "Scanning"
                 is DecodingState.Decoded -> {
                     binding.decodingState.text = state.content
-                    startActivity(Intent(this, KhQRCodeNavigationActivity::class.java).apply {
-                        putExtra("start_destination", Screen.KhQRInputAmount.route)
-                    })
+                    if (viewModel.isQRCodeDetected) {
+                        val intent = Intent(this, KhQRCodeNavigationActivity::class.java).apply {
+                            putExtra("start_destination", Screen.KhQRInputAmount.route)
+                            putExtra("qr_data", state.content)
+                        }
+                        viewModel.isQRCodeDetected = false
+                        launcher.launch(intent)
+                    }
                 }
 
                 is DecodingState.Error -> binding.decodingState.text = "Error: ${state.errorCode}"
@@ -100,9 +115,7 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
     override fun getRepository(): AppRepository =
         AppRepository(
             remoteDataSource.buildApi(
-                (this as FragmentActivity),
                 ApiInterface::class.java
             )
         )
-
 }

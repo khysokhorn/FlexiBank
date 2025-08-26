@@ -103,7 +103,8 @@ class VerifyDocumentImageCaptureFragment() : BaseFragment<VerifyDocumentViewMode
         inflater: LayoutInflater, container: ViewGroup?
     ): FragmentVerifyDocumentBinding = FragmentVerifyDocumentBinding.inflate(inflater, container, false)
 
-    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(
+        ApiInterface::class.java))
 
     companion object {
         private const val TAG = "CameraXApp"

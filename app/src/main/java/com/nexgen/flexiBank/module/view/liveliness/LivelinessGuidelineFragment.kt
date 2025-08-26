@@ -47,5 +47,5 @@ class LivelinessGuidelineFragment :
         FragmentLivelinessGuidelineBinding.inflate(layoutInflater)
 
     override fun getRepository(): AppRepository =
-        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+        AppRepository(remoteDataSource.buildApi(ApiInterface::class.java))
 }

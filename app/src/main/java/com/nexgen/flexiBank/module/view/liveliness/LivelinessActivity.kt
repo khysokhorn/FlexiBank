@@ -30,6 +30,7 @@ class LivelinessActivity : BaseMainActivity<LivelinessViewModel, LivelinessActiv
 
     override fun getViewModel(): Class<LivelinessViewModel> = LivelinessViewModel::class.java
     override fun getActivityBinding(): LivelinessActivityBinding = LivelinessActivityBinding.inflate(layoutInflater)
-    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(this, ApiInterface::class.java))
+    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(
+        ApiInterface::class.java))
 
 }

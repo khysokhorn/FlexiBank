@@ -1,11 +1,13 @@
 package com.nexgen.flexiBank.navigation
 
+import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -26,6 +28,8 @@ fun AppNavigation(
     navController: NavHostController = rememberNavController(),
     startDestination: String = Screen.KhQRInputAmount.route
 ) {
+    val context = LocalContext.current
+    val activity = context as? Activity
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -39,6 +43,7 @@ fun AppNavigation(
                 KhQRInputAmountRoute(
                     viewModel = viewModel,
                     onNavigateBack = {
+                        activity?.finish()
                         navController.popBackStack()
                     },
                     onPaymentSuccess = { navController.navigateToPaymentSuccess() }
@@ -46,9 +51,7 @@ fun AppNavigation(
             }
 
             composable(Screen.PaymentSuccess.route) {
-                PaymentSuccessRoute(
-                    onFinish = { navController.popBackStack() }
-                )
+                PaymentSuccessRoute()
             }
         }
     }
@@ -68,12 +71,8 @@ private fun KhQRInputAmountRoute(
 }
 
 @Composable
-private fun PaymentSuccessRoute(
-    onFinish: () -> Unit
-) {
-    PaymentSuccessScreen(
-        onFinish = onFinish
-    )
+private fun PaymentSuccessRoute() {
+    PaymentSuccessScreen()
 }
 
 // Navigation extensions

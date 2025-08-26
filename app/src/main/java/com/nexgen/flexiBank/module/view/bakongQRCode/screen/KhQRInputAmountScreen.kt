@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode.screen
 
+import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -39,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -49,6 +51,7 @@ import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
+import com.nexgen.flexiBank.model.BaseModel
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.AccountSelectionBottomSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentConfirmationSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
@@ -56,6 +59,7 @@ import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.keypass.VerifyPassCodeFragment
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
+import com.nexgen.flexiBank.network.Resource
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
 import com.nexgen.flexiBank.utils.theme.Hint
@@ -156,8 +160,8 @@ fun KhQRInputAmountScreen(
                         .height(58.dp),
                     shape = RoundedCornerShape(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFFAEB5FF),
-                        disabledContainerColor = Color(0xFFAEB5FF).copy(alpha = 0.5f)
+                        containerColor = Primary,
+                        disabledContainerColor = Primary.copy(alpha = 0.5f)
                     )
                 ) {
                     Text(
@@ -170,7 +174,6 @@ fun KhQRInputAmountScreen(
             }
         }
 
-        // Loading Indicator
         if (viewModel.isLoading.collectAsState().value) {
             Box(
                 modifier = Modifier
@@ -182,7 +185,6 @@ fun KhQRInputAmountScreen(
             }
         }
 
-        // Error Snackbar
         viewModel.error.collectAsState().value?.let { errorMessage ->
             Box(
                 modifier = Modifier
@@ -256,6 +258,49 @@ fun KhQRInputAmountScreen(
             }
             viewModel.resetVerification()
         }
+    }
+    val transferQrResponse = viewModel.transferQRCode?.collectAsState()
+    val data = transferQrResponse?.value
+    when (data) {
+        is Resource.Loading -> {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.5f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Primary)
+            }
+        }
+
+        is Resource.Success -> {
+            val responseData: BaseModel<String> = data.value;
+        }
+
+        is Resource.Failure -> {
+            val errorShown = viewModel.errorShown.collectAsState().value
+
+            if (!errorShown && data.message != null) {
+                val context = LocalContext.current
+                LaunchedEffect(data) {
+                    Toast.makeText(context, data.message, Toast.LENGTH_LONG).show()
+                    viewModel.markErrorAsShown()
+                }
+            }
+
+            if (!errorShown) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Black.copy(alpha = 0.5f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = Color.Red)
+                }
+            }
+        }
+
+        else -> {}
     }
 }
 

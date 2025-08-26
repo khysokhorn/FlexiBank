@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode.componnet
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,8 +26,9 @@ import com.nexgen.flexiBank.utils.theme.White
 
 @Composable
 fun PaymentSuccessScreen(
-    onFinish: () -> Unit
 ) {
+    val context = LocalContext.current
+    val activity = context as? Activity
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,14 +36,9 @@ fun PaymentSuccessScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-//        Image(
-//            painter = painterResource(R.drawable.ic_payment_success),
-//            contentDescription = "Payment Success",
-//            modifier = Modifier.size(120.dp)
-//        )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
             text = "Payment Successful",
             style = TextStyle(
@@ -49,9 +47,9 @@ fun PaymentSuccessScreen(
                 fontWeight = FontWeight.W600
             )
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         Text(
             text = "Your payment has been processed successfully",
             style = TextStyle(
@@ -61,11 +59,13 @@ fun PaymentSuccessScreen(
             ),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        
+
         Spacer(modifier = Modifier.weight(1f))
-        
+
         Button(
-            onClick = onFinish,
+            onClick = {
+                activity?.finish()
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(58.dp),

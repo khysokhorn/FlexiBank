@@ -48,6 +48,7 @@ class VerifyCapturedDocumentFragment : BaseFragment<VerifyDocumentViewModel, Fra
 
     override fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentVerifyCapturedDocumentBinding = FragmentVerifyCapturedDocumentBinding.inflate(layoutInflater)
 
-    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+    override fun getRepository(): AppRepository = AppRepository(remoteDataSource.buildApi(
+        ApiInterface::class.java))
 
 }

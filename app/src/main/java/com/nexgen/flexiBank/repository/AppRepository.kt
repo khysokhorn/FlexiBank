@@ -11,9 +11,7 @@ class AppRepository(
         amount: Double,
         accountId: String,
         remark: String
-    ): Resource<BaseModel<String>> = safeApiCall { 
-        // This ensures the request actually goes through the network stack
-        // and triggers the PinVerificationInterceptor
+    ): Resource<BaseModel<String>> = safeApiCall {
         api.getHandshake()
     }
 }

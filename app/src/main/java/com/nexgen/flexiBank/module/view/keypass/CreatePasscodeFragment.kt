@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
@@ -40,7 +39,6 @@ import com.nexgen.flexiBank.utils.theme.BorderColor
 import com.nexgen.flexiBank.utils.theme.Gray600
 import com.nexgen.flexiBank.utils.theme.White
 import com.nexgen.flexiBank.viewmodel.PasscodeViewModel
-import com.nexgen.flexiBank.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class CreatePasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
@@ -69,7 +67,7 @@ class CreatePasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
     override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
 
     override fun getRepository(): AppRepository =
-        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+        AppRepository(remoteDataSource.buildApi(ApiInterface::class.java))
 
     @Composable
     fun PassCodeScreen(
@@ -141,13 +139,4 @@ class CreatePasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposit
             )
         }
     }
-}
-
-@Preview()
-@Composable
-fun ComposeContentPreview() {
-    val viewModel: PasscodeViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
-        factory = ViewModelFactory(AppRepository(object : ApiInterface {})) // Mock repository
-    )
-    CreatePasscodeFragment().PassCodeScreen(viewModel = viewModel)
 }

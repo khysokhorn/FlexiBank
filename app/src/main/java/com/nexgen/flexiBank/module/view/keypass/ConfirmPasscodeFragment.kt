@@ -26,15 +26,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CustomKeyboard
-import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
 import com.nexgen.flexiBank.module.view.bakongQRCode.KhQRCodeNavigationActivity
+import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
 import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
@@ -44,7 +43,6 @@ import com.nexgen.flexiBank.utils.theme.BorderColor
 import com.nexgen.flexiBank.utils.theme.Gray600
 import com.nexgen.flexiBank.utils.theme.White
 import com.nexgen.flexiBank.viewmodel.PasscodeViewModel
-import com.nexgen.flexiBank.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
@@ -99,7 +97,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
     override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
 
     override fun getRepository(): AppRepository =
-        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+        AppRepository(remoteDataSource.buildApi(ApiInterface::class.java))
 
     private fun navigateToUserVerify() {
         findNavController().navigate(R.id.action_confirmPasscodeFragment_to_userInfoVerifyFragment)
@@ -193,14 +191,3 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
     }
 }
 
-@Preview
-@Composable
-fun PassCodeScreenPreview() {
-    val viewModel: PasscodeViewModel =
-        androidx.lifecycle.viewmodel.compose.viewModel(
-            factory = ViewModelFactory(
-                AppRepository(object : ApiInterface {})
-            )
-        )
-    ConfirmPasscodeFragment().PassCodeScreen(viewModel = viewModel)
-}

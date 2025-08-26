@@ -24,6 +24,6 @@ object NetworkModule {
         @ApplicationContext context: Context,
         remoteDataSource: RemoteDataSource
     ): ApiInterface {
-        return remoteDataSource.buildApi(context, ApiInterface::class.java)
+        return remoteDataSource.buildApi(ApiInterface::class.java)
     }
 }

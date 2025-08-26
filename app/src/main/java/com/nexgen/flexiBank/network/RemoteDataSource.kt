@@ -1,7 +1,6 @@
 package com.nexgen.flexiBank.network
 
 
-import android.content.Context
 import com.nexgen.flexiBank.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,7 +10,6 @@ import java.util.concurrent.TimeUnit
 
 class RemoteDataSource() {
     fun <Api> buildApi(
-        context: Context,
         api: Class<Api>
     ): Api {
         val httpClient = OkHttpClient.Builder()
@@ -25,7 +23,7 @@ class RemoteDataSource() {
                     HttpLoggingInterceptor.Level.NONE
                 }
             })
-            .addInterceptor(PinVerificationInterceptor(context))
+            .addInterceptor(PinVerificationInterceptor())
             .build()
 
         return Retrofit.Builder()

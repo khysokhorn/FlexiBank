@@ -25,7 +25,7 @@ class IdentityVerifyFragment :
         FragmentIdentityVerifyBinding.inflate(layoutInflater, container, false)
 
     override fun getRepository(): AppRepository =
-        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+        AppRepository(remoteDataSource.buildApi(ApiInterface::class.java))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
