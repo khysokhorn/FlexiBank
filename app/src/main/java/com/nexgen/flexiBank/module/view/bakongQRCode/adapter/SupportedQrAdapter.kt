@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.view.bakongQRCode
+package com.nexgen.flexiBank.module.view.bakongQRCode.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -47,4 +47,3 @@ class SupportedQrAdapter(
     )
 
 }
-

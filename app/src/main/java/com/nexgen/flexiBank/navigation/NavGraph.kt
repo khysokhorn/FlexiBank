@@ -11,7 +11,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.nexgen.flexiBank.module.view.bakongQRCode.KhQRInputAmountScreen
+import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentSuccessScreen
+import com.nexgen.flexiBank.module.view.bakongQRCode.screen.KhQRInputAmountScreen
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 
 sealed class Screen(val route: String) {
@@ -37,14 +38,16 @@ fun AppNavigation(
                 val viewModel: KhQrInputAmountViewModel = hiltViewModel()
                 KhQRInputAmountRoute(
                     viewModel = viewModel,
-                    onNavigateBack = { navController.navigateUp() },
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
                     onPaymentSuccess = { navController.navigateToPaymentSuccess() }
                 )
             }
 
             composable(Screen.PaymentSuccess.route) {
                 PaymentSuccessRoute(
-                    onFinish = { navController.navigateUp() }
+                    onFinish = { navController.popBackStack() }
                 )
             }
         }

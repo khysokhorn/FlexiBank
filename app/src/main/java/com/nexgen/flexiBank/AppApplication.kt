@@ -7,6 +7,7 @@ import coil3.SingletonImageLoader
 import coil3.request.crossfade
 import com.nexgen.flexiBank.common.ModelPreferencesManager
 import com.nexgen.flexiBank.module.crash.GlobalCrashHandler
+import com.nexgen.flexiBank.utils.ActivityLifecycleHandler
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -16,6 +17,7 @@ class AppApplication : Application(), SingletonImageLoader.Factory {
         super.onCreate()
         GlobalCrashHandler.initialize(applicationContext)
         ModelPreferencesManager.with(this)
+        ActivityLifecycleHandler.init(this)
     }
 
     override fun newImageLoader(context: PlatformContext): ImageLoader {

@@ -1,10 +1,8 @@
 package com.nexgen.flexiBank.module.view.keypass
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,22 +18,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CustomKeyboard
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
-import com.nexgen.flexiBank.module.view.bakongQRCode.KhQRCodeNavigationActivity
-import com.nexgen.flexiBank.navigation.Screen
 import com.nexgen.flexiBank.network.ApiInterface
 import com.nexgen.flexiBank.repository.AppRepository
 import com.nexgen.flexiBank.utils.theme.Black
@@ -44,48 +41,19 @@ import com.nexgen.flexiBank.utils.theme.BorderColor
 import com.nexgen.flexiBank.utils.theme.Gray600
 import com.nexgen.flexiBank.utils.theme.White
 import com.nexgen.flexiBank.viewmodel.PasscodeViewModel
-import com.nexgen.flexiBank.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
-class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
+class VerifyPassCodeFragment : BaseComposeFragment<PasscodeViewModel, AppRepository>() {
+    private var isStandaloneVerification = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pin = arguments?.getString("pin") ?: ""
-        viewModel.storePin(pin)
-        viewModel.setConfirmMode(true)
+        viewModel.setConfirmMode(false)
+        isStandaloneVerification = arguments?.getBoolean("isStandalone", true) ?: true
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isNavigateToNext.collect { shouldNavigate ->
-                if (shouldNavigate) {
-                    navigateToUserVerify()
-                    viewModel.resetNavigation()
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isPinValid.collect { isValid ->
-                if (isValid) {
-                    val navigation = findNavController()
-                    navigation.navigate(R.id.action_confirmPasscodeFragment_to_userInfoVerifyFragment)
-                }
-            }
-        }
-
-        // Listen for transfer order submission result
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.transferOrderSubmitted.collect { isSubmitted ->
-                if (isSubmitted) {
-                    // Navigate to payment success
-                    activity?.let { activity ->
-                        activity.startActivity(
-                            Intent(
-                                activity,
-                                KhQRCodeNavigationActivity::class.java
-                            ).apply {
-                                putExtra("start_destination", Screen.PaymentSuccess.route)
-                            })
-                        activity.finish()
-                    }
+            viewModel.verificationCompleted.collect { isCompleted ->
+                if (isCompleted) {
+                    handleVerificationSuccess()
                 }
             }
         }
@@ -93,26 +61,17 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
 
     @Composable
     override fun ComposeContent() {
-        PassCodeScreen(viewModel = viewModel)
-    }
-
-    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
-
-    override fun getRepository(): AppRepository =
-        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
-
-    private fun navigateToUserVerify() {
-        findNavController().navigate(R.id.action_confirmPasscodeFragment_to_userInfoVerifyFragment)
+        VerifyPinScreen(viewModel = viewModel)
     }
 
     @Composable
-    fun PassCodeScreen(
+    fun VerifyPinScreen(
         viewModel: PasscodeViewModel,
         modifier: Modifier = Modifier
     ) {
-        val confirmPinCode by viewModel.confirmPinCode.collectAsState(initial = "")
-        val pinMatchError by viewModel.pinMatchError.collectAsState(initial = false)
+        val pinCode by viewModel.pinCode.collectAsState(initial = "")
         val maxPinLength = viewModel.getMaxPinLength()
+        var showError by remember { mutableStateOf(false) }
 
         Column(
             modifier = modifier
@@ -128,7 +87,7 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                 modifier = Modifier.padding(top = 40.dp)
             ) {
                 Text(
-                    text = "Confirm Passcode",
+                    text = "Enter Passcode",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = Black,
@@ -136,9 +95,9 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                     modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = if (pinMatchError) "PINs don't match. Try again." else "Re-enter your passcode to confirm",
+                    text = "Enter your passcode to continue",
                     fontSize = 16.sp,
-                    color = if (pinMatchError) Color.Red else Gray600,
+                    color = if (showError) Color.Red else Gray600,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -161,46 +120,55 @@ class ConfirmPasscodeFragment : BaseComposeFragment<PasscodeViewModel, AppReposi
                                 .size(28.dp)
                                 .clip(CircleShape)
                                 .background(
-                                    if (index < confirmPinCode.length) Blue else BorderColor
+                                    if (index < pinCode.length) Blue else BorderColor
                                 )
                         )
                     }
                 }
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Forgot your PIN?",
-                    fontSize = 14.sp,
-                    color = Blue,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                        .clickable {
-                            findNavController().popBackStack()
-                            viewModel.resetToCreatePin()
-                        }
-                )
             }
             Spacer(modifier = Modifier.weight(1f))
             CustomKeyboard(
-                onNumberClick = { digit -> viewModel.addDigit(digit) },
-                onClearClick = { viewModel.clearPin() },
-                onDeleteClick = { viewModel.deleteLastDigit() },
-                isConfirmMode = true,
+                onNumberClick = { digit ->
+                    viewModel.addDigit(digit)
+                    showError = false
+                },
+                onClearClick = {
+                    viewModel.clearPin()
+                    showError = false
+                },
+                onDeleteClick = {
+                    viewModel.deleteLastDigit()
+                    showError = false
+                },
+                isConfirmMode = false
             )
+        }
+    }
+
+    override fun getViewModel(): Class<PasscodeViewModel> = PasscodeViewModel::class.java
+
+    override fun getRepository(): AppRepository =
+        AppRepository(remoteDataSource.buildApi(requireActivity(), ApiInterface::class.java))
+
+
+    private fun handleVerificationSuccess() {
+        if (isStandaloneVerification) {
+            findNavController().popBackStack()
+        } else {
+            findNavController().popBackStack()
+        }
+    }
+
+    companion object {
+        fun newInstance(
+            isStandalone: Boolean = true
+        ): VerifyPassCodeFragment {
+            val fragment = VerifyPassCodeFragment()
+            val args = Bundle()
+            args.putBoolean("isStandalone", isStandalone)
+            fragment.arguments = args
+            return fragment
         }
     }
 }
 
-@Preview
-@Composable
-fun PassCodeScreenPreview() {
-    val viewModel: PasscodeViewModel =
-        androidx.lifecycle.viewmodel.compose.viewModel(
-            factory = ViewModelFactory(
-                AppRepository(object : ApiInterface {})
-            )
-        )
-    ConfirmPasscodeFragment().PassCodeScreen(viewModel = viewModel)
-}

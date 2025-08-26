@@ -1,0 +1,203 @@
+package com.nexgen.flexiBank.module.view.pin.viewModel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nexgen.flexiBank.repository.BaseRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+class PinVerifyViewModel(private val repository: BaseRepository) : ViewModel() {
+
+    private val _pinCode = MutableStateFlow("")
+    val pinCode = _pinCode.asStateFlow()
+
+    private val _confirmPinCode = MutableStateFlow("")
+    val confirmPinCode = _confirmPinCode.asStateFlow()
+
+    private val _isPinValid = MutableStateFlow(false)
+    val isPinValid = _isPinValid.asStateFlow()
+
+    private val _isConfirmPin = MutableStateFlow(false)
+    val isConfirmPin = _isConfirmPin.asStateFlow()
+
+    private val _pinMatchError = MutableStateFlow(false)
+    val pinMatchError = _pinMatchError.asStateFlow()
+
+    private val _isNavigateToNext = MutableStateFlow(false)
+    val isNavigateToNext = _isNavigateToNext.asStateFlow()
+
+    // Verification completed flow
+    private val _verificationCompleted = MutableStateFlow(false)
+    val verificationCompleted = _verificationCompleted.asStateFlow()
+
+    // API response code flow
+    private val _apiResponseCode = MutableStateFlow(0)
+    val apiResponseCode = _apiResponseCode.asStateFlow()
+
+    // Transfer order status
+    private val _transferOrderSubmitted = MutableStateFlow(false)
+    val transferOrderSubmitted = _transferOrderSubmitted.asStateFlow()
+
+    // Stored pin used to pass between fragments
+    private val _storedPin = MutableStateFlow("")
+
+    private val maxPinLength = 4
+
+    fun addDigit(digit: String) {
+        if (_isConfirmPin.value) {
+            // In confirm PIN mode
+            val currentPin = _confirmPinCode.value
+            if (currentPin.length < maxPinLength) {
+                _confirmPinCode.value = currentPin + digit
+                checkConfirmPinCompletion()
+            }
+        } else {
+            // In create PIN mode
+            val currentPin = _pinCode.value
+            if (currentPin.length < maxPinLength) {
+                _pinCode.value = currentPin + digit
+                checkPinCompletion()
+            }
+        }
+    }
+
+    fun clearPin() {
+        if (_isConfirmPin.value) {
+            _confirmPinCode.value = ""
+        } else {
+            _pinCode.value = ""
+        }
+    }
+
+    fun deleteLastDigit() {
+        if (_isConfirmPin.value) {
+            val currentPin = _confirmPinCode.value
+            if (currentPin.isNotEmpty()) {
+                _confirmPinCode.value = currentPin.dropLast(1)
+            }
+        } else {
+            val currentPin = _pinCode.value
+            if (currentPin.isNotEmpty()) {
+                _pinCode.value = currentPin.dropLast(1)
+            }
+        }
+    }
+
+    private fun checkPinCompletion() {
+        val currentPin = _pinCode.value
+        if (currentPin.length == maxPinLength) {
+            validatePin(currentPin)
+        }
+    }
+
+    private fun checkConfirmPinCompletion() {
+        val confirmPin = _confirmPinCode.value
+        if (confirmPin.length == maxPinLength) {
+            validateConfirmPin(confirmPin)
+        }
+    }
+
+    private fun validatePin(pin: String) {
+        viewModelScope.launch {
+            _isPinValid.value = true
+            _isConfirmPin.value = true
+            // Store the PIN for confirmation
+            _storedPin.value = pin
+            // Reset any previous pin match error
+            _pinMatchError.value = false
+            // Clear current pin but keep stored pin
+            _pinCode.value = ""
+        }
+    }
+
+    private fun validateConfirmPin(confirmPin: String) {
+        viewModelScope.launch {
+            if (confirmPin == _storedPin.value) {
+                // PINs match, simulate API response code -1
+                _isPinValid.value = true
+                _pinMatchError.value = false
+                _apiResponseCode.value = -1
+            } else {
+                // PINs don't match, show error
+                _confirmPinCode.value = ""
+                _pinMatchError.value = true
+            }
+        }
+    }
+
+    fun resetNavigation() {
+        _isNavigateToNext.value = false
+    }
+
+    fun resetToCreatePin() {
+        _isConfirmPin.value = false
+        _pinCode.value = ""
+        _confirmPinCode.value = ""
+        _pinMatchError.value = false
+        // Don't reset _storedPin here as we need it for confirmation
+    }
+
+    fun setConfirmMode(isConfirm: Boolean) {
+        _isConfirmPin.value = isConfirm
+    }
+
+    // Store the PIN to be used between fragments
+    fun storePin(pin: String) {
+        _storedPin.value = pin
+    }
+
+    // Get the stored PIN
+    fun getStoredPin(): String {
+        return _storedPin.value
+    }
+
+    fun getMaxPinLength(): Int {
+        return maxPinLength
+    }
+
+    fun onVerificationComplete() {
+        _verificationCompleted.value = true
+    }
+
+    fun resetVerificationStatus() {
+        _verificationCompleted.value = false
+    }
+
+    fun verifyPin(pin: String) {
+        viewModelScope.launch {
+            try {
+                _verificationCompleted.value = true
+//                val response = repository.verifyPin(pin)
+//                if (response.isSuccessful) {
+//                    _verificationCompleted.value = true
+//                } else {
+//                    // Handle error
+//                    _verificationCompleted.value = false
+//                }
+            } catch (e: Exception) {
+                // Handle exception
+                _verificationCompleted.value = false
+            }
+        }
+    }
+
+    fun submitTransferOrder() {
+        viewModelScope.launch {
+            try {
+                // Call your API to submit the transfer order
+//                val response = repository.submitTransferOrder()
+                _transferOrderSubmitted.value = true
+//                if (response.isSuccessful) {
+//                    _transferOrderSubmitted.value = true
+//                } else {
+//                    // Handle error
+//                    _transferOrderSubmitted.value = false
+//                }
+            } catch (e: Exception) {
+                // Handle exception
+                _transferOrderSubmitted.value = false
+            }
+        }
+    }
+}

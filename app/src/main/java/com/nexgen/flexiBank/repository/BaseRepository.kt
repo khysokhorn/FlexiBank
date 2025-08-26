@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.repository
 
+import com.nexgen.flexiBank.model.BaseModel
 import com.nexgen.flexiBank.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -7,8 +8,8 @@ import retrofit2.HttpException
 
 abstract class BaseRepository {
     suspend fun <T> safeApiCall(
-        apiCall: suspend () -> T
-    ): Resource<T> {
+        apiCall: suspend () -> BaseModel<T>
+    ): Resource<BaseModel<T>> {
         return withContext(Dispatchers.IO) {
             try {
                 Resource.Success(apiCall.invoke())

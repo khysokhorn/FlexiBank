@@ -49,7 +49,7 @@
         
     <fragment
         android:id="@+id/verifyPinFragment"
-        android:name="com.nexgen.flexiBank.module.view.keypass.VerifyPinFragment"
+        android:name="com.nexgen.flexiBank.module.view.keypass.VerifyPassCodeFragment"
         android:label="Verify Pin">
         <argument
             android:name="isStandalone"

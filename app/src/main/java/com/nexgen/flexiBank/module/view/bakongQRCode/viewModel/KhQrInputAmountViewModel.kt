@@ -1,9 +1,12 @@
 package com.nexgen.flexiBank.module.view.bakongQRCode.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nexgen.flexiBank.R
+import com.nexgen.flexiBank.model.BaseModel
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
+import com.nexgen.flexiBank.network.Resource
 import com.nexgen.flexiBank.repository.AppRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -34,6 +37,8 @@ class KhQrInputAmountViewModel @Inject constructor(
             iconRes = R.drawable.ic_bank_locker
         )
     )
+    val transferQRCode:
+            MutableLiveData<Resource<BaseModel<String>>> = MutableLiveData()
     private val _amount = MutableStateFlow("")
     val amount = _amount
 
@@ -68,22 +73,22 @@ class KhQrInputAmountViewModel @Inject constructor(
             try {
                 _isLoading.value = true
                 _error.value = null
-
                 val amountValue = amount.toDoubleOrNull() ?: run {
                     _error.value = "Invalid amount"
                     return@launch
                 }
 
-                _requireVerification.value = true
-
+                // First get the result
                 val result = repository.submitKhQrPayment(amountValue, accountId, remark)
-                
-                result.onSuccess {
-                    _paymentSuccess.value = true
-                }.onFailure { exception ->
-                    _error.value = exception.message ?: "Payment failed"
-                }
+                transferQRCode.value = result
 
+                // Then set verification requirement based on result
+                // Check if verification is needed (e.g., responseCode == -1)
+                if (result is Resource.Success && result.value.responseCode == -1) {
+                    _requireVerification.value = true
+                } else {
+                    _paymentSuccess.value = true
+                }
             } catch (e: Exception) {
                 _error.value = e.message ?: "Payment failed"
             } finally {
@@ -95,7 +100,7 @@ class KhQrInputAmountViewModel @Inject constructor(
     fun continueAfterVerification() {
         _paymentSuccess.value = true
     }
-    
+
     fun resetVerification() {
         _requireVerification.value = false
     }

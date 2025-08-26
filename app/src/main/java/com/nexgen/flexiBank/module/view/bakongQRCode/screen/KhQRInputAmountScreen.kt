@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.module.view.bakongQRCode
+package com.nexgen.flexiBank.module.view.bakongQRCode.screen
 
 import androidx.activity.compose.LocalActivity
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nexgen.flexiBank.R
@@ -53,7 +54,7 @@ import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentConfirmati
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
-import com.nexgen.flexiBank.module.view.keypass.VerifyPinFragment
+import com.nexgen.flexiBank.module.view.keypass.VerifyPassCodeFragment
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
@@ -244,12 +245,12 @@ fun KhQRInputAmountScreen(
     if (requireVerification) {
         val activity = LocalActivity.current as? AppCompatActivity
         activity?.let {
-            val verifyPinFragment = VerifyPinFragment.newInstance(
+            val verifyPassCodeFragment = VerifyPassCodeFragment.newInstance(
                 isStandalone = false,
             )
             it.window.decorView.post {
                 activity.supportFragmentManager.beginTransaction()
-                    .add(android.R.id.content, verifyPinFragment)
+                    .add(android.R.id.content, verifyPassCodeFragment)
                     .addToBackStack(null)
                     .commit()
             }
@@ -381,7 +382,7 @@ private fun ReceiverProfile() {
                         fontFamily = InterNormal,
                         fontWeight = FontWeight(600),
                         color = Black,
-                        textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                        textAlign = TextAlign.Center,
                     )
                 )
                 Image(
@@ -401,7 +402,7 @@ private fun ReceiverProfile() {
                     fontFamily = InterNormal,
                     fontWeight = FontWeight(400),
                     color = Hint,
-                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                    textAlign = TextAlign.Center,
                 )
             )
         }

@@ -1,4 +1,4 @@
-package com.nexgen.flexiBank.navigation
+package com.nexgen.flexiBank.module.view.bakongQRCode.componnet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

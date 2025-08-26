@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +46,6 @@ import com.nexgen.flexiBank.utils.theme.Hint
 import com.nexgen.flexiBank.utils.theme.Primary
 import com.nexgen.flexiBank.utils.theme.Warning
 import com.nexgen.flexiBank.utils.theme.White
-import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -213,8 +211,7 @@ fun PaymentConfirmationSheet(
                     )
                 }
 
-                ConfirmButton(
-                )
+                ConfirmButton(onConfirm)
             }
         }
     }
@@ -222,18 +219,19 @@ fun PaymentConfirmationSheet(
 
 @Composable
 private fun ConfirmButton(
+    onConfirm: () -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
     var isProcessing by remember { mutableStateOf(false) }
 
     Button(
         onClick = {
-            if (!isProcessing) {
-                isProcessing = true
-                coroutineScope.launch {
-                    isProcessing = false
-                }
-            }
+//            if (!isProcessing) {
+//                isProcessing = true
+//                coroutineScope.launch {
+//                    isProcessing = false
+//                }
+//            }
+            onConfirm.invoke()
         },
         enabled = !isProcessing,
         modifier = Modifier

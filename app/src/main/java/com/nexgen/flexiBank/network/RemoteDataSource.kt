@@ -14,31 +14,27 @@ class RemoteDataSource() {
         context: Context,
         api: Class<Api>
     ): Api {
-
-        val logging = HttpLoggingInterceptor(ApiLogger())
-
-        logging.level = HttpLoggingInterceptor.Level.NONE
-        //val inter= UserAgentInterceptor()
         val httpClient = OkHttpClient.Builder()
-        //httpClient.addNetworkInterceptor(inter)
-        httpClient.addInterceptor(logging)
-        httpClient.connectTimeout(2, TimeUnit.MINUTES) // connect timeout
-            .writeTimeout(2, TimeUnit.MINUTES) // write timeout
-            .readTimeout(2, TimeUnit.MINUTES) // read timeout
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .writeTimeout(2, TimeUnit.MINUTES)
+            .readTimeout(2, TimeUnit.MINUTES)
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = if (BuildConfig.DEBUG) {
+                    HttpLoggingInterceptor.Level.BODY
+                } else {
+                    HttpLoggingInterceptor.Level.NONE
+                }
+            })
+            .addInterceptor(PinVerificationInterceptor(context))
+            .build()
 
-        val interceptor = HttpLoggingInterceptor()
-        interceptor.level = HttpLoggingInterceptor.Level.BODY
-        httpClient.addInterceptor(interceptor)
         return Retrofit.Builder()
             .baseUrl(BuildConfig.baseUrl)
-            .client(httpClient.build())
+            .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(api)
-
     }
-
-
     fun <Api> buildImageApi(
         api: Class<Api>,
     ): Api {
