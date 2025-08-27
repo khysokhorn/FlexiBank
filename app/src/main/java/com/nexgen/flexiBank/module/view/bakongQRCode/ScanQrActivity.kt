@@ -54,12 +54,7 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
                 is DecodingState.Decoded -> {
                     binding.decodingState.text = state.content
                     if (viewModel.isQRCodeDetected) {
-                        val intent = Intent(this, KhQRCodeNavigationActivity::class.java).apply {
-                            putExtra("start_destination", Screen.KhQRInputAmount.route)
-                            putExtra("qr_data", state.content)
-                        }
-                        viewModel.isQRCodeDetected = false
-                        launcher.launch(intent)
+                        startKhQRInputAmount(state.content)
                     }
                 }
 
@@ -95,6 +90,7 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
 
     val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) {
+            startKhQRInputAmount(uri.toString())
             Timber.tag("PhotoPicker").d("Selected URI: $uri")
         } else {
             Timber.tag("PhotoPicker").d("No media selected")
@@ -118,4 +114,13 @@ class ScanQrActivity : BaseMainActivity<ScanQrViewModel, ActivityScanQrBinding, 
                 ApiInterface::class.java
             )
         )
+
+    fun startKhQRInputAmount(qrCode: String) {
+        val intent = Intent(this, KhQRCodeNavigationActivity::class.java).apply {
+            putExtra("start_destination", Screen.KhQRInputAmount.route)
+            putExtra("qr_data", qrCode)
+        }
+        viewModel.isQRCodeDetected = false
+        launcher.launch(intent)
+    }
 }
