@@ -14,12 +14,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentSuccessScreen
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.TodoModelItem
 import com.nexgen.flexiBank.module.view.bakongQRCode.screen.KhQRInputAmountScreen
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
+import com.nexgen.flexiBank.module.view.pin.PinVerifyFragmentScreen
+import com.nexgen.flexiBank.module.view.pin.viewModel.PinVerifyViewModel
 
 sealed class Screen(val route: String) {
     object KhQRInputAmount : Screen("khqr_input_amount")
     object PaymentSuccess : Screen("payment_success")
+    object PinVerifyFragment : Screen("pin_verify_fragment")
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,12 +51,28 @@ fun AppNavigation(
                         activity?.finish()
                         navController.popBackStack()
                     },
-                    onPaymentSuccess = { navController.navigateToPaymentSuccess() }
+                    onPaymentSuccess = { navController.navigateToPaymentSuccess() },
+                    navController = navController
                 )
             }
 
             composable(Screen.PaymentSuccess.route) {
                 PaymentSuccessRoute()
+            }
+            composable(
+                route = Screen.PinVerifyFragment.route
+            ) { backStackEntry ->
+                val todoModelItem =
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                        backStackEntry.arguments?.getSerializable(
+                            "todoModelItem",
+                            TodoModelItem::class.java
+                        )
+                    } else {
+                        @Suppress("DEPRECATION")
+                        backStackEntry.arguments?.getSerializable("todoModelItem") as? TodoModelItem
+                    }
+                PinVerifyFragmentRoute(todoModelItem = todoModelItem)
             }
         }
     }
@@ -61,18 +82,26 @@ fun AppNavigation(
 private fun KhQRInputAmountRoute(
     viewModel: KhQrInputAmountViewModel,
     onNavigateBack: () -> Unit,
-    onPaymentSuccess: () -> Unit
+    onPaymentSuccess: () -> Unit,
+    navController: NavHostController
 ) {
     KhQRInputAmountScreen(
         viewModel = viewModel,
         onNavigateBack = onNavigateBack,
-        onPaymentSuccess = onPaymentSuccess
+        onPaymentSuccess = onPaymentSuccess,
+        navController = navController
     )
 }
 
 @Composable
 private fun PaymentSuccessRoute() {
     PaymentSuccessScreen()
+}
+
+@Composable
+private fun PinVerifyFragmentRoute(todoModelItem: TodoModelItem?) {
+    val viewModel: PinVerifyViewModel = hiltViewModel()
+    PinVerifyFragmentScreen(viewModel = viewModel, todoModelItem = todoModelItem)
 }
 
 // Navigation extensions
@@ -84,3 +113,18 @@ fun NavHostController.navigateToPaymentSuccess() {
         }
     }
 }
+
+fun NavHostController.navigateToPinVerification(todoModelItem: TodoModelItem? = null) {
+    if (todoModelItem != null) {
+        navigate(Screen.PinVerifyFragment.route) {
+            popUpTo(Screen.PinVerifyFragment.route)
+            launchSingleTop = true
+        }
+        currentBackStackEntry?.arguments?.putSerializable("todoModelItem", todoModelItem)
+    } else {
+        navigate(Screen.PinVerifyFragment.route) {
+            popUpTo(Screen.PinVerifyFragment.route)
+        }
+    }
+}
+

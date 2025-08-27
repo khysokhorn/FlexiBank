@@ -2,12 +2,16 @@ package com.nexgen.flexiBank.module.view.pin.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nexgen.flexiBank.repository.BaseRepository
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.TodoModelItem
+import com.nexgen.flexiBank.repository.AppRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PinVerifyViewModel(private val repository: BaseRepository) : ViewModel() {
+@HiltViewModel
+class PinVerifyViewModel @Inject constructor(private val repository: AppRepository) : ViewModel() {
 
     private val _pinCode = MutableStateFlow("")
     val pinCode = _pinCode.asStateFlow()
@@ -111,6 +115,17 @@ class PinVerifyViewModel(private val repository: BaseRepository) : ViewModel() {
         }
     }
 
+    // Store the TodoModelItem for processing after verification
+    private var todoModelItem: TodoModelItem? = null
+
+    fun setTodoModelItem(item: TodoModelItem?) {
+        todoModelItem = item
+    }
+
+    fun getTodoModelItem(): TodoModelItem? {
+        return todoModelItem
+    }
+
     private fun validateConfirmPin(confirmPin: String) {
         viewModelScope.launch {
             if (confirmPin == _storedPin.value) {
@@ -167,14 +182,8 @@ class PinVerifyViewModel(private val repository: BaseRepository) : ViewModel() {
     fun verifyPin(pin: String) {
         viewModelScope.launch {
             try {
+                // Simulate verification success
                 _verificationCompleted.value = true
-//                val response = repository.verifyPin(pin)
-//                if (response.isSuccessful) {
-//                    _verificationCompleted.value = true
-//                } else {
-//                    // Handle error
-//                    _verificationCompleted.value = false
-//                }
             } catch (e: Exception) {
                 // Handle exception
                 _verificationCompleted.value = false
@@ -185,15 +194,8 @@ class PinVerifyViewModel(private val repository: BaseRepository) : ViewModel() {
     fun submitTransferOrder() {
         viewModelScope.launch {
             try {
-                // Call your API to submit the transfer order
-//                val response = repository.submitTransferOrder()
+                // Simulate transfer order submission success
                 _transferOrderSubmitted.value = true
-//                if (response.isSuccessful) {
-//                    _transferOrderSubmitted.value = true
-//                } else {
-//                    // Handle error
-//                    _transferOrderSubmitted.value = false
-//                }
             } catch (e: Exception) {
                 // Handle exception
                 _transferOrderSubmitted.value = false

@@ -47,19 +47,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.component.CircleImage
 import com.nexgen.flexiBank.component.CurrencyTextField
 import com.nexgen.flexiBank.component.CustomKeyboard
-import com.nexgen.flexiBank.model.BaseModel
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.AccountSelectionBottomSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentConfirmationSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
-import com.nexgen.flexiBank.module.view.bakongQRCode.model.TodoModelItem
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.keypass.VerifyPassCodeFragment
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
+import com.nexgen.flexiBank.navigation.navigateToPinVerification
 import com.nexgen.flexiBank.network.Resource
 import com.nexgen.flexiBank.utils.theme.BackgroundColor
 import com.nexgen.flexiBank.utils.theme.Black
@@ -72,7 +72,8 @@ import com.nexgen.flexiBank.utils.theme.White
 fun KhQRInputAmountScreen(
     viewModel: KhQrInputAmountViewModel,
     onNavigateBack: () -> Unit,
-    onPaymentSuccess: () -> Unit
+    onPaymentSuccess: () -> Unit,
+    navController: NavHostController
 ) {
     var amount by remember { mutableStateOf("") }
     var showRemarkDialog by remember { mutableStateOf(false) }
@@ -213,7 +214,8 @@ fun KhQRInputAmountScreen(
             selectedAccount = account
             showAccountSheet = false
         },
-        onDismiss = { showAccountSheet = false })
+        onDismiss = { showAccountSheet = false }
+    )
 
     RemarkDialog(
         showDialog = showRemarkDialog,
@@ -275,7 +277,10 @@ fun KhQRInputAmountScreen(
         }
 
         is Resource.Success -> {
-            val responseData: BaseModel<TodoModelItem> = data.value;
+            val responseData = data
+            if (responseData.value.responseCode == -1) {
+                navController.navigateToPinVerification(todoModelItem = responseData.value.data)
+            }
         }
 
         is Resource.Failure -> {
@@ -285,17 +290,6 @@ fun KhQRInputAmountScreen(
                 LaunchedEffect(data) {
                     Toast.makeText(context, data.message, Toast.LENGTH_LONG).show()
                     viewModel.markErrorAsShown()
-                }
-            }
-
-            if (!errorShown) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Black.copy(alpha = 0.5f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = Color.Red)
                 }
             }
         }

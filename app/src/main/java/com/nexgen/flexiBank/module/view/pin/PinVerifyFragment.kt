@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.nexgen.flexiBank.component.CustomKeyboard
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.TodoModelItem
 import com.nexgen.flexiBank.module.view.base.BaseComposeFragment
 import com.nexgen.flexiBank.module.view.pin.viewModel.PinVerifyViewModel
 import com.nexgen.flexiBank.network.ApiInterface
@@ -153,19 +154,29 @@ class PinVerifyFragment : BaseComposeFragment<PinVerifyViewModel, AppRepository>
         if (isStandaloneVerification) {
             findNavController().popBackStack()
         } else {
+            // Handle non-standalone verification success
+            // This is where you would process the payment with the TodoModelItem data
+            @Suppress("DEPRECATION")
+            val todoItem = arguments?.getSerializable("todoModelItem") as? TodoModelItem
+            // Process payment with todoItem data
             findNavController().popBackStack()
         }
     }
 
     companion object {
         fun newInstance(
-            isStandalone: Boolean = true
+            isStandalone: Boolean = true,
+            todoModelItem: TodoModelItem? = null
         ): PinVerifyFragment {
             val fragment = PinVerifyFragment()
             val args = Bundle()
             args.putBoolean("isStandalone", isStandalone)
+            if (todoModelItem != null) {
+                args.putSerializable("todoModelItem", todoModelItem)
+            }
             fragment.arguments = args
             return fragment
         }
     }
 }
+

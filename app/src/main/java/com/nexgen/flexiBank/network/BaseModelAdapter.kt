@@ -25,7 +25,6 @@ private class BaseModelAdapter<T>(
     private val gson: Gson,
     private val dataType: Type
 ) : TypeAdapter<BaseModel<T>>() {
-
     @Throws(IOException::class)
     override fun write(out: JsonWriter, value: BaseModel<T>?) {
     }
@@ -33,6 +32,6 @@ private class BaseModelAdapter<T>(
     @Throws(IOException::class)
     override fun read(reader: JsonReader): BaseModel<T>? {
         val data = gson.fromJson<T>(reader, dataType)
-        return BaseModel(data, 200)
+        return BaseModel(data, -1)
     }
 }
