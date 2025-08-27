@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.nexgen.flexiBank.R
 import com.nexgen.flexiBank.model.BaseModel
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.TodoModelItem
 import com.nexgen.flexiBank.network.Resource
 import com.nexgen.flexiBank.repository.AppRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,7 +37,7 @@ class KhQrInputAmountViewModel @Inject constructor(
             iconRes = R.drawable.ic_bank_locker
         )
     )
-    private var _transferQRCode: MutableStateFlow<Resource<BaseModel<String>>>? = null
+    private var _transferQRCode: MutableStateFlow<Resource<BaseModel<TodoModelItem>>>? = null
     val transferQRCode get() = _transferQRCode
 
     private val _errorShown = MutableStateFlow(false)

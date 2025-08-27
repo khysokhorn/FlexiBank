@@ -56,6 +56,7 @@ import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.AccountSelectionB
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.PaymentConfirmationSheet
 import com.nexgen.flexiBank.module.view.bakongQRCode.componnet.RemarkDialog
 import com.nexgen.flexiBank.module.view.bakongQRCode.model.Account
+import com.nexgen.flexiBank.module.view.bakongQRCode.model.TodoModelItem
 import com.nexgen.flexiBank.module.view.bakongQRCode.viewModel.KhQrInputAmountViewModel
 import com.nexgen.flexiBank.module.view.keypass.VerifyPassCodeFragment
 import com.nexgen.flexiBank.module.view.utils.text.InterNormal
@@ -274,12 +275,11 @@ fun KhQRInputAmountScreen(
         }
 
         is Resource.Success -> {
-            val responseData: BaseModel<String> = data.value;
+            val responseData: BaseModel<TodoModelItem> = data.value;
         }
 
         is Resource.Failure -> {
             val errorShown = viewModel.errorShown.collectAsState().value
-
             if (!errorShown && data.message != null) {
                 val context = LocalContext.current
                 LaunchedEffect(data) {

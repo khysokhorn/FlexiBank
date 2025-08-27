@@ -1,6 +1,7 @@
 package com.nexgen.flexiBank.network
 
 
+import com.google.gson.GsonBuilder
 import com.nexgen.flexiBank.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,11 +26,13 @@ class RemoteDataSource() {
             })
             .addInterceptor(PinVerificationInterceptor())
             .build()
-
+        val gson = GsonBuilder()
+            .registerTypeAdapterFactory(BaseModelAdapterFactory())
+            .create()
         return Retrofit.Builder()
             .baseUrl(BuildConfig.baseUrl)
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(api)
     }
@@ -47,7 +50,6 @@ class RemoteDataSource() {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.baseUrl)
             .client(httpClient.build())
-            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(api)
     }
