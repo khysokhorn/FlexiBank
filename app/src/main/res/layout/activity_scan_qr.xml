@@ -15,7 +15,7 @@
             android:id="@+id/customRectangleWithRoundedCornersCutoutView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </ch.ubique.qrscanner.view.QrScannerView>
+        </ch.ubique.qrscanner.view.QrScannerView>
 
     <ImageView
         android:layout_width="wrap_content"

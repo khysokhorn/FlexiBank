@@ -1,5 +1,6 @@
 package com.nexgen.flexiBank.navigation
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -37,11 +38,10 @@ fun AppNavigation(
                 val viewModel: KhQrInputAmountViewModel = hiltViewModel()
                 KhQRInputAmountRoute(
                     viewModel = viewModel,
-                    onNavigateBack = { navController.navigateUp() },
+                    onNavigateBack = { (navController.context as? ComponentActivity)?.finish() },
                     onPaymentSuccess = { navController.navigateToPaymentSuccess() }
                 )
             }
-
             composable(Screen.PaymentSuccess.route) {
                 PaymentSuccessRoute(
                     onFinish = { navController.navigateUp() }
