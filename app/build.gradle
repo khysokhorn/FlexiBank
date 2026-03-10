@@ -7,12 +7,15 @@ buildscript {
         classpath libs.gradle
         classpath libs.kotlin.gradle.plugin
         classpath libs.org.jetbrains.kotlin.plugin.compose.gradle.plugin
+        classpath libs.hilt.android.gradle.plugin
     }
 }
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -87,39 +90,39 @@ dependencies {
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.extensions)
     implementation(libs.androidx.camera.view)
-        implementation(libs.play.services.tflite.gpu) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
-        implementation(libs.tensorflow.lite) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
-        implementation(libs.play.services.tflite.java) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
-        implementation(libs.play.services.tflite.support) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
+    implementation(libs.play.services.tflite.gpu) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
+    implementation(libs.tensorflow.lite) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
+    implementation(libs.play.services.tflite.java) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
+    implementation(libs.play.services.tflite.support) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
 
-        implementation(project(path: ":livenesscamerax")) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
-        implementation(project(path: ":livenesscamerax:camera")) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
-        implementation(project(path: ":livenesscamerax:core")) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
-        implementation(project(path: ":livenesscamerax:domain")) {
-            exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
-            exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
-        }
+    implementation(project(path: ":livenesscamerax")) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
+    implementation(project(path: ":livenesscamerax:camera")) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
+    implementation(project(path: ":livenesscamerax:core")) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
+    implementation(project(path: ":livenesscamerax:domain")) {
+        exclude group: 'com.google.ai.edge.litert', module: 'litert-api'
+        exclude group: 'org.tensorflow', module: 'tensorflow-lite-api'
+    }
 
     implementation libs.glide
     annotationProcessor libs.compiler
@@ -150,8 +153,14 @@ dependencies {
 
     implementation(composeBom)
     androidTestImplementation(composeBom)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation libs.androidx.ui.text.google.fonts
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.navigation.compose)
+
+    ksp libs.hilt.compiler
+    implementation libs.hilt.android
+    implementation libs.androidx.hilt.navigation.compose
+
 }

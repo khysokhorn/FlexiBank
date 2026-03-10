@@ -9,7 +9,6 @@ android {
     resourcePrefix 'liveness_camerax'
 
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildToolsVersion
 
     defaultConfig {
         minSdkVersion versions.minSdk

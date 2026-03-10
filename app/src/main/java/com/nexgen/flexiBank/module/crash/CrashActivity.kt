@@ -20,7 +20,6 @@ internal class CrashActivity : ComponentActivity() {
         val errorMessage = intent?.extras?.getString(ERROR_MESSAGE)
         val softwareInfo = intent?.extras?.getString(SOFTWARE_INFO)
 
-
         setContent {
             FlexiBankTheme {
                 CrashMobileScreen(
